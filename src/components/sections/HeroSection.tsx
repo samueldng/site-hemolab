@@ -593,9 +593,9 @@ export default function HeroSection() {
                     {renderCarousel(false)}
 
                     {/* Floating badge — hidden on very small screens */}
-                    <div className="hero-floater absolute -bottom-4 lg:-bottom-6 -left-2 lg:-left-6 bg-hemo-dark/90 backdrop-blur-xl rounded-2xl p-3 lg:p-4 animate-float border border-hemo-lime/15 shadow-xl z-10 hidden sm:block">
+                    <div className="hero-floater absolute -bottom-4 lg:-bottom-6 -right-2 lg:-right-6 bg-hemo-dark/90 backdrop-blur-xl rounded-2xl p-3 lg:p-4 animate-float border border-hemo-lime/15 shadow-xl z-10 hidden sm:block">
                         <div className="flex items-center gap-2 lg:gap-3">
-                            <div className="w-9 lg:w-11 h-9 lg:h-11 rounded-full bg-hemo-lime/20 flex items-center justify-center">
+                            <div className="w-9 lg:w-11 h-9 lg:h-11 rounded-full bg-white flex items-center justify-center shadow-inner">
                                 <Image
                                     src="/images/logogota.png"
                                     alt="Hemolab gota"

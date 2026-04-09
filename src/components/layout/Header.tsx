@@ -22,6 +22,16 @@ export default function Header() {
     const headerRef = useRef<HTMLElement>(null);
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [renderMobile, setRenderMobile] = useState(false);
+
+    useEffect(() => {
+        if (mobileOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => { document.body.style.overflow = ""; };
+    }, [mobileOpen]);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -29,7 +39,7 @@ export default function Header() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    useGSAP(() => {
+    const { contextSafe } = useGSAP(() => {
         const tl = gsap.timeline({ delay: 0.3 });
         // Logo slides in from left
         tl.fromTo(".header-logo", { x: -40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" });
@@ -39,20 +49,54 @@ export default function Header() {
         tl.fromTo(".header-cta", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.2");
     }, { scope: headerRef });
 
-    const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    const toggleMenu = contextSafe(() => {
+        if (!mobileOpen) {
+            setMobileOpen(true);
+            setRenderMobile(true);
+            // Aguarda a renderização para executar a animação
+            requestAnimationFrame(() => {
+                gsap.fromTo(
+                    ".mobile-menu-overlay",
+                    { clipPath: "circle(0% at 90% 10%)" },
+                    { clipPath: "circle(150% at 90% 10%)", duration: 0.8, ease: "power3.inOut" }
+                );
+                gsap.fromTo(
+                    ".mobile-link",
+                    { y: 40, opacity: 0 },
+                    { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, ease: "power3.out", delay: 0.3 }
+                );
+                gsap.fromTo(
+                    ".mobile-cta",
+                    { scale: 0.9, opacity: 0 },
+                    { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.5)", delay: 0.6 }
+                );
+            });
+        } else {
+            setMobileOpen(false);
+            gsap.to(".mobile-menu-overlay", {
+                clipPath: "circle(0% at 90% 10%)",
+                duration: 0.6,
+                ease: "power3.inOut",
+                onComplete: () => setRenderMobile(false),
+            });
+        }
+    });
+
+    const handleNavClick = contextSafe((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         // Only handle hash navigation on the same page
         if (href.startsWith("/#")) {
             const hash = href.slice(1); // remove leading /
             if (typeof window !== "undefined" && window.location.pathname === "/") {
                 e.preventDefault();
-                setMobileOpen(false);
+                if (mobileOpen) toggleMenu();
+
                 const el = document.querySelector(hash);
                 if (el) el.scrollIntoView({ behavior: "smooth" });
+                return;
             }
-            // If not on home page, let it navigate to /#hash naturally
         }
-        setMobileOpen(false);
-    }, []);
+        if (mobileOpen) toggleMenu();
+    });
 
     return (
         <header
@@ -107,36 +151,51 @@ export default function Header() {
                 <div className="lg:hidden flex items-center gap-2">
                     <CartIcon />
                     <button
-                        onClick={() => setMobileOpen(!mobileOpen)}
-                        className="text-white p-2"
+                        onClick={toggleMenu}
+                        className="text-white p-2 relative z-50 w-10 h-10 flex items-center justify-center"
                         aria-label="Toggle menu"
                     >
-                        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+                        {mobileOpen ? <X size={28} className="animate-in fade-in zoom-in duration-300" /> : <Menu size={28} className="animate-in fade-in zoom-in duration-300" />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
-            {mobileOpen && (
-                <div className="lg:hidden bg-hemo-dark/95 backdrop-blur-xl mt-2 mx-4 rounded-2xl p-6 flex flex-col gap-4 border border-white/10">
-                    {NAV_LINKS.map((link) => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            onClick={(e) => handleNavClick(e, link.href)}
-                            className="text-white hover:text-hemo-lime text-lg font-semibold transition-colors"
+            {/* Full-Screen Mobile Menu Overlay */}
+            {renderMobile && (
+                <div
+                    className="mobile-menu-overlay fixed inset-0 bg-hemo-dark z-40 lg:hidden flex flex-col justify-center items-center overflow-hidden h-[100dvh]"
+                    style={{ clipPath: "circle(0% at 90% 10%)" }}
+                >
+                    {/* Decorative Background Elements */}
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-hemo-green/10 blur-[100px] pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-hemo-red/10 blur-[100px] pointer-events-none" />
+
+                    <nav className="flex flex-col items-center gap-8 z-10 w-full px-6">
+                        {NAV_LINKS.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                onClick={(e) => handleNavClick(e, link.href)}
+                                className="mobile-link text-white hover:text-hemo-lime text-4xl font-[family-name:var(--font-display)] font-bold transition-colors"
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                    </nav>
+
+                    <div className="mobile-cta mt-12 w-full px-8 z-10 flex justify-center">
+                        <MagneticButton
+                            href="https://www.hemolabma.com.br/resultados-pulse/"
+                            className="w-full max-w-[280px] py-5 bg-hemo-red text-white font-bold text-center rounded-full text-lg shadow-xl shadow-hemo-red/20 flex items-center justify-center justify-self-center mx-auto"
                         >
-                            {link.label}
-                        </Link>
-                    ))}
-                    <a
-                        href="https://www.hemolabma.com.br/resultados-pulse/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-2 px-6 py-3 bg-hemo-red text-white font-semibold text-center rounded-full"
-                    >
-                        Consultar Resultados
-                    </a>
+                            Consultar Resultados
+                        </MagneticButton>
+                    </div>
+
+                    {/* Social/Contact footer in menu */}
+                    <div className="absolute bottom-12 w-full flex items-center justify-center z-10 mobile-link">
+                        <span className="text-white/50 text-sm font-semibold tracking-widest uppercase">Laboratório Hemolab</span>
+                    </div>
                 </div>
             )}
         </header>

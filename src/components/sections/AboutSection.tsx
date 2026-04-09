@@ -38,7 +38,7 @@ const VALUES = [
 ];
 
 const STATS = [
-    { value: 7, suffix: "+", label: "Anos de experiência" },
+    { value: 10, suffix: "+", label: "Anos de experiência" },
     { value: 2, suffix: "", label: "Unidades" },
     { value: 500, suffix: "+", label: "Exames disponíveis" },
     { value: 10000, suffix: "+", label: "Pacientes atendidos" },
