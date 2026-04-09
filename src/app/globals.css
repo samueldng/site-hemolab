@@ -1,26 +1,148 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-hemo-dark: #002E20;
+  --color-hemo-green: #004731;
+  --color-hemo-green-light: #006B4A;
+  --color-hemo-red: #C42129;
+  --color-hemo-red-dark: #9A1A20;
+  --color-hemo-lime: #A4CD39;
+  --color-cream: #F8F6F0;
+  --color-gold: #D4A853;
+  --color-surface: #0A1F17;
+  --color-surface-light: #112B21;
+
+  --font-display: "Outfit", sans-serif;
+  --font-body: "Inter", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-hemo-red);
+  color: white;
+}
+
+/* ─── Premium Photo Treatment ─────────────── */
+.photo-premium {
+  filter: grayscale(100%) brightness(0.85);
+  transition: filter 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.photo-premium:hover,
+.photo-premium.revealed {
+  filter: grayscale(0%) brightness(1);
+}
+
+/* ─── Image Reveal Clip-path ──────────────── */
+.image-reveal-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-reveal-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-hemo-red);
+  z-index: 2;
+  transform-origin: left;
+}
+
+/* ─── Magnetic Effect ─────────────────────── */
+.magnetic-wrap {
+  display: inline-flex;
+  position: relative;
+}
+
+/* ─── Gradient Overlays ───────────────────── */
+.gradient-dark-bottom {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 46, 32, 0.6) 50%,
+    rgba(0, 46, 32, 0.95) 100%
+  );
+}
+
+.gradient-dark-top {
+  background: linear-gradient(
+    to top,
+    transparent 0%,
+    rgba(0, 46, 32, 0.85) 100%
+  );
+}
+
+/* ─── Glass Effect ────────────────────────── */
+.glass {
+  background: rgba(0, 46, 32, 0.65);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid rgba(164, 205, 57, 0.12);
+}
+
+/* ─── Text Gradient ───────────────────────── */
+.text-gradient-brand {
+  background: linear-gradient(135deg, var(--color-hemo-lime) 0%, var(--color-hemo-green-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Scrollbar ───────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-hemo-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-hemo-green);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-hemo-red);
+}
+
+/* ─── Animations ──────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(196, 33, 41, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(196, 33, 41, 0.6); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ─── Reduced Motion ──────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
