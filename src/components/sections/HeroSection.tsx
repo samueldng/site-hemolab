@@ -360,7 +360,7 @@ export default function HeroSection() {
                                 alt={slide.alt!}
                                 fill
                                 className="object-cover"
-                                priority
+                                priority={idx === 0}
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
                             {/* Subtle label overlay */}
@@ -384,6 +384,7 @@ export default function HeroSection() {
                                 src={slide.exam!.image}
                                 alt={slide.exam!.name}
                                 fill
+                                priority={idx === 0}
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
@@ -528,7 +529,7 @@ export default function HeroSection() {
             <div className="deco-blob absolute bottom-20 left-10 w-[250px] lg:w-[400px] h-[250px] lg:h-[400px] rounded-full bg-hemo-lime/10 blur-[100px]" />
             <div className="deco-blob absolute top-1/2 left-1/3 w-[200px] lg:w-[300px] h-[200px] lg:h-[300px] rounded-full bg-hemo-green-light/8 blur-[80px]" />
 
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-24 pb-16 lg:py-32 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12 lg:py-32 grid lg:grid-cols-2 gap-5 lg:gap-12 items-center">
                 {/* Text Content */}
                 <div className="hero-text">
                     <div className="hero-badge inline-flex items-center gap-2 px-4 lg:px-5 py-1.5 lg:py-2 rounded-full bg-white/10 border border-hemo-lime/20 text-xs lg:text-sm text-hemo-lime font-semibold mb-6 lg:mb-8 backdrop-blur-sm">
