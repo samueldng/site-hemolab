@@ -325,13 +325,10 @@ export default function HeroSection() {
 
     const headingWords = "Sua saúde com precisão e agilidade".split(" ");
 
-    // ─── Shared Carousel JSX ───
     const renderCarousel = (isMobile: boolean) => (
         <div
             ref={!isMobile ? carouselRef : undefined}
-            className={`relative overflow-hidden rounded-3xl shadow-2xl shadow-black/50 ${
-                isMobile ? "aspect-[4/3]" : "aspect-square"
-            }`}
+            className={`relative w-full overflow-hidden rounded-2xl lg:rounded-3xl shadow-2xl shadow-black/50 aspect-video sm:aspect-[4/3] lg:aspect-square`}
         >
             {/* Red curtain overlay for initial reveal */}
             <div
@@ -475,11 +472,10 @@ export default function HeroSection() {
                     <button
                         key={idx}
                         onClick={() => handleManualNav(idx)}
-                        className={`transition-all duration-500 rounded-full ${
-                            idx === activeSlide
+                        className={`transition-all duration-500 rounded-full ${idx === activeSlide
                                 ? "w-6 lg:w-8 h-2 lg:h-2.5 bg-hemo-red shadow-lg shadow-hemo-red/50"
                                 : "w-2 lg:w-2.5 h-2 lg:h-2.5 bg-white/30 hover:bg-white/50"
-                        }`}
+                            }`}
                         aria-label={`Ir para slide ${idx + 1}`}
                     />
                 ))}
@@ -504,7 +500,7 @@ export default function HeroSection() {
         <section
             ref={sectionRef}
             id="home"
-            className="relative min-h-screen flex items-center overflow-hidden bg-hemo-dark"
+            className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-hemo-dark"
         >
             {/* Background */}
             <div ref={bgRef} className="absolute inset-0 -top-[15%] -bottom-[15%]">
@@ -529,17 +525,17 @@ export default function HeroSection() {
             <div className="deco-blob absolute bottom-20 left-10 w-[250px] lg:w-[400px] h-[250px] lg:h-[400px] rounded-full bg-hemo-lime/10 blur-[100px]" />
             <div className="deco-blob absolute top-1/2 left-1/3 w-[200px] lg:w-[300px] h-[200px] lg:h-[300px] rounded-full bg-hemo-green-light/8 blur-[80px]" />
 
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12 lg:py-32 grid lg:grid-cols-2 gap-5 lg:gap-12 items-center">
+            <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 pt-24 lg:pt-32 pb-8 lg:pb-32 grid lg:grid-cols-2 gap-5 lg:gap-12 items-center">
                 {/* Text Content */}
-                <div className="hero-text">
-                    <div className="hero-badge inline-flex items-center gap-2 px-4 lg:px-5 py-1.5 lg:py-2 rounded-full bg-white/10 border border-hemo-lime/20 text-xs lg:text-sm text-hemo-lime font-semibold mb-6 lg:mb-8 backdrop-blur-sm">
-                        <span className="w-2 h-2 rounded-full bg-hemo-lime animate-pulse" />
+                <div className="hero-text mt-4 lg:mt-0">
+                    <div className="hero-badge inline-flex items-center gap-2 px-3 lg:px-5 py-1 lg:py-2 rounded-full bg-white/10 border border-hemo-lime/20 text-[10px] lg:text-sm text-hemo-lime font-semibold mb-4 lg:mb-8 backdrop-blur-sm">
+                        <span className="w-1.5 lg:w-2 h-1.5 lg:h-2 rounded-full bg-hemo-lime animate-pulse" />
                         Desde 2016 — Bacabal, MA
                     </div>
 
                     <h1
                         ref={headingRef}
-                        className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.08] mb-5 lg:mb-8"
+                        className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.05] lg:leading-[1.08] mb-3 lg:mb-8"
                         style={{ perspective: "800px" }}
                     >
                         {headingWords.map((word, i) => (
@@ -559,7 +555,7 @@ export default function HeroSection() {
 
                     <p
                         ref={subtitleRef}
-                        className="text-base lg:text-lg xl:text-xl text-white/70 max-w-lg leading-relaxed mb-6 lg:mb-10"
+                        className="text-sm lg:text-lg xl:text-xl text-white/70 max-w-lg leading-snug lg:leading-relaxed mb-4 lg:mb-10"
                     >
                         Exames laboratoriais confiáveis com tecnologia de ponta,
                         resultados ágeis e atendimento humanizado.
