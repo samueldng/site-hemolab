@@ -76,51 +76,109 @@ const SERVICES = [
 
 export default function ServicesSection() {
     const sectionRef = useRef<HTMLElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
 
     useGSAP(
         () => {
             const s = sectionRef.current;
-            if (!s) return;
+            const track = trackRef.current;
+            if (!s || !track) return;
 
-            // Title scrub-driven entrance
-            const titles = s.querySelectorAll(".services-title");
-            if (titles.length) {
-                gsap.fromTo(
-                    titles,
-                    { y: 60, opacity: 0, scale: 0.95 },
-                    {
-                        y: 0, opacity: 1, scale: 1,
-                        stagger: 0.1, ease: "none",
-                        scrollTrigger: {
-                            trigger: s,
-                            start: "top 85%",
-                            end: "top 55%",
-                            scrub: 1,
-                        },
-                    }
-                );
-            }
+            // ─── HORIZONTAL SCROLL: Service cards slide laterally ───
+            const totalScroll = track.scrollWidth - window.innerWidth;
 
-            // Cards — scrub-driven 3D reveal
-            const cards = s.querySelectorAll(".service-card");
-            if (cards.length) {
-                cards.forEach((card, i) => {
+            const mm = gsap.matchMedia();
+
+            mm.add("(min-width: 1024px)", () => {
+                const scrollTween = gsap.to(track, {
+                    x: -totalScroll,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: s,
+                        pin: true,
+                        scrub: 1,
+                        end: () => `+=${totalScroll * 1.1}`,
+                        invalidateOnRefresh: true,
+                    },
+                });
+
+                // ─── Title entrance ───
+                const titles = s.querySelectorAll(".svc-title");
+                if (titles.length) {
+                    gsap.fromTo(
+                        titles,
+                        { y: 50, opacity: 0 },
+                        {
+                            y: 0, opacity: 1,
+                            stagger: 0.08,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: s,
+                                start: "top 80%",
+                                end: "top 50%",
+                                scrub: 1,
+                            },
+                        }
+                    );
+                }
+
+                // ─── Per-card reveal ───
+                const cards = gsap.utils.toArray<HTMLElement>(".svc-card", track);
+                cards.forEach((card) => {
                     gsap.fromTo(
                         card,
-                        { y: 100, opacity: 0, scale: 0.85, rotateY: -15 },
+                        { y: 80, opacity: 0, scale: 0.85, rotateX: 15 },
                         {
-                            y: 0, opacity: 1, scale: 1, rotateY: 0,
-                            ease: "none",
+                            y: 0, opacity: 1, scale: 1, rotateX: 0,
+                            ease: "power3.out",
                             scrollTrigger: {
-                                trigger: s.querySelector(".services-grid"),
-                                start: `top ${90 - i * 3}%`,
-                                end: `top ${55 - i * 3}%`,
-                                scrub: 1.2,
+                                trigger: card,
+                                containerAnimation: scrollTween,
+                                start: "left 85%",
+                                end: "left 45%",
+                                scrub: true,
                             },
                         }
                     );
                 });
-            }
+            });
+
+            mm.add("(max-width: 1023px)", () => {
+                // ─── Title entrance ───
+                const titles = s.querySelectorAll(".svc-title");
+                if (titles.length) {
+                    gsap.fromTo(
+                        titles,
+                        { y: 40, opacity: 0 },
+                        {
+                            y: 0, opacity: 1,
+                            stagger: 0.1,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: s,
+                                start: "top 80%",
+                            },
+                        }
+                    );
+                }
+
+                // ─── Per-card reveal ───
+                const cards = gsap.utils.toArray<HTMLElement>(".svc-card", track);
+                cards.forEach((card) => {
+                    gsap.fromTo(
+                        card,
+                        { y: 50, opacity: 0, scale: 0.95 },
+                        {
+                            y: 0, opacity: 1, scale: 1,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: card,
+                                start: "top 85%",
+                            },
+                        }
+                    );
+                });
+            });
 
             // Subtle continuous icon pulse
             const icons = s.querySelectorAll(".service-icon");
@@ -134,6 +192,8 @@ export default function ServicesSection() {
                     stagger: { each: 0.3, from: "random" },
                 });
             }
+            
+            return () => mm.revert();
         },
         { scope: sectionRef }
     );
@@ -142,71 +202,82 @@ export default function ServicesSection() {
         <section
             ref={sectionRef}
             id="servicos"
-            className="relative bg-hemo-dark py-24 overflow-hidden"
+            className="relative bg-hemo-dark overflow-hidden"
         >
-            {/* Decorative circles */}
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-hemo-green/5 blur-3xl -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-hemo-red/5 blur-3xl translate-y-1/2 -translate-x-1/2" />
+            {/* ═══ Horizontal Track ═══ */}
+            <div
+                ref={trackRef}
+                className="flex flex-col lg:flex-row items-stretch lg:items-center lg:h-screen will-change-transform gap-8 py-20 lg:py-0 px-6 lg:px-[6vw] w-full lg:w-max"
+            >
+                {/* ─── Title Panel ─── */}
+                <div className="lg:flex-shrink-0 lg:w-[40vw] flex flex-col justify-center lg:pr-12 w-full">
+                    {/* Decorative circles */}
+                    <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-hemo-green/5 blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-hemo-red/5 blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <span className="services-title inline-block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-3">
+                    <span className="svc-title inline-block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-4">
                         O que oferecemos
                     </span>
-                    <h2 className="services-title font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold text-white mb-6">
-                        Nossos <span className="text-gradient-brand">Serviços</span>
+                    <h2 className="svc-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                        Nossos{" "}
+                        <span className="text-gradient-brand">Serviços</span>
                     </h2>
-                    <p className="services-title text-lg text-white/50 max-w-2xl mx-auto">
-                        Tecnologia avançada e profissionais especializados para cuidar da sua saúde
-                        com excelência.
+                    <p className="svc-title text-lg text-white/50 max-w-md mb-8">
+                        Tecnologia avançada e profissionais especializados para cuidar
+                        da sua saúde com excelência.
                     </p>
+                    <div className="svc-title flex items-center gap-3 text-white/25">
+                        <div className="w-12 h-px bg-white/15" />
+                        <span className="text-xs font-semibold uppercase tracking-widest">Deslize</span>
+                        <ArrowRight size={16} className="animate-pulse" />
+                    </div>
                 </div>
 
-                {/* Services Grid */}
-                <div className="services-grid grid md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: "1200px" }}>
+                {/* ─── Service Cards ─── */}
+                <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-nowrap gap-6 lg:gap-8 justify-center items-stretch w-full lg:w-auto">
                     {SERVICES.map((service) => (
                         <div
                             key={service.title}
-                            className="service-card group relative bg-surface-light/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 hover:border-white/15 transition-all duration-500 hover:-translate-y-1"
+                            className="svc-card sm:w-[calc(50%-12px)] lg:w-[350px] lg:flex-shrink-0 group relative bg-surface-light/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 hover:border-white/15 transition-all duration-500 hover:-translate-y-2 lg:self-center"
+                            style={{ perspective: "800px" }}
                         >
-                            {/* Gradient line top */}
-                            <div
-                                className={`absolute top-0 left-6 right-6 h-px bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                            />
+                        {/* Gradient line top */}
+                        <div
+                            className={`absolute top-0 left-6 right-6 h-px bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                        />
 
-                            <div className={`service-icon w-14 h-14 rounded-2xl ${service.iconBg} flex items-center justify-center mb-5`}>
-                                <service.icon size={28} className={service.iconColor} />
-                            </div>
-
-                            <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-white mb-3">
-                                {service.title}
-                            </h3>
-
-                            <p className="text-white/50 text-sm leading-relaxed mb-4">
-                                {service.description}
-                            </p>
-
-                            <div className="flex items-center gap-1 text-sm text-hemo-lime opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
-                                Saiba mais <ArrowRight size={14} />
-                            </div>
+                        <div className={`service-icon w-16 h-16 rounded-2xl ${service.iconBg} flex items-center justify-center mb-6`}>
+                            <service.icon size={32} className={service.iconColor} />
                         </div>
+
+                        <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-white mb-3">
+                            {service.title}
+                        </h3>
+
+                        <p className="text-white/50 text-sm leading-relaxed mb-6">
+                            {service.description}
+                        </p>
+
+                        <div className="flex items-center gap-1 text-sm text-hemo-lime opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
+                            Saiba mais <ArrowRight size={14} />
+                        </div>
+                    </div>
                     ))}
                 </div>
 
-                {/* CTA Row */}
-                <div className="flex flex-wrap justify-center gap-4 mt-16">
+                {/* ─── CTA at end ─── */}
+                <div className="lg:flex-shrink-0 lg:w-[40vw] w-full flex flex-col items-center justify-center lg:pl-8 mt-12 lg:mt-0">
                     <MagneticButton
                         href="https://www.hemolabma.com.br/resultados-pulse/"
-                        className="px-8 py-4 bg-hemo-red text-white font-semibold rounded-full flex items-center gap-2 hover:bg-hemo-red-dark transition-colors shadow-lg shadow-hemo-red/20 group"
+                        className="px-10 py-5 bg-hemo-red text-white font-bold rounded-full flex items-center justify-center gap-3 hover:bg-hemo-red-dark transition-colors shadow-xl shadow-hemo-red/20 group text-base md:text-lg mb-4 w-full sm:w-auto"
                     >
                         Acessar Resultados
-                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </MagneticButton>
 
                     <MagneticButton
                         href="https://wa.me/+5599981866145"
-                        className="px-8 py-4 bg-white/5 text-white font-semibold rounded-full flex items-center gap-2 border border-white/10 hover:bg-white/10 transition-colors"
+                        className="px-10 py-5 bg-white/5 text-white font-semibold rounded-full flex items-center justify-center gap-3 border border-white/10 hover:bg-white/10 transition-colors text-base md:text-lg w-full sm:w-auto"
                     >
                         Agendar Coleta
                     </MagneticButton>

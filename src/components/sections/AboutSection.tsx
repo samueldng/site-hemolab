@@ -44,180 +44,317 @@ const STATS = [
     { value: 10000, suffix: "+", label: "Pacientes atendidos" },
 ];
 
+const DR_QUALIFICATIONS = [
+    "Graduado em Farmácia (UFMA – 2005)",
+    "Especialista em Citologia Clínica (2006)",
+    "Especialista em Docência do Ensino Superior (2008)",
+    "Especialista em Hematologia Clínica (2019)",
+    "MBA em Gestão Laboratorial (2020)",
+    "MBA Executivo em Liderança e Gestão Empresarial com I.A (2026)",
+];
+
 export default function AboutSection() {
     const sectionRef = useRef<HTMLElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
 
     useGSAP(
         () => {
             const s = sectionRef.current;
-            if (!s) return;
+            const track = trackRef.current;
+            if (!s || !track) return;
 
-            // Section title
-            const aboutTitles = s.querySelectorAll(".about-title");
-            if (aboutTitles.length) {
-                gsap.fromTo(aboutTitles, { y: 60, opacity: 0 }, {
-                    y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out",
-                    scrollTrigger: { trigger: s, start: "top 85%" },
-                });
-            }
+            const mm = gsap.matchMedia();
 
-            // Description
-            const desc = s.querySelector(".about-desc");
-            if (desc) {
-                gsap.fromTo(desc, { y: 40, opacity: 0 }, {
-                    y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: desc, start: "top 85%" },
-                });
-            }
+            mm.add("(min-width: 1024px)", () => {
+                // ─── HORIZONTAL SCROLL: About panels ───
+                const panels = gsap.utils.toArray<HTMLElement>(".about-panel", track);
+                if (!panels.length) return;
 
-            // Cards stagger
-            const cards = s.querySelectorAll(".value-card");
-            if (cards.length) {
-                gsap.fromTo(cards, { y: 80, opacity: 0 }, {
-                    y: 0, opacity: 1, stagger: 0.2, duration: 0.9, ease: "power3.out",
-                    scrollTrigger: { trigger: s.querySelector(".values-grid"), start: "top 80%" },
-                });
-            }
+                const totalScroll = track.scrollWidth - window.innerWidth;
 
-            // Stats
-            const stats = s.querySelectorAll(".stat-item");
-            if (stats.length) {
-                gsap.fromTo(stats, { y: 40, opacity: 0 }, {
-                    y: 0, opacity: 1, stagger: 0.15, duration: 0.7, ease: "power3.out",
-                    scrollTrigger: { trigger: s.querySelector(".stats-grid"), start: "top 85%" },
+                const scrollTween = gsap.to(track, {
+                    x: -totalScroll,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: s,
+                        pin: true,
+                        scrub: 1,
+                        end: () => `+=${totalScroll * 1.2}`,
+                        invalidateOnRefresh: true,
+                    },
                 });
-            }
 
-            // Dr photo
-            const drPhoto = s.querySelector(".dr-photo");
-            if (drPhoto) {
-                gsap.fromTo(drPhoto, { x: 60, opacity: 0 }, {
-                    x: 0, opacity: 1, duration: 1, ease: "power3.out",
-                    scrollTrigger: { trigger: drPhoto, start: "top 80%" },
-                });
-            }
+                // ─── Per-panel content reveals ───
+                panels.forEach((panel) => {
+                    const title = panel.querySelector(".panel-title");
+                    const subtitle = panel.querySelector(".panel-subtitle");
+                    const content = panel.querySelectorAll(".panel-item");
+                    const image = panel.querySelector(".panel-img");
 
-            // Dr info
-            const drInfo = s.querySelector(".dr-info");
-            if (drInfo) {
-                const children = drInfo.children;
-                gsap.fromTo(children, { y: 30, opacity: 0 }, {
-                    y: 0, opacity: 1, stagger: 0.1, duration: 0.7, ease: "power3.out",
-                    scrollTrigger: { trigger: drInfo, start: "top 85%" },
+                    if (title) {
+                        gsap.fromTo(
+                            title,
+                            { y: 80, opacity: 0, skewY: 4 },
+                            {
+                                y: 0, opacity: 1, skewY: 0,
+                                ease: "power3.out",
+                                scrollTrigger: {
+                                    trigger: panel,
+                                    containerAnimation: scrollTween,
+                                    start: "left 80%",
+                                    end: "left 40%",
+                                    scrub: true,
+                                },
+                            }
+                        );
+                    }
+
+                    if (subtitle) {
+                        gsap.fromTo(
+                            subtitle,
+                            { y: 60, opacity: 0 },
+                            {
+                                y: 0, opacity: 1,
+                                ease: "power3.out",
+                                scrollTrigger: {
+                                    trigger: panel,
+                                    containerAnimation: scrollTween,
+                                    start: "left 70%",
+                                    end: "left 35%",
+                                    scrub: true,
+                                },
+                            }
+                        );
+                    }
+
+                    if (content.length) {
+                        gsap.fromTo(
+                            content,
+                            { y: 60, opacity: 0 },
+                            {
+                                y: 0, opacity: 1,
+                                stagger: 0.05,
+                                ease: "power3.out",
+                                scrollTrigger: {
+                                    trigger: panel,
+                                    containerAnimation: scrollTween,
+                                    start: "left 65%",
+                                    end: "left 15%",
+                                    scrub: true,
+                                },
+                            }
+                        );
+                    }
+
+                    if (image) {
+                        gsap.fromTo(
+                            image,
+                            { scale: 1.3, opacity: 0, x: 80 },
+                            {
+                                scale: 1, opacity: 1, x: 0,
+                                ease: "power3.out",
+                                scrollTrigger: {
+                                    trigger: panel,
+                                    containerAnimation: scrollTween,
+                                    start: "left 75%",
+                                    end: "left 25%",
+                                    scrub: true,
+                                },
+                            }
+                        );
+                    }
                 });
-            }
+            });
+
+            mm.add("(max-width: 1023px)", () => {
+                const panels = gsap.utils.toArray<HTMLElement>(".about-panel", track);
+                panels.forEach((panel) => {
+                    const elements = panel.querySelectorAll(".panel-title, .panel-subtitle, .panel-item, .panel-img");
+                    if (elements.length) {
+                        gsap.fromTo(
+                            elements,
+                            { y: 40, opacity: 0 },
+                            {
+                                y: 0, opacity: 1,
+                                stagger: 0.1,
+                                ease: "power3.out",
+                                scrollTrigger: {
+                                    trigger: panel,
+                                    start: "top 75%",
+                                }
+                            }
+                        );
+                    }
+                });
+            });
+
+            return () => mm.revert();
         },
         { scope: sectionRef }
     );
 
     return (
-        <section ref={sectionRef} id="sobre" className="relative bg-cream">
-            {/* Top wave transition */}
-            <div className="absolute -top-1 left-0 right-0 h-24 bg-hemo-dark" />
-            <svg
-                viewBox="0 0 1440 80"
-                className="absolute -top-1 left-0 right-0 w-full text-cream"
-                preserveAspectRatio="none"
+        <section ref={sectionRef} id="sobre" className="relative bg-cream min-h-screen overflow-hidden">
+            {/* Smooth dark-to-cream transition */}
+            <div className="absolute -top-px left-0 right-0 h-32 bg-gradient-to-b from-hemo-dark to-cream z-20 pointer-events-none" />
+
+            {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
+            <div
+                ref={trackRef}
+                className="flex flex-col lg:flex-row items-center lg:items-stretch lg:h-screen will-change-transform lg:w-[400vw] relative z-10"
             >
-                <path fill="currentColor" d="M0,40 C360,100 1080,-20 1440,40 L1440,80 L0,80 Z" />
-            </svg>
-
-            <div className="max-w-7xl mx-auto px-6 pt-32 pb-20">
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <span className="about-title inline-block text-hemo-red text-sm font-semibold tracking-widest uppercase mb-3">
-                        Quem Somos
-                    </span>
-                    <h2 className="about-title font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold text-hemo-dark mb-6">
-                        Sobre o <span className="text-hemo-red">Hemolab</span>
-                    </h2>
-                    <p className="about-desc text-lg text-hemo-dark/60 max-w-2xl mx-auto leading-relaxed">
-                        Fundado em 2016, o Hemolab consolidou-se como referência regional
-                        em serviços laboratoriais, combinando tecnologia de ponta, rigor
-                        técnico e atendimento humanizado.
-                    </p>
-                </div>
-
-                {/* Values Cards */}
-                <div className="values-grid grid md:grid-cols-3 gap-6 mb-20">
-                    {VALUES.map((item) => (
-                        <div
-                            key={item.title}
-                            className="value-card group relative bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-shadow duration-500 border border-hemo-dark/5 overflow-hidden"
-                        >
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-hemo-red via-hemo-green to-hemo-lime scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-                            <div className={`w-14 h-14 rounded-2xl ${item.bgColor} flex items-center justify-center mb-5`}>
-                                <item.icon size={28} className={item.color} />
-                            </div>
-                            <h3 className="font-[family-name:var(--font-display)] text-xl font-bold text-hemo-dark mb-3">
-                                {item.title}
-                            </h3>
-                            <p className="text-hemo-dark/60 leading-relaxed text-sm">
-                                {item.description}
+                {/* ─── Panel 1: Intro + Mission/Vision/Values ─── */}
+                <div className="about-panel lg:flex-shrink-0 w-full lg:w-screen min-h-screen flex items-center relative pt-48 pb-16 lg:py-0 overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-8 md:px-16 w-full grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <span className="panel-title inline-block text-hemo-red text-sm font-semibold tracking-widest uppercase mb-4">
+                                Quem Somos
+                            </span>
+                            <h2 className="panel-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-hemo-dark mb-6 leading-tight">
+                                Sobre o <span className="text-hemo-red">Hemolab</span>
+                            </h2>
+                            <p className="panel-subtitle text-lg text-hemo-dark/60 leading-relaxed mb-10 max-w-lg">
+                                Fundado em 2016, o Hemolab consolidou-se como referência regional
+                                em serviços laboratoriais, combinando tecnologia de ponta, rigor
+                                técnico e atendimento humanizado.
                             </p>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Stats */}
-                <div className="stats-grid grid grid-cols-2 md:grid-cols-4 gap-8 mb-20 bg-hemo-dark rounded-3xl p-10">
-                    {STATS.map((stat) => (
-                        <div key={stat.label} className="stat-item text-center">
-                            <AnimatedCounter
-                                end={stat.value}
-                                suffix={stat.suffix}
-                                className="font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold text-gradient-brand"
-                            />
-                            <p className="text-white/50 text-sm mt-2">{stat.label}</p>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Dr. Alexson */}
-                <div className="grid md:grid-cols-2 gap-16 items-center">
-                    <div className="dr-photo relative mx-auto md:mx-0">
-                        <div className="relative w-80 h-96 md:w-96 md:h-[28rem]">
-                            {/* Decorative accent */}
-                            <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-hemo-red/20 via-transparent to-hemo-lime/20" />
-                            <div className="absolute inset-0 rounded-[2rem] overflow-hidden border-2 border-hemo-dark/10 shadow-xl">
-                                <Image
-                                    src="/images/Dr-Alexson.png"
-                                    alt="Dr. Alexson Carvalho - Responsável Técnico"
-                                    width={400}
-                                    height={500}
-                                    className="w-full h-full object-cover object-top"
-                                />
-                                {/* Gradient overlay at bottom */}
-                                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-hemo-dark/70 to-transparent" />
+                            {/* Scroll hint */}
+                            <div className="panel-subtitle flex items-center gap-3 text-hemo-dark/30">
+                                <div className="w-12 h-px bg-hemo-dark/20" />
+                                <span className="text-xs font-semibold uppercase tracking-widest">Continue rolando</span>
+                                <span className="animate-pulse">→</span>
                             </div>
-                            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-hemo-red text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg shadow-hemo-red/30 whitespace-nowrap">
-                                Dr. Alexson Carvalho
-                            </div>
+                        </div>
+
+                        {/* Values Cards - stacked */}
+                        <div className="space-y-4">
+                            {VALUES.map((item) => (
+                                <div
+                                    key={item.title}
+                                    className="panel-item group flex gap-5 bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-shadow duration-500 border border-hemo-dark/5"
+                                >
+                                    <div className={`w-14 h-14 rounded-2xl ${item.bgColor} flex items-center justify-center shrink-0`}>
+                                        <item.icon size={28} className={item.color} />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-hemo-dark mb-1">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-hemo-dark/50 text-sm leading-relaxed">
+                                            {item.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
+                </div>
 
-                    <div className="dr-info">
-                        <span className="text-hemo-red text-sm font-semibold tracking-widest uppercase">
-                            Responsável Técnico
+                {/* ─── Panel 2: Stats ─── */}
+                <div className="about-panel lg:flex-shrink-0 w-full lg:w-screen min-h-screen flex items-center relative overflow-hidden py-16 lg:py-0">
+                    {/* BG */}
+                    <div className="absolute inset-0 bg-hemo-dark" />
+                    <div className="absolute inset-0 bg-[url('/images/Fachada_gota.png')] bg-cover bg-center opacity-10" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-hemo-dark via-hemo-dark/90 to-hemo-dark/70" />
+
+                    <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-16 w-full">
+                        <span className="panel-title block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-4">
+                            Nossos Números
                         </span>
-                        <h3 className="font-[family-name:var(--font-display)] text-3xl font-bold text-hemo-dark mt-2 mb-6">
-                            Dr. Alexson Carvalho
-                        </h3>
-                        <ul className="space-y-3">
-                            {[
-                                "Graduado em Farmácia (UFMA – 2005)",
-                                "Especialista em Citologia Clínica (2006)",
-                                "Especialista em Docência do Ensino Superior (2008)",
-                                "Especialista em Hematologia Clínica (2019)",
-                                "MBA em Gestão Laboratorial (2020)",
-                                "MBA Executivo em Liderança e Gestão Empresarial com I.A (2026)",
-                            ].map((item) => (
-                                <li key={item} className="flex items-start gap-3 text-hemo-dark/70 text-sm">
-                                    <span className="w-2 h-2 rounded-full bg-hemo-lime mt-1.5 shrink-0" />
-                                    {item}
-                                </li>
+                        <h2 className="panel-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-white mb-16 leading-tight">
+                            Resultados que <br />
+                            <span className="text-gradient-brand">falam por si</span>
+                        </h2>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                            {STATS.map((stat) => (
+                                <div key={stat.label} className="panel-item text-center">
+                                    <AnimatedCounter
+                                        end={stat.value}
+                                        suffix={stat.suffix}
+                                        className="font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-gradient-brand"
+                                    />
+                                    <p className="text-white/40 text-sm mt-3">{stat.label}</p>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ─── Panel 3: Dr. Alexson ─── */}
+                <div className="about-panel lg:flex-shrink-0 w-full lg:w-screen min-h-screen flex items-center relative py-16 lg:py-0 overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-8 md:px-16 w-full grid lg:grid-cols-2 gap-20 items-center">
+                        {/* Photo */}
+                        <div className="panel-img relative mx-auto lg:mx-0">
+                            <div className="relative w-80 h-96 md:w-[400px] md:h-[500px]">
+                                <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-hemo-red/20 via-transparent to-hemo-lime/20 blur-sm" />
+                                <div className="absolute inset-0 rounded-[2rem] overflow-hidden border-2 border-hemo-dark/10 shadow-2xl">
+                                    <Image
+                                        src="/images/Dr-Alexson.png"
+                                        alt="Dr. Alexson Carvalho - Responsável Técnico"
+                                        width={400}
+                                        height={500}
+                                        className="w-full h-full object-cover object-top"
+                                    />
+                                    <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-hemo-dark/80 to-transparent" />
+                                </div>
+                                <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-hemo-red text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-lg shadow-hemo-red/30 whitespace-nowrap">
+                                    Dr. Alexson Carvalho
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Info */}
+                        <div>
+                            <span className="panel-title block text-hemo-red text-sm font-semibold tracking-widest uppercase mb-3">
+                                Responsável Técnico
+                            </span>
+                            <h3 className="panel-title font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold text-hemo-dark mb-8 leading-tight">
+                                Dr. Alexson <br />Carvalho
+                            </h3>
+                            <ul className="space-y-3">
+                                {DR_QUALIFICATIONS.map((item) => (
+                                    <li key={item} className="panel-item flex items-start gap-3 text-hemo-dark/70 text-sm">
+                                        <span className="w-2 h-2 rounded-full bg-hemo-lime mt-1.5 shrink-0" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ─── Panel 4: CTA ─── */}
+                <div className="about-panel lg:flex-shrink-0 w-full lg:w-screen min-h-screen flex items-center justify-center relative overflow-hidden py-16 lg:py-0">
+                    <div className="absolute inset-0 bg-hemo-dark" />
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(164,205,57,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(164,205,57,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+                    <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-hemo-red/5 blur-[120px]" />
+                    <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-hemo-lime/5 blur-[100px]" />
+
+                    <div className="relative z-10 text-center px-8 max-w-2xl">
+                        <h2 className="panel-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
+                            Cuide da sua <br />
+                            <span className="text-gradient-brand">saúde conosco</span>
+                        </h2>
+                        <p className="panel-subtitle text-xl text-white/50 mb-10">
+                            Mais de 500 exames disponíveis com tecnologia de ponta e
+                            atendimento humanizado.
+                        </p>
+                        <div className="panel-item flex flex-wrap justify-center gap-4">
+                            <a
+                                href="https://wa.me/+5599981866145"
+                                className="px-10 py-4 bg-hemo-red text-white font-bold rounded-full flex items-center gap-2 hover:bg-hemo-red-dark transition-all shadow-xl shadow-hemo-red/30 text-lg group"
+                            >
+                                Agendar Exame
+                                <span className="group-hover:translate-x-1 transition-transform">→</span>
+                            </a>
+                            <a
+                                href="/exames"
+                                className="px-10 py-4 bg-white/10 text-white font-bold rounded-full flex items-center gap-2 border border-white/15 hover:bg-white/20 transition-all text-lg"
+                            >
+                                Ver Exames
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

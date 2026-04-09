@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import MagneticButton from "../ui/MagneticButton";
-import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, ArrowRight, MessageCircle } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,114 +42,179 @@ const CONTACT_INFO = [
 
 export default function ContactSection() {
     const sectionRef = useRef<HTMLElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
 
     useGSAP(
         () => {
             const s = sectionRef.current;
-            if (!s) return;
+            const track = trackRef.current;
+            if (!s || !track) return;
 
-            const titles = s.querySelectorAll(".contact-title");
+            // ─── HORIZONTAL SCROLL ───
+            const totalScroll = track.scrollWidth - window.innerWidth;
+
+            const scrollTween = gsap.to(track, {
+                x: -totalScroll,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: s,
+                    pin: true,
+                    scrub: 1,
+                    end: () => `+=${totalScroll * 1.1}`,
+                    invalidateOnRefresh: true,
+                },
+            });
+
+            // ─── Title ───
+            const titles = s.querySelectorAll(".ct-title");
             if (titles.length) {
-                gsap.fromTo(titles, { y: 50, opacity: 0 }, {
-                    y: 0, opacity: 1, duration: 0.9, stagger: 0.1, ease: "power3.out",
-                    scrollTrigger: { trigger: s, start: "top 85%" },
-                });
+                gsap.fromTo(
+                    titles,
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0, opacity: 1,
+                        stagger: 0.08,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: s,
+                            start: "top 80%",
+                            end: "top 50%",
+                            scrub: 1,
+                        },
+                    }
+                );
             }
 
-            const cards = s.querySelectorAll(".contact-card");
-            if (cards.length) {
-                gsap.fromTo(cards, { y: 50, opacity: 0 }, {
-                    y: 0, opacity: 1, stagger: 0.12, duration: 0.7, ease: "power3.out",
-                    scrollTrigger: { trigger: s.querySelector(".contact-grid"), start: "top 85%" },
-                });
-            }
+            // ─── Cards ───
+            const cards = gsap.utils.toArray<HTMLElement>(".ct-card", track);
+            cards.forEach((card) => {
+                gsap.fromTo(
+                    card,
+                    { y: 80, opacity: 0, scale: 0.85 },
+                    {
+                        y: 0, opacity: 1, scale: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: card,
+                            containerAnimation: scrollTween,
+                            start: "left 85%",
+                            end: "left 45%",
+                            scrub: true,
+                        },
+                    }
+                );
+            });
 
-            const cta = s.querySelector(".contact-cta");
+            // ─── CTA Panel ───
+            const cta = track.querySelector(".ct-cta");
             if (cta) {
-                gsap.fromTo(cta, { y: 30, opacity: 0 }, {
-                    y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: cta, start: "top 90%" },
-                });
+                gsap.fromTo(
+                    cta,
+                    { opacity: 0, scale: 0.9 },
+                    {
+                        opacity: 1, scale: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: cta,
+                            containerAnimation: scrollTween,
+                            start: "left 75%",
+                            end: "left 35%",
+                            scrub: true,
+                        },
+                    }
+                );
             }
         },
         { scope: sectionRef }
     );
 
     return (
-        <section ref={sectionRef} id="contato" className="relative bg-hemo-dark py-24 overflow-hidden">
+        <section ref={sectionRef} id="contato" className="relative bg-hemo-dark overflow-hidden">
             {/* Decorative */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-hemo-green/3 blur-3xl" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-hemo-green/3 blur-3xl pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <span className="contact-title inline-block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-3">
+            {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
+            <div
+                ref={trackRef}
+                className="flex items-center h-screen will-change-transform gap-8"
+                style={{ paddingLeft: "6vw", paddingRight: "6vw" }}
+            >
+                {/* ─── Title Panel ─── */}
+                <div className="flex-shrink-0 w-[35vw] flex flex-col justify-center pr-8">
+                    <span className="ct-title inline-block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-4">
                         Fale Conosco
                     </span>
-                    <h2 className="contact-title font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold text-white mb-6">
-                        Entre em <span className="text-gradient-brand">Contato</span>
+                    <h2 className="ct-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                        Entre em{" "}
+                        <span className="text-gradient-brand">Contato</span>
                     </h2>
-                    <p className="contact-title text-lg text-white/50 max-w-xl mx-auto">
+                    <p className="ct-title text-lg text-white/50 max-w-md mb-8">
                         Tire suas dúvidas, agende exames ou solicite coleta domiciliar.
                         Estamos prontos para atendê-lo.
                     </p>
+                    <div className="ct-title flex items-center gap-3 text-white/25">
+                        <div className="w-12 h-px bg-white/15" />
+                        <span className="text-xs font-semibold uppercase tracking-widest">Deslize</span>
+                        <ArrowRight size={16} className="animate-pulse" />
+                    </div>
                 </div>
 
-                {/* Contact Grid */}
-                <div className="contact-grid grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-                    {CONTACT_INFO.map((info) => {
-                        const Tag = info.href ? "a" : "div";
-                        const linkProps = info.href
-                            ? {
-                                href: info.href,
-                                target: info.href.startsWith("http") ? "_blank" : undefined,
-                                rel: info.href.startsWith("http") ? "noopener noreferrer" : undefined,
-                            }
-                            : {};
+                {/* ─── Contact Cards ─── */}
+                {CONTACT_INFO.map((info) => {
+                    const Tag = info.href ? "a" : "div";
+                    const linkProps = info.href
+                        ? {
+                            href: info.href,
+                            target: info.href.startsWith("http") ? "_blank" as const : undefined,
+                            rel: info.href.startsWith("http") ? "noopener noreferrer" : undefined,
+                        }
+                        : {};
 
-                        return (
-                            <Tag
-                                key={info.label}
-                                {...linkProps}
-                                className="contact-card group bg-surface-light/50 backdrop-blur-sm rounded-3xl p-6 border border-white/5 hover:border-white/15 transition-all duration-500 text-center hover:-translate-y-1"
-                            >
-                                <div className={`w-12 h-12 rounded-2xl ${info.color} flex items-center justify-center mx-auto mb-4`}>
-                                    <info.icon size={22} />
-                                </div>
-                                <h4 className="text-white/40 text-xs uppercase tracking-wider mb-2">
-                                    {info.label}
-                                </h4>
-                                <p className="text-white text-sm font-medium leading-relaxed">
-                                    {info.value}
-                                </p>
-                            </Tag>
-                        );
-                    })}
-                </div>
-
-                {/* CTA Banner */}
-                <div className="contact-cta relative rounded-3xl overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-hemo-red via-hemo-red-dark to-hemo-green" />
-                    <div className="absolute inset-0 bg-[url('/images/Fachada_gota.png')] bg-cover bg-center opacity-10 mix-blend-overlay" />
-                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 p-10 md:p-14">
-                        <div>
-                            <h3 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-bold text-white mb-2">
-                                Agende seu exame agora
-                            </h3>
-                            <p className="text-white/70">
-                                Ligue ou envie uma mensagem no WhatsApp para mais informações.
-                            </p>
-                        </div>
-                        <MagneticButton
-                            href="https://wa.me/+5599981866145"
-                            className="shrink-0 px-10 py-4 bg-white text-hemo-red font-bold rounded-full flex items-center gap-2 hover:bg-cream transition-colors shadow-xl group"
+                    return (
+                        <Tag
+                            key={info.label}
+                            {...linkProps}
+                            className="ct-card flex-shrink-0 w-[280px] group bg-surface-light/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 hover:border-white/15 transition-all duration-500 text-center hover:-translate-y-2 self-center"
                         >
-                            WhatsApp
-                            <ArrowRight
-                                size={18}
-                                className="group-hover:translate-x-1 transition-transform"
-                            />
-                        </MagneticButton>
+                            <div className={`w-16 h-16 rounded-2xl ${info.color} flex items-center justify-center mx-auto mb-5`}>
+                                <info.icon size={28} />
+                            </div>
+                            <h4 className="text-white/40 text-xs uppercase tracking-wider mb-3">
+                                {info.label}
+                            </h4>
+                            <p className="text-white text-sm font-medium leading-relaxed">
+                                {info.value}
+                            </p>
+                        </Tag>
+                    );
+                })}
+
+                {/* ─── CTA Banner ─── */}
+                <div className="ct-cta flex-shrink-0 w-[50vw] self-center">
+                    <div className="relative rounded-3xl overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-r from-hemo-red via-hemo-red-dark to-hemo-green" />
+                        <div className="absolute inset-0 bg-[url('/images/Fachada_gota.png')] bg-cover bg-center opacity-10 mix-blend-overlay" />
+                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 p-12 md:p-16">
+                            <div>
+                                <h3 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl font-bold text-white mb-3">
+                                    Agende seu exame agora
+                                </h3>
+                                <p className="text-white/70 text-lg">
+                                    Ligue ou envie uma mensagem no WhatsApp.
+                                </p>
+                            </div>
+                            <MagneticButton
+                                href="https://wa.me/+5599981866145"
+                                className="shrink-0 px-10 py-5 bg-white text-hemo-red font-bold rounded-full flex items-center gap-3 hover:bg-cream transition-colors shadow-xl group text-lg"
+                            >
+                                <MessageCircle size={22} />
+                                WhatsApp
+                                <ArrowRight
+                                    size={18}
+                                    className="group-hover:translate-x-1 transition-transform"
+                                />
+                            </MagneticButton>
+                        </div>
                     </div>
                 </div>
             </div>

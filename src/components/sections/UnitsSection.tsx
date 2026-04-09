@@ -4,8 +4,9 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Image from "next/image";
 import ImageReveal from "../ui/ImageReveal";
-import { MapPin, ExternalLink } from "lucide-react";
+import { MapPin, ExternalLink, ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,115 +37,256 @@ const GALLERY = [
 
 export default function UnitsSection() {
     const sectionRef = useRef<HTMLElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
 
     useGSAP(
         () => {
             const s = sectionRef.current;
-            if (!s) return;
+            const track = trackRef.current;
+            if (!s || !track) return;
 
-            const titles = s.querySelectorAll(".units-title");
-            if (titles.length) {
-                gsap.fromTo(titles, { y: 50, opacity: 0 }, {
-                    y: 0, opacity: 1, duration: 0.9, stagger: 0.1, ease: "power3.out",
-                    scrollTrigger: { trigger: s, start: "top 85%" },
-                });
-            }
+            // ─── HORIZONTAL SCROLL: Units + Gallery ───
+            const totalScroll = track.scrollWidth - window.innerWidth;
 
-            const cards = s.querySelectorAll(".unit-card");
-            if (cards.length) {
-                gsap.fromTo(cards, { y: 60, opacity: 0 }, {
-                    y: 0, opacity: 1, stagger: 0.2, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: s.querySelector(".units-grid"), start: "top 80%" },
-                });
-            }
+            const mm = gsap.matchMedia();
 
-            const galleryTitle = s.querySelector(".gallery-title");
-            if (galleryTitle) {
-                gsap.fromTo(galleryTitle, { y: 40, opacity: 0 }, {
-                    y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
-                    scrollTrigger: { trigger: galleryTitle, start: "top 85%" },
+            mm.add("(min-width: 1024px)", () => {
+                const scrollTween = gsap.to(track, {
+                    x: -totalScroll,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: s,
+                        pin: true,
+                        scrub: 1,
+                        end: () => `+=${totalScroll * 1.1}`,
+                        invalidateOnRefresh: true,
+                    },
                 });
-            }
+
+                // ─── Title entrance ───
+                const titles = s.querySelectorAll(".units-title");
+                if (titles.length) {
+                    gsap.fromTo(
+                        titles,
+                        { y: 50, opacity: 0 },
+                        {
+                            y: 0, opacity: 1,
+                            stagger: 0.08,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: s,
+                                start: "top 80%",
+                                end: "top 50%",
+                                scrub: 1,
+                            },
+                        }
+                    );
+                }
+
+                // ─── Card reveals ───
+                const items = gsap.utils.toArray<HTMLElement>(".unit-item", track);
+                items.forEach((item) => {
+                    gsap.fromTo(
+                        item,
+                        { y: 60, opacity: 0, scale: 0.9 },
+                        {
+                            y: 0, opacity: 1, scale: 1,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: item,
+                                containerAnimation: scrollTween,
+                                start: "left 85%",
+                                end: "left 40%",
+                                scrub: true,
+                            },
+                        }
+                    );
+                });
+
+                // ─── Gallery reveals ───
+                const photos = gsap.utils.toArray<HTMLElement>(".gallery-item", track);
+                photos.forEach((photo) => {
+                    const mask = photo.querySelector(".gallery-mask");
+                    const img = photo.querySelector(".gallery-img");
+
+                    if (mask) {
+                        gsap.fromTo(
+                            mask,
+                            { scaleX: 1 },
+                            {
+                                scaleX: 0,
+                                ease: "power3.inOut",
+                                scrollTrigger: {
+                                    trigger: photo,
+                                    containerAnimation: scrollTween,
+                                    start: "left 80%",
+                                    end: "left 40%",
+                                    scrub: true,
+                                },
+                            }
+                        );
+                    }
+
+                    if (img) {
+                        gsap.fromTo(
+                            img,
+                            { scale: 1.4 },
+                            {
+                                scale: 1,
+                                ease: "power2.out",
+                                scrollTrigger: {
+                                    trigger: photo,
+                                    containerAnimation: scrollTween,
+                                    start: "left 80%",
+                                    end: "left 20%",
+                                    scrub: true,
+                                },
+                            }
+                        );
+                    }
+                });
+            });
+
+            mm.add("(max-width: 1023px)", () => {
+                const elements = s.querySelectorAll(".units-title, .unit-item, .gallery-item");
+                
+                elements.forEach((el) => {
+                    const mask = el.querySelector(".gallery-mask");
+                    if (mask) {
+                        gsap.to(mask, {
+                            scaleX: 0,
+                            ease: "power3.inOut",
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top 75%",
+                            }
+                        });
+                    }
+
+                    gsap.fromTo(
+                        el,
+                        { y: 40, opacity: 0 },
+                        {
+                            y: 0, opacity: 1,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top 85%",
+                            }
+                        }
+                    );
+                });
+            });
+
+            return () => mm.revert();
         },
         { scope: sectionRef }
     );
 
     return (
-        <section ref={sectionRef} id="unidades" className="bg-cream py-24">
-            <div className="max-w-7xl mx-auto px-6">
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <span className="units-title inline-block text-hemo-red text-sm font-semibold tracking-widest uppercase mb-3">
+        <section ref={sectionRef} id="unidades" className="relative bg-cream min-h-screen overflow-hidden">
+            {/* Smooth transition from dark to cream */}
+            <div className="absolute -top-px left-0 right-0 h-32 bg-gradient-to-b from-hemo-dark to-cream z-20 pointer-events-none" />
+
+            {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
+            <div
+                ref={trackRef}
+                className="flex flex-col lg:flex-row items-stretch lg:items-center lg:h-screen will-change-transform gap-10 pt-48 pb-16 lg:py-0 px-6 lg:px-[6vw] w-full lg:w-max relative z-10"
+            >
+                {/* ─── Title Panel ─── */}
+                <div className="lg:flex-shrink-0 lg:w-[35vw] flex flex-col justify-center lg:pr-8 w-full">
+                    <span className="units-title inline-block text-hemo-red text-sm font-semibold tracking-widest uppercase mb-4">
                         Onde estamos
                     </span>
-                    <h2 className="units-title font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold text-hemo-dark mb-6">
+                    <h2 className="units-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-hemo-dark mb-6 leading-tight">
                         Nossas <span className="text-hemo-red">Unidades</span>
                     </h2>
+                    <p className="units-title text-lg text-hemo-dark/50 max-w-md mb-8">
+                        Duas unidades estrategicamente localizadas para atender
+                        Bacabal e região com excelência.
+                    </p>
+                    <div className="units-title flex items-center gap-3 text-hemo-dark/25">
+                        <div className="w-12 h-px bg-hemo-dark/15" />
+                        <span className="text-xs font-semibold uppercase tracking-widest">Deslize</span>
+                        <ArrowRight size={16} className="animate-pulse" />
+                    </div>
                 </div>
 
-                {/* Units Grid */}
-                <div className="units-grid grid md:grid-cols-2 gap-8 mb-20">
+                {/* ─── Unit Cards ─── */}
+                <div className="flex flex-col md:flex-row gap-6 w-full lg:w-auto overflow-hidden">
                     {UNITS.map((unit) => (
                         <div
                             key={unit.name}
-                            className="unit-card group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-500 border border-hemo-dark/5"
+                            className="unit-item w-full md:w-1/2 lg:w-[400px] lg:flex-shrink-0 group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-hemo-dark/5 hover:-translate-y-2"
                         >
-                            <div className="relative h-56 overflow-hidden">
-                                <div className="absolute inset-0">
-                                    <img
-                                        src={unit.image}
-                                        alt={unit.name}
-                                        className="w-full h-full object-cover photo-premium group-hover:revealed transition-all duration-700"
-                                        onMouseEnter={(e) => e.currentTarget.classList.add("revealed")}
-                                        onMouseLeave={(e) => e.currentTarget.classList.remove("revealed")}
-                                    />
+                        <div className="relative h-56 overflow-hidden">
+                            <img
+                                src={unit.image}
+                                alt={unit.name}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-hemo-dark/80 to-transparent" />
+                            <h3 className="absolute bottom-4 left-6 font-[family-name:var(--font-display)] text-2xl font-bold text-white">
+                                {unit.name}
+                            </h3>
+                        </div>
+
+                        <div className="p-6">
+                            <div className="flex items-start gap-3 text-hemo-dark/70 mb-4">
+                                <MapPin size={18} className="shrink-0 text-hemo-red mt-0.5" />
+                                <div>
+                                    <p className="text-sm">{unit.address}</p>
+                                    <p className="text-sm font-medium text-hemo-dark">{unit.city}</p>
                                 </div>
-                                <div className="absolute inset-0 bg-gradient-to-t from-hemo-dark/80 to-transparent" />
-                                <h3 className="absolute bottom-4 left-6 font-[family-name:var(--font-display)] text-2xl font-bold text-white">
-                                    {unit.name}
-                                </h3>
                             </div>
 
-                            <div className="p-6">
-                                <div className="flex items-start gap-3 text-hemo-dark/70 mb-4">
-                                    <MapPin size={18} className="shrink-0 text-hemo-red mt-0.5" />
-                                    <div>
-                                        <p className="text-sm">{unit.address}</p>
-                                        <p className="text-sm font-medium text-hemo-dark">{unit.city}</p>
-                                    </div>
-                                </div>
-
-                                <a
-                                    href={unit.mapLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-sm text-hemo-green font-semibold hover:text-hemo-red transition-colors"
-                                >
-                                    Ver no Google Maps <ExternalLink size={14} />
-                                </a>
-                            </div>
+                            <a
+                                href={unit.mapLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 text-sm text-hemo-green font-semibold hover:text-hemo-red transition-colors"
+                            >
+                                Ver no Google Maps <ExternalLink size={14} />
+                            </a>
+                        </div>
                         </div>
                     ))}
                 </div>
 
-                {/* Gallery */}
-                <div className="mb-8">
-                    <h3 className="gallery-title font-[family-name:var(--font-display)] text-3xl font-bold text-hemo-dark text-center mb-12">
+                {/* ─── Divider ─── */}
+                <div className="lg:flex-shrink-0 flex lg:flex-col items-center justify-center lg:px-8 self-center py-6 lg:py-0 w-full lg:w-auto">
+                    <div className="hidden lg:block w-px h-32 bg-gradient-to-b from-transparent via-hemo-dark/10 to-transparent" />
+                    <div className="lg:hidden h-px w-full max-w-xs bg-gradient-to-r from-transparent via-hemo-dark/10 to-transparent" />
+                    <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-hemo-dark my-4 lg:[writing-mode:vertical-rl] lg:rotate-180 px-4 lg:px-0 text-center">
                         Nossa <span className="text-hemo-red">Estrutura</span>
                     </h3>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                        {GALLERY.map((img) => (
-                            <ImageReveal
-                                key={img.src}
+                    <div className="hidden lg:block w-px h-32 bg-gradient-to-b from-transparent via-hemo-dark/10 to-transparent" />
+                    <div className="lg:hidden h-px w-full max-w-xs bg-gradient-to-r from-transparent via-hemo-dark/10 to-transparent" />
+                </div>
+
+                {/* ─── Gallery Photos with mask reveal ─── */}
+                <div className="flex flex-col sm:grid sm:grid-cols-2 lg:flex lg:flex-row gap-6 w-full lg:w-auto">
+                    {GALLERY.map((img) => (
+                        <div
+                            key={img.src}
+                            className="gallery-item w-full sm:w-auto lg:w-[350px] aspect-square relative rounded-3xl overflow-hidden shadow-lg lg:self-center"
+                        >
+                        {/* Red mask that slides away */}
+                        <div
+                            className="gallery-mask absolute inset-0 bg-hemo-red z-10"
+                            style={{ transformOrigin: "right center" }}
+                        />
+                        <div className="gallery-img absolute inset-0">
+                            <Image
                                 src={img.src}
                                 alt={img.alt}
-                                width={500}
-                                height={500}
-                                delay={img.delay}
-                                className="aspect-square"
+                                fill
+                                className="object-cover"
+                                sizes="350px"
                             />
-                        ))}
-                    </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>

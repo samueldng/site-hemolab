@@ -4,15 +4,18 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
+import Link from "next/link";
 import MagneticButton from "../ui/MagneticButton";
+import CartIcon from "../ecommerce/CartIcon";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-    { label: "Home", href: "#home" },
-    { label: "Sobre", href: "#sobre" },
-    { label: "Serviços", href: "#servicos" },
-    { label: "Unidades", href: "#unidades" },
-    { label: "Contato", href: "#contato" },
+    { label: "Home", href: "/#home" },
+    { label: "Sobre", href: "/#sobre" },
+    { label: "Exames", href: "/exames" },
+    { label: "Serviços", href: "/#servicos" },
+    { label: "Unidades", href: "/#unidades" },
+    { label: "Contato", href: "/#contato" },
 ];
 
 export default function Header() {
@@ -37,10 +40,18 @@ export default function Header() {
     }, { scope: headerRef });
 
     const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-        e.preventDefault();
+        // Only handle hash navigation on the same page
+        if (href.startsWith("/#")) {
+            const hash = href.slice(1); // remove leading /
+            if (typeof window !== "undefined" && window.location.pathname === "/") {
+                e.preventDefault();
+                setMobileOpen(false);
+                const el = document.querySelector(hash);
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+            }
+            // If not on home page, let it navigate to /#hash naturally
+        }
         setMobileOpen(false);
-        const el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
     }, []);
 
     return (
@@ -53,7 +64,7 @@ export default function Header() {
         >
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
                 {/* Logo — white filtered for high contrast */}
-                <MagneticButton href="#home" strength={0.2}>
+                <MagneticButton href="/" strength={0.2}>
                     <div className="header-logo">
                         <Image
                             src="/images/logo-hemolab-1024x434 1.png"
@@ -69,7 +80,7 @@ export default function Header() {
                 {/* Desktop Nav */}
                 <nav className="hidden lg:flex items-center gap-1">
                     {NAV_LINKS.map((link) => (
-                        <a
+                        <Link
                             key={link.href}
                             href={link.href}
                             onClick={(e) => handleNavClick(e, link.href)}
@@ -77,12 +88,13 @@ export default function Header() {
                         >
                             {link.label}
                             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-hemo-lime group-hover:w-3/4 transition-all duration-300 rounded-full" />
-                        </a>
+                        </Link>
                     ))}
                 </nav>
 
-                {/* CTA */}
-                <div className="hidden lg:block header-cta">
+                {/* CTA + Cart */}
+                <div className="hidden lg:flex items-center gap-3 header-cta">
+                    <CartIcon />
                     <MagneticButton
                         href="https://www.hemolabma.com.br/resultados-pulse/"
                         className="px-7 py-3.5 bg-hemo-red text-white font-bold text-sm rounded-full animate-pulse-glow hover:bg-hemo-red-dark transition-colors duration-300 shadow-lg shadow-hemo-red/40"
@@ -91,28 +103,31 @@ export default function Header() {
                     </MagneticButton>
                 </div>
 
-                {/* Mobile Toggle */}
-                <button
-                    onClick={() => setMobileOpen(!mobileOpen)}
-                    className="lg:hidden text-white p-2"
-                    aria-label="Toggle menu"
-                >
-                    {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
+                {/* Mobile: Cart + Toggle */}
+                <div className="lg:hidden flex items-center gap-2">
+                    <CartIcon />
+                    <button
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                        className="text-white p-2"
+                        aria-label="Toggle menu"
+                    >
+                        {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                </div>
             </div>
 
             {/* Mobile Menu */}
             {mobileOpen && (
                 <div className="lg:hidden bg-hemo-dark/95 backdrop-blur-xl mt-2 mx-4 rounded-2xl p-6 flex flex-col gap-4 border border-white/10">
                     {NAV_LINKS.map((link) => (
-                        <a
+                        <Link
                             key={link.href}
                             href={link.href}
                             onClick={(e) => handleNavClick(e, link.href)}
                             className="text-white hover:text-hemo-lime text-lg font-semibold transition-colors"
                         >
                             {link.label}
-                        </a>
+                        </Link>
                     ))}
                     <a
                         href="https://www.hemolabma.com.br/resultados-pulse/"
