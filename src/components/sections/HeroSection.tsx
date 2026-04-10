@@ -473,8 +473,8 @@ export default function HeroSection() {
                         key={idx}
                         onClick={() => handleManualNav(idx)}
                         className={`transition-all duration-500 rounded-full ${idx === activeSlide
-                                ? "w-6 lg:w-8 h-2 lg:h-2.5 bg-hemo-red shadow-lg shadow-hemo-red/50"
-                                : "w-2 lg:w-2.5 h-2 lg:h-2.5 bg-white/30 hover:bg-white/50"
+                            ? "w-6 lg:w-8 h-2 lg:h-2.5 bg-hemo-red shadow-lg shadow-hemo-red/50"
+                            : "w-2 lg:w-2.5 h-2 lg:h-2.5 bg-white/30 hover:bg-white/50"
                             }`}
                         aria-label={`Ir para slide ${idx + 1}`}
                     />
@@ -525,7 +525,7 @@ export default function HeroSection() {
             <div className="deco-blob absolute bottom-20 left-10 w-[250px] lg:w-[400px] h-[250px] lg:h-[400px] rounded-full bg-hemo-lime/10 blur-[100px]" />
             <div className="deco-blob absolute top-1/2 left-1/3 w-[200px] lg:w-[300px] h-[200px] lg:h-[300px] rounded-full bg-hemo-green-light/8 blur-[80px]" />
 
-            <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 pt-24 lg:pt-32 pb-8 lg:pb-32 grid lg:grid-cols-2 gap-5 lg:gap-12 items-center">
+            <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pt-32 pb-6 lg:pb-32 grid lg:grid-cols-2 gap-3 sm:gap-5 lg:gap-12 items-center">
                 {/* Text Content */}
                 <div className="hero-text mt-4 lg:mt-0">
                     <div className="hero-badge inline-flex items-center gap-2 px-3 lg:px-5 py-1 lg:py-2 rounded-full bg-white/10 border border-hemo-lime/20 text-[10px] lg:text-sm text-hemo-lime font-semibold mb-4 lg:mb-8 backdrop-blur-sm">

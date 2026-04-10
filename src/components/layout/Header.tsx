@@ -101,9 +101,9 @@ export default function Header() {
     return (
         <header
             ref={headerRef}
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                ? "bg-hemo-dark/95 backdrop-blur-xl shadow-2xl shadow-black/30 py-2 border-b border-hemo-lime/10"
-                : "bg-hemo-dark/70 backdrop-blur-md py-4"
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 pt-[max(0.5rem,env(safe-area-inset-top))] ${scrolled
+                ? "bg-hemo-dark/95 backdrop-blur-xl shadow-2xl shadow-black/30 pb-2 lg:pt-[max(0.5rem,env(safe-area-inset-top))] border-b border-hemo-lime/10"
+                : "bg-hemo-dark/70 backdrop-blur-md pb-4 pt-4"
                 }`}
         >
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
