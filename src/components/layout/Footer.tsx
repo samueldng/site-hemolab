@@ -39,7 +39,7 @@ export default function Footer() {
     );
 
     return (
-        <footer ref={footerRef} className="bg-hemo-dark text-white/80">
+        <footer ref={footerRef} className="dark:bg-hemo-dark bg-[#ebe6db] dark:text-white/80 text-hemo-dark/80 transition-colors duration-300">
             {/* Main Footer */}
             <div className="max-w-7xl mx-auto px-6 py-16">
                 <div className="footer-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -50,9 +50,9 @@ export default function Footer() {
                             alt="Hemolab"
                             width={180}
                             height={76}
-                            className="h-14 w-auto mb-4 brightness-0 invert opacity-90"
+                            className="h-14 w-auto mb-4 dark:brightness-0 dark:invert dark:opacity-90 brightness-75 hue-rotate-[160deg] saturate-200 contrast-125"
                         />
-                        <p className="text-sm leading-relaxed text-white/60">
+                        <p className="text-sm leading-relaxed dark:text-white/60 text-hemo-dark/70">
                             Referência em análises clínicas em Bacabal-MA. Tecnologia de
                             ponta, rigor técnico e atendimento humanizado.
                         </p>
@@ -60,7 +60,7 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div>
-                        <h4 className="font-[family-name:var(--font-display)] text-white font-semibold text-lg mb-4">
+                        <h4 className="font-[family-name:var(--font-display)] dark:text-white text-hemo-dark font-semibold text-lg mb-4">
                             Navegação
                         </h4>
                         <ul className="space-y-2">
@@ -79,7 +79,7 @@ export default function Footer() {
 
                     {/* Contact */}
                     <div>
-                        <h4 className="font-[family-name:var(--font-display)] text-white font-semibold text-lg mb-4">
+                        <h4 className="font-[family-name:var(--font-display)] dark:text-white text-hemo-dark font-semibold text-lg mb-4">
                             Contato
                         </h4>
                         <div className="space-y-3">
@@ -113,7 +113,7 @@ export default function Footer() {
 
                     {/* Social */}
                     <div>
-                        <h4 className="font-[family-name:var(--font-display)] text-white font-semibold text-lg mb-4">
+                        <h4 className="font-[family-name:var(--font-display)] dark:text-white text-hemo-dark font-semibold text-lg mb-4">
                             Redes Sociais
                         </h4>
                         <div className="flex gap-4">
@@ -121,7 +121,7 @@ export default function Footer() {
                                 href="https://www.instagram.com/hemolabma/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-hemo-red transition-colors duration-300"
+                                className="w-10 h-10 rounded-full dark:bg-white/10 dark:hover:bg-hemo-red bg-hemo-dark/10 hover:bg-hemo-red flex items-center justify-center hover:text-white transition-colors duration-300"
                                 aria-label="Instagram"
                             >
                                 <Globe size={18} />
@@ -130,7 +130,7 @@ export default function Footer() {
                                 href="https://www.youtube.com/@laboratoriohemolab"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-hemo-red transition-colors duration-300"
+                                className="w-10 h-10 rounded-full dark:bg-white/10 dark:hover:bg-hemo-red bg-hemo-dark/10 hover:bg-hemo-red flex items-center justify-center hover:text-white transition-colors duration-300"
                                 aria-label="YouTube"
                             >
                                 <Video size={18} />
@@ -151,8 +151,8 @@ export default function Footer() {
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-white/10">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-white/40">
+            <div className="border-t dark:border-white/10 border-hemo-dark/10">
+                <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs dark:text-white/40 text-hemo-dark/60">
                     <p>© {new Date().getFullYear()} Laboratório Hemolab. Todos os direitos reservados.</p>
                     <p>Resp. Técnico: Dr. Alexson Carvalho — CRF/MA</p>
                 </div>

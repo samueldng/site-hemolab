@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MagneticButton from "../ui/MagneticButton";
 import CartIcon from "../ecommerce/CartIcon";
+import { ThemeToggle } from "../ui/ThemeToggle";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
@@ -102,12 +103,12 @@ export default function Header() {
         <header
             ref={headerRef}
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 pt-[max(0.5rem,env(safe-area-inset-top))] ${scrolled
-                ? "bg-hemo-dark/95 backdrop-blur-xl shadow-2xl shadow-black/30 pb-2 lg:pt-[max(0.5rem,env(safe-area-inset-top))] border-b border-hemo-lime/10"
-                : "bg-hemo-dark/70 backdrop-blur-md pb-4 pt-4"
+                ? "dark:bg-hemo-dark/95 backdrop-blur-xl shadow-2xl dark:shadow-black/30 shadow-black/5 pb-2 lg:pt-[max(0.5rem,env(safe-area-inset-top))] border-b dark:border-hemo-lime/10 border-black/5 bg-white/95"
+                : "dark:bg-hemo-dark/70 bg-white/70 backdrop-blur-md pb-4 pt-4"
                 }`}
         >
             <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-                {/* Logo — white filtered for high contrast */}
+                {/* Logo — colored filter on light, white on dark */}
                 <MagneticButton href="/" strength={0.2}>
                     <div className="header-logo">
                         <Image
@@ -115,7 +116,7 @@ export default function Header() {
                             alt="Hemolab - Laboratório de Análises Clínicas"
                             width={180}
                             height={76}
-                            className="h-11 md:h-14 w-auto brightness-0 invert drop-shadow-[0_0_12px_rgba(164,205,57,0.3)]"
+                            className="h-11 md:h-14 w-auto dark:brightness-0 dark:invert dark:drop-shadow-[0_0_12px_rgba(164,205,57,0.3)] brightness-90 hue-rotate-[160deg] saturate-200 contrast-125"
                             priority
                         />
                     </div>
@@ -128,7 +129,7 @@ export default function Header() {
                             key={link.href}
                             href={link.href}
                             onClick={(e) => handleNavClick(e, link.href)}
-                            className="nav-link relative px-4 py-2 text-sm font-semibold text-white hover:text-hemo-lime transition-colors duration-300 group"
+                            className="nav-link relative px-4 py-2 text-sm font-semibold dark:text-white text-hemo-dark hover:text-hemo-lime transition-colors duration-300 group"
                         >
                             {link.label}
                             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-hemo-lime group-hover:w-3/4 transition-all duration-300 rounded-full" />
@@ -138,6 +139,7 @@ export default function Header() {
 
                 {/* CTA + Cart */}
                 <div className="hidden lg:flex items-center gap-3 header-cta">
+                    <ThemeToggle />
                     <CartIcon />
                     <MagneticButton
                         href="https://www.hemolabma.com.br/resultados-pulse/"
@@ -149,13 +151,14 @@ export default function Header() {
 
                 {/* Mobile: Cart + Toggle */}
                 <div className="lg:hidden flex items-center gap-2">
+                    <ThemeToggle />
                     <CartIcon />
                     <button
                         onClick={toggleMenu}
-                        className="text-white p-2 relative z-50 w-10 h-10 flex items-center justify-center"
+                        className="p-2 relative z-50 w-10 h-10 flex items-center justify-center dark:text-white text-hemo-dark"
                         aria-label="Toggle menu"
                     >
-                        {mobileOpen ? <X size={28} className="animate-in fade-in zoom-in duration-300" /> : <Menu size={28} className="animate-in fade-in zoom-in duration-300" />}
+                        {mobileOpen ? <X size={28} className="animate-in fade-in zoom-in duration-300 dark:text-white text-hemo-dark" /> : <Menu size={28} className="animate-in fade-in zoom-in duration-300 dark:text-white text-hemo-dark" />}
                     </button>
                 </div>
             </div>
@@ -163,12 +166,12 @@ export default function Header() {
             {/* Full-Screen Mobile Menu Overlay */}
             {renderMobile && (
                 <div
-                    className="mobile-menu-overlay fixed inset-0 bg-hemo-dark z-40 lg:hidden flex flex-col justify-center items-center overflow-hidden h-[100dvh]"
+                    className="mobile-menu-overlay fixed inset-0 dark:bg-hemo-dark bg-color-cream z-40 lg:hidden flex flex-col justify-center items-center overflow-hidden h-[100dvh]"
                     style={{ clipPath: "circle(0% at 90% 10%)" }}
                 >
                     {/* Decorative Background Elements */}
-                    <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-hemo-green/10 blur-[100px] pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-hemo-red/10 blur-[100px] pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full dark:bg-hemo-green/10 bg-hemo-green/5 blur-[100px] pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full dark:bg-hemo-red/10 bg-hemo-red/5 blur-[100px] pointer-events-none" />
 
                     <nav className="flex flex-col items-center gap-8 z-10 w-full px-6">
                         {NAV_LINKS.map((link) => (
@@ -176,7 +179,7 @@ export default function Header() {
                                 key={link.href}
                                 href={link.href}
                                 onClick={(e) => handleNavClick(e, link.href)}
-                                className="mobile-link text-white hover:text-hemo-lime text-4xl font-[family-name:var(--font-display)] font-bold transition-colors"
+                                className="mobile-link dark:text-white text-hemo-dark hover:text-hemo-lime text-4xl font-[family-name:var(--font-display)] font-bold transition-colors"
                             >
                                 {link.label}
                             </Link>

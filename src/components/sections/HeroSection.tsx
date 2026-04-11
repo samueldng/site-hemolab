@@ -500,7 +500,7 @@ export default function HeroSection() {
         <section
             ref={sectionRef}
             id="home"
-            className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-hemo-dark"
+            className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden dark:bg-hemo-dark bg-color-cream"
         >
             {/* Background */}
             <div ref={bgRef} className="absolute inset-0 -top-[15%] -bottom-[15%]">
@@ -508,34 +508,36 @@ export default function HeroSection() {
                     src="/images/Fachada_gota.png"
                     alt="Hemolab Fachada"
                     fill
-                    className="object-cover opacity-40"
+                    className="object-cover dark:opacity-40 opacity-[0.06] dark:filter-none dark:mix-blend-normal mix-blend-multiply"
                     priority
                     sizes="100vw"
                 />
-                <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.03)_2px,rgba(0,0,0,0.03)_4px)]" />
+                {/* Scanline overlay — subtle in light, darker in dark */}
+                <div className="absolute inset-0 dark:bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.03)_2px,rgba(0,0,0,0.03)_4px)] bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.008)_2px,rgba(0,0,0,0.008)_4px)]" />
             </div>
 
-            {/* Gradients */}
-            <div className="absolute inset-0 bg-gradient-to-r from-hemo-dark via-hemo-dark/85 to-hemo-dark/40" />
-            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-hemo-dark to-transparent" />
-            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-hemo-dark/60 to-transparent" />
+            {/* Gradients — dark mode uses deep green overlays, light mode uses opaque cream shields */}
+            <div className="absolute inset-0 bg-gradient-to-r dark:from-hemo-dark dark:via-hemo-dark/85 dark:to-hemo-dark/40 from-[#F8F6F0] via-[#F8F6F0]/97 to-[#F8F6F0]/80" />
+            <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t dark:from-hemo-dark from-[#F8F6F0] to-transparent" />
+            <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b dark:from-hemo-dark/60 from-[#F8F6F0]/80 to-transparent" />
 
-            {/* Blobs */}
-            <div className="deco-blob absolute top-20 right-20 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] rounded-full bg-hemo-red/8 blur-[100px]" />
-            <div className="deco-blob absolute bottom-20 left-10 w-[250px] lg:w-[400px] h-[250px] lg:h-[400px] rounded-full bg-hemo-lime/10 blur-[100px]" />
-            <div className="deco-blob absolute top-1/2 left-1/3 w-[200px] lg:w-[300px] h-[200px] lg:h-[300px] rounded-full bg-hemo-green-light/8 blur-[80px]" />
+            {/* Blobs — subtle warm tones in light, vivid in dark */}
+            <div className="deco-blob absolute top-20 right-20 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] rounded-full dark:bg-hemo-red/8 bg-hemo-red/4 blur-[60px]" />
+            <div className="deco-blob absolute bottom-20 left-10 w-[250px] lg:w-[400px] h-[250px] lg:h-[400px] rounded-full dark:bg-hemo-lime/10 bg-hemo-green/4 blur-[60px]" />
+            <div className="deco-blob absolute top-1/2 left-1/3 w-[200px] lg:w-[300px] h-[200px] lg:h-[300px] rounded-full dark:bg-hemo-green-light/8 bg-hemo-green/3 blur-[50px]" />
 
             <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pt-32 pb-6 lg:pb-32 grid lg:grid-cols-2 gap-3 sm:gap-5 lg:gap-12 items-center">
                 {/* Text Content */}
                 <div className="hero-text mt-4 lg:mt-0">
-                    <div className="hero-badge inline-flex items-center gap-2 px-3 lg:px-5 py-1 lg:py-2 rounded-full bg-white/10 border border-hemo-lime/20 text-[10px] lg:text-sm text-hemo-lime font-semibold mb-4 lg:mb-8 backdrop-blur-sm">
-                        <span className="w-1.5 lg:w-2 h-1.5 lg:h-2 rounded-full bg-hemo-lime animate-pulse" />
+                    {/* Badge — lime text fails WCAG on cream; use dark green in light mode */}
+                    <div className="hero-badge inline-flex items-center gap-2 px-3 lg:px-5 py-1 lg:py-2 rounded-full dark:bg-white/10 bg-white/80 border dark:border-hemo-lime/20 border-hemo-dark/12 text-[10px] lg:text-sm dark:text-hemo-lime text-hemo-dark font-semibold mb-4 lg:mb-8 backdrop-blur-sm shadow-sm">
+                        <span className="w-1.5 lg:w-2 h-1.5 lg:h-2 rounded-full dark:bg-hemo-lime bg-hemo-red animate-pulse" />
                         Desde 2016 — Bacabal, MA
                     </div>
 
                     <h1
                         ref={headingRef}
-                        className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.05] lg:leading-[1.08] mb-3 lg:mb-8"
+                        className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold dark:text-white text-hemo-dark leading-[1.05] lg:leading-[1.08] mb-3 lg:mb-8"
                         style={{ perspective: "800px" }}
                     >
                         {headingWords.map((word, i) => (
@@ -545,7 +547,8 @@ export default function HeroSection() {
                                 style={{ transformStyle: "preserve-3d" }}
                             >
                                 {i === 3 || i === 5 ? (
-                                    <span className="text-gradient-brand">{word}</span>
+                                    // In dark mode: lime-green gradient. In light mode: brand red for clinical authority
+                                    <span className="dark:text-gradient-brand text-hemo-red">{word}</span>
                                 ) : (
                                     word
                                 )}
@@ -555,7 +558,7 @@ export default function HeroSection() {
 
                     <p
                         ref={subtitleRef}
-                        className="text-sm lg:text-lg xl:text-xl text-white/70 max-w-lg leading-snug lg:leading-relaxed mb-4 lg:mb-10"
+                        className="text-sm lg:text-lg xl:text-xl dark:text-white/70 text-hemo-dark/70 max-w-lg leading-snug lg:leading-relaxed mb-4 lg:mb-10"
                     >
                         Exames laboratoriais confiáveis com tecnologia de ponta,
                         resultados ágeis e atendimento humanizado.
@@ -573,11 +576,12 @@ export default function HeroSection() {
                             />
                         </MagneticButton>
 
+                        {/* Coleta Domiciliar — ghost button: clearly outlined in light, frosted in dark */}
                         <MagneticButton
                             href="https://wa.me/+5599981866145"
-                            className="px-6 lg:px-8 py-3 lg:py-4 bg-white/10 text-white font-bold rounded-full flex items-center justify-center gap-2 border border-white/20 hover:bg-white/20 transition-all duration-300 backdrop-blur-sm text-base lg:text-lg"
+                            className="px-6 lg:px-8 py-3 lg:py-4 dark:bg-white/10 bg-white dark:text-white text-hemo-dark font-bold rounded-full flex items-center justify-center gap-2 border-2 dark:border-white/20 border-hemo-dark/25 dark:hover:bg-white/20 hover:bg-hemo-dark/5 transition-all duration-300 text-base lg:text-lg shadow-sm hover:shadow-md"
                         >
-                            <Phone size={20} className="text-hemo-lime" />
+                            <Phone size={20} className="dark:text-hemo-lime text-hemo-green-light" />
                             Coleta Domiciliar
                         </MagneticButton>
                     </div>
@@ -589,10 +593,10 @@ export default function HeroSection() {
                 <div className="hero-image relative mt-4 lg:mt-0">
                     {renderCarousel(false)}
 
-                    {/* Floating badge — hidden on very small screens */}
-                    <div className="hero-floater absolute -bottom-4 lg:-bottom-6 -right-2 lg:-right-6 bg-hemo-dark/90 backdrop-blur-xl rounded-2xl p-3 lg:p-4 animate-float border border-hemo-lime/15 shadow-xl z-10 hidden sm:block">
+                    {/* Floating badge — improved contrast in light mode */}
+                    <div className="hero-floater absolute -bottom-4 lg:-bottom-6 -right-2 lg:-right-6 dark:bg-hemo-dark/90 bg-white backdrop-blur-xl rounded-2xl p-3 lg:p-4 animate-float border dark:border-hemo-lime/15 border-hemo-dark/8 shadow-xl z-10 hidden sm:block">
                         <div className="flex items-center gap-2 lg:gap-3">
-                            <div className="w-9 lg:w-11 h-9 lg:h-11 rounded-full bg-white flex items-center justify-center shadow-inner">
+                            <div className="w-9 lg:w-11 h-9 lg:h-11 rounded-full bg-hemo-red/8 dark:bg-white flex items-center justify-center shadow-inner">
                                 <Image
                                     src="/images/logogota.png"
                                     alt="Hemolab gota"
@@ -602,8 +606,8 @@ export default function HeroSection() {
                                 />
                             </div>
                             <div>
-                                <p className="text-white font-bold text-xs lg:text-sm">Resultado Online</p>
-                                <p className="text-hemo-lime text-[10px] lg:text-xs font-medium">Acesse 24h</p>
+                                <p className="dark:text-white text-hemo-dark font-bold text-xs lg:text-sm">Resultado Online</p>
+                                <p className="dark:text-hemo-lime text-hemo-green-light text-[10px] lg:text-xs font-semibold">Acesse 24h</p>
                             </div>
                         </div>
                     </div>
@@ -614,9 +618,9 @@ export default function HeroSection() {
             </div>
 
             {/* Scroll indicator */}
-            <div className="scroll-indicator absolute bottom-4 lg:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50">
+            <div className="scroll-indicator absolute bottom-4 lg:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 dark:text-white/50 text-hemo-dark/50">
                 <span className="text-[10px] lg:text-xs tracking-widest uppercase font-semibold">Scroll</span>
-                <div className="w-5 lg:w-6 h-8 lg:h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1 lg:p-1.5">
+                <div className="w-5 lg:w-6 h-8 lg:h-10 rounded-full border-2 dark:border-white/30 border-hemo-dark/20 flex items-start justify-center p-1 lg:p-1.5">
                     <div className="w-1 lg:w-1.5 h-2 lg:h-3 rounded-full bg-hemo-lime animate-bounce" />
                 </div>
             </div>

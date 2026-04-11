@@ -7,6 +7,7 @@ import ServicesSection from "@/components/sections/ServicesSection";
 import UnitsSection from "@/components/sections/UnitsSection";
 import ConveniosSection from "@/components/sections/ConveniosSection";
 import ContactSection from "@/components/sections/ContactSection";
+import FloatingActionButton from "@/components/ui/FloatingActionButton";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <ContactSection />
       </main>
       <Footer />
+      <FloatingActionButton />
     </>
   );
 }

@@ -202,7 +202,7 @@ export default function ServicesSection() {
         <section
             ref={sectionRef}
             id="servicos"
-            className="relative bg-hemo-dark overflow-hidden"
+            className="relative dark:bg-hemo-dark bg-[#F0EDE6] overflow-hidden"
         >
             {/* ═══ Horizontal Track ═══ */}
             <div
@@ -212,22 +212,22 @@ export default function ServicesSection() {
                 {/* ─── Title Panel ─── */}
                 <div className="lg:flex-shrink-0 lg:w-[40vw] flex flex-col justify-center lg:pr-12 w-full">
                     {/* Decorative circles */}
-                    <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-hemo-green/5 blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-hemo-red/5 blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full dark:bg-hemo-green/5 bg-hemo-green/8 blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full dark:bg-hemo-red/5 bg-hemo-red/8 blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
                     <span className="svc-title inline-block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-4">
                         O que oferecemos
                     </span>
-                    <h2 className="svc-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                    <h2 className="svc-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold dark:text-white text-hemo-dark mb-6 leading-tight">
                         Nossos{" "}
                         <span className="text-gradient-brand">Serviços</span>
                     </h2>
-                    <p className="svc-title text-lg text-white/50 max-w-md mb-8">
+                    <p className="svc-title text-lg dark:text-white/50 text-hemo-dark/60 max-w-md mb-8">
                         Tecnologia avançada e profissionais especializados para cuidar
                         da sua saúde com excelência.
                     </p>
-                    <div className="svc-title flex items-center gap-3 text-white/25">
-                        <div className="w-12 h-px bg-white/15" />
+                    <div className="svc-title flex items-center gap-3 dark:text-white/25 text-hemo-dark/30">
+                        <div className="w-12 h-px dark:bg-white/15 bg-hemo-dark/20" />
                         <span className="text-xs font-semibold uppercase tracking-widest">Deslize</span>
                         <ArrowRight size={16} className="animate-pulse" />
                     </div>
@@ -238,7 +238,7 @@ export default function ServicesSection() {
                     {SERVICES.map((service) => (
                         <div
                             key={service.title}
-                            className="svc-card sm:w-[calc(50%-12px)] lg:w-[350px] lg:flex-shrink-0 group relative bg-surface-light/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 hover:border-white/15 transition-all duration-500 hover:-translate-y-2 lg:self-center"
+                            className="svc-card sm:w-[calc(50%-12px)] lg:w-[350px] lg:flex-shrink-0 group relative dark:bg-surface-light/50 bg-white/90 backdrop-blur-sm rounded-3xl p-8 dark:border-white/5 border-black/6 border hover:border-black/12 dark:hover:border-white/15 transition-all duration-500 hover:-translate-y-2 lg:self-center shadow-sm hover:shadow-xl dark:shadow-none"
                             style={{ perspective: "800px" }}
                         >
                         {/* Gradient line top */}
@@ -250,11 +250,11 @@ export default function ServicesSection() {
                             <service.icon size={32} className={service.iconColor} />
                         </div>
 
-                        <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-white mb-3">
+                        <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold dark:text-white text-hemo-dark mb-3">
                             {service.title}
                         </h3>
 
-                        <p className="text-white/50 text-sm leading-relaxed mb-6">
+                        <p className="dark:text-white/50 text-hemo-dark/60 text-sm leading-relaxed mb-6">
                             {service.description}
                         </p>
 
@@ -277,7 +277,7 @@ export default function ServicesSection() {
 
                     <MagneticButton
                         href="https://wa.me/+5599981866145"
-                        className="px-10 py-5 bg-white/5 text-white font-semibold rounded-full flex items-center justify-center gap-3 border border-white/10 hover:bg-white/10 transition-colors text-base md:text-lg w-full sm:w-auto"
+                        className="px-10 py-5 dark:bg-white/5 bg-hemo-dark/8 dark:text-white text-hemo-dark font-semibold rounded-full flex items-center justify-center gap-3 dark:border-white/10 border-hemo-dark/10 border dark:hover:bg-white/10 hover:bg-hemo-dark/15 transition-colors text-base md:text-lg w-full sm:w-auto"
                     >
                         Agendar Coleta
                     </MagneticButton>

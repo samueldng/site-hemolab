@@ -129,9 +129,9 @@ export default function ContactSection() {
     );
 
     return (
-        <section ref={sectionRef} id="contato" className="relative bg-hemo-dark overflow-hidden">
+        <section ref={sectionRef} id="contato" className="relative dark:bg-hemo-dark bg-[#F0EDE6] overflow-hidden">
             {/* Decorative */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-hemo-green/3 blur-3xl pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full dark:bg-hemo-green/3 bg-hemo-green/5 blur-3xl pointer-events-none" />
 
             {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
             <div
@@ -144,16 +144,16 @@ export default function ContactSection() {
                     <span className="ct-title inline-block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-4">
                         Fale Conosco
                     </span>
-                    <h2 className="ct-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                    <h2 className="ct-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold dark:text-white text-hemo-dark mb-6 leading-tight">
                         Entre em{" "}
                         <span className="text-gradient-brand">Contato</span>
                     </h2>
-                    <p className="ct-title text-lg text-white/50 max-w-md mb-8">
+                    <p className="ct-title text-lg dark:text-white/50 text-hemo-dark/60 max-w-md mb-8">
                         Tire suas dúvidas, agende exames ou solicite coleta domiciliar.
                         Estamos prontos para atendê-lo.
                     </p>
-                    <div className="ct-title flex items-center gap-3 text-white/25">
-                        <div className="w-12 h-px bg-white/15" />
+                    <div className="ct-title flex items-center gap-3 dark:text-white/25 text-hemo-dark/30">
+                        <div className="w-12 h-px dark:bg-white/15 bg-hemo-dark/20" />
                         <span className="text-xs font-semibold uppercase tracking-widest">Deslize</span>
                         <ArrowRight size={16} className="animate-pulse" />
                     </div>
@@ -174,15 +174,15 @@ export default function ContactSection() {
                         <Tag
                             key={info.label}
                             {...linkProps}
-                            className="ct-card flex-shrink-0 w-[280px] group bg-surface-light/50 backdrop-blur-sm rounded-3xl p-8 border border-white/5 hover:border-white/15 transition-all duration-500 text-center hover:-translate-y-2 self-center"
+                            className="ct-card flex-shrink-0 w-[280px] group dark:bg-surface-light/50 bg-white/90 backdrop-blur-sm rounded-3xl p-8 dark:border-white/5 border-black/6 border dark:hover:border-white/15 hover:border-black/12 transition-all duration-500 text-center hover:-translate-y-2 self-center shadow-sm hover:shadow-xl dark:shadow-none"
                         >
                             <div className={`w-16 h-16 rounded-2xl ${info.color} flex items-center justify-center mx-auto mb-5`}>
                                 <info.icon size={28} />
                             </div>
-                            <h4 className="text-white/40 text-xs uppercase tracking-wider mb-3">
+                            <h4 className="dark:text-white/40 text-hemo-dark/50 text-xs uppercase tracking-wider mb-3">
                                 {info.label}
                             </h4>
-                            <p className="text-white text-sm font-medium leading-relaxed">
+                            <p className="dark:text-white text-hemo-dark text-sm font-medium leading-relaxed">
                                 {info.value}
                             </p>
                         </Tag>

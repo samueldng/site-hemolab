@@ -24,8 +24,8 @@ const VALUES = [
         title: "Visão",
         description:
             "Ser referência em análises clínicas no Maranhão, com tecnologia, inovação e capacitação profissional contínua.",
-        color: "text-hemo-lime",
-        bgColor: "bg-hemo-lime/10",
+        color: "text-hemo-green",
+        bgColor: "bg-hemo-green/10",
     },
     {
         icon: TrendingUp,
@@ -195,8 +195,8 @@ export default function AboutSection() {
 
     return (
         <section ref={sectionRef} id="sobre" className="relative bg-cream min-h-screen overflow-hidden">
-            {/* Smooth dark-to-cream transition */}
-            <div className="absolute -top-px left-0 right-0 h-32 bg-gradient-to-b from-hemo-dark to-cream z-20 pointer-events-none" />
+            {/* Smooth dark-to-cream transition: in dark mode this fades hero to cream array, in light mode it is transparent since the hero is also cream */}
+            <div className="absolute -top-px left-0 right-0 h-32 bg-gradient-to-b dark:from-hemo-dark from-[#F8F6F0] to-cream z-20 pointer-events-none" />
 
             {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
             <div
