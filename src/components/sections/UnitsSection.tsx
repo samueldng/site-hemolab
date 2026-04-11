@@ -19,6 +19,7 @@ export default function UnitsSection() {
     const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsClient(true);
     }, []);
 
@@ -58,11 +59,11 @@ export default function UnitsSection() {
                 duration: 0.6,
                 ease: "back.out(2)"
             });
-            
+
             const ping = pin.querySelector('.pin-ping');
             if (ping) {
                 if (isTarget) {
-                    gsap.fromTo(ping, 
+                    gsap.fromTo(ping,
                         { scale: 1, opacity: 0.8 },
                         { scale: 3, opacity: 0, duration: 1.5, repeat: -1, ease: "sine.out" }
                     );
@@ -106,21 +107,21 @@ export default function UnitsSection() {
             <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-white/20 rounded-bl-[100px] blur-3xl mix-blend-overlay pointer-events-none" />
 
             <div className="max-w-[1600px] mx-auto w-full px-4 sm:px-6 relative z-10 flex flex-col lg:flex-row items-center gap-10 xl:gap-20">
-                
+
                 {/* ════════════════════════════════════════════════ */}
                 {/* LEFT: INTERACTIVE CIRCULAR MAP                  */}
                 {/* ════════════════════════════════════════════════ */}
                 <div className="w-full lg:w-[45%] flex justify-center lg:justify-start relative">
-                    
+
                     <div className="w-[340px] h-[340px] sm:w-[450px] sm:h-[450px] lg:w-[550px] lg:h-[550px] xl:w-[650px] xl:h-[650px] rounded-full border-[10px] lg:border-[16px] border-[#004731] shadow-2xl relative overflow-hidden bg-[#d0c9bb] lg:-ml-12 shrink-0">
                         {/* Container that moves (Pan) */}
-                        <div 
+                        <div
                             ref={mapInnerRef}
                             className="absolute inset-0 w-[200%] h-[200%] left-[-50%] top-[-50%] will-change-transform"
                         >
                             {/* SVG MAP PLACEHOLDER / GRID */}
                             <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at center, #004731 2px, transparent 2px)', backgroundSize: '30px 30px' }} />
-                            
+
                             {/* PINS RENDERING */}
                             {clinics.map((clinic, i) => (
                                 <button
@@ -128,9 +129,9 @@ export default function UnitsSection() {
                                     ref={el => { pinsRef.current[i] = el; }}
                                     onClick={() => handleManualSelect(clinic)}
                                     className="absolute flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
-                                    style={{ 
-                                        left: `${clinic.coords.x}%`, 
-                                        top: `${clinic.coords.y}%` 
+                                    style={{
+                                        left: `${clinic.coords.x}%`,
+                                        top: `${clinic.coords.y}%`
                                     }}
                                     title={clinic.name}
                                 >
@@ -147,15 +148,15 @@ export default function UnitsSection() {
                         </div>
 
                         {/* PREVIEW FLOATING CARD */}
-                        <div 
-                            ref={cardRef} 
+                        <div
+                            ref={cardRef}
                             className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[320px] bg-white rounded-3xl p-3 flex gap-4 items-center shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] z-50 pointer-events-auto"
                         >
                             <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-inner">
-                                <Image 
-                                    src={activeClinic.photo} 
-                                    alt={activeClinic.name} 
-                                    fill 
+                                <Image
+                                    src={activeClinic.photo}
+                                    alt={activeClinic.name}
+                                    fill
                                     sizes="80px"
                                     className="object-cover"
                                 />
@@ -168,7 +169,7 @@ export default function UnitsSection() {
                                 <p className="text-[11px] text-gray-500 font-medium flex items-center gap-1 mb-2">
                                     <MapPin size={10} /> {activeClinic.city}
                                 </p>
-                                <a 
+                                <a
                                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeClinic.name + ' ' + activeClinic.city)}`}
                                     target="_blank"
                                     rel="noreferrer"
@@ -185,7 +186,7 @@ export default function UnitsSection() {
                 {/* RIGHT: CONTENT & GRID CONTROL                   */}
                 {/* ════════════════════════════════════════════════ */}
                 <div className="w-full lg:w-[55%] flex flex-col justify-center">
-                    
+
                     {/* Header */}
                     <div className="flex items-center gap-4 mb-8">
                         <Map size={40} className="text-[#004731] shrink-0" />
@@ -205,7 +206,7 @@ export default function UnitsSection() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-6 max-h-[500px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-hemo-red/20 scrollbar-track-transparent pb-10">
                         {clinics.map((clinic) => {
                             const isActive = clinic.id === activeClinic.id;
-                            
+
                             return (
                                 <button
                                     key={clinic.id}
@@ -237,7 +238,7 @@ export default function UnitsSection() {
                             );
                         })}
                     </div>
-                    
+
                 </div>
 
             </div>

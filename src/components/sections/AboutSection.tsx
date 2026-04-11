@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
+import Link from "next/link";
 import AnimatedCounter from "../ui/AnimatedCounter";
 import { Target, Eye, TrendingUp } from "lucide-react";
 
@@ -253,15 +254,15 @@ export default function AboutSection() {
                 {/* ─── Panel 2: Stats ─── */}
                 <div className="about-panel lg:flex-shrink-0 w-full lg:w-screen min-h-screen flex items-center relative overflow-hidden py-16 lg:py-0">
                     {/* BG */}
-                    <div className="absolute inset-0 bg-hemo-dark" />
-                    <div className="absolute inset-0 bg-[url('/images/Fachada_gota.png')] bg-cover bg-center opacity-10" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-hemo-dark via-hemo-dark/90 to-hemo-dark/70" />
+                    <div className="absolute inset-0 dark:bg-hemo-dark bg-[#ebebeb]" />
+                    <div className="absolute inset-0 bg-[url('/images/Fachada_gota.png')] bg-cover bg-center dark:opacity-10 opacity-5" />
+                    <div className="absolute inset-0 bg-gradient-to-r dark:from-hemo-dark dark:via-hemo-dark/90 dark:to-hemo-dark/70 from-[#ebebeb] via-[#ebebeb]/90 to-[#ebebeb]/70" />
 
                     <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-16 w-full">
                         <span className="panel-title block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-4">
                             Nossos Números
                         </span>
-                        <h2 className="panel-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-white mb-16 leading-tight">
+                        <h2 className="panel-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold dark:text-white text-hemo-dark mb-16 leading-tight">
                             Resultados que <br />
                             <span className="text-gradient-brand">falam por si</span>
                         </h2>
@@ -274,7 +275,7 @@ export default function AboutSection() {
                                         suffix={stat.suffix}
                                         className="font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-gradient-brand"
                                     />
-                                    <p className="text-white/40 text-sm mt-3">{stat.label}</p>
+                                    <p className="dark:text-white/40 text-hemo-dark/60 text-sm mt-3">{stat.label}</p>
                                 </div>
                             ))}
                         </div>
@@ -326,17 +327,17 @@ export default function AboutSection() {
 
                 {/* ─── Panel 4: CTA ─── */}
                 <div className="about-panel lg:flex-shrink-0 w-full lg:w-screen min-h-screen flex items-center justify-center relative overflow-hidden py-16 lg:py-0">
-                    <div className="absolute inset-0 bg-hemo-dark" />
+                    <div className="absolute inset-0 dark:bg-hemo-dark bg-[#ebebeb]" />
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(164,205,57,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(164,205,57,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
                     <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-hemo-red/5 blur-[120px]" />
                     <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-hemo-lime/5 blur-[100px]" />
 
                     <div className="relative z-10 text-center px-8 max-w-2xl">
-                        <h2 className="panel-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
+                        <h2 className="panel-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold dark:text-white text-hemo-dark mb-8 leading-tight">
                             Cuide da sua <br />
                             <span className="text-gradient-brand">saúde conosco</span>
                         </h2>
-                        <p className="panel-subtitle text-xl text-white/50 mb-10">
+                        <p className="panel-subtitle text-xl dark:text-white/50 text-hemo-dark/60 mb-10">
                             Mais de 500 exames disponíveis com tecnologia de ponta e
                             atendimento humanizado.
                         </p>
@@ -348,12 +349,12 @@ export default function AboutSection() {
                                 Agendar Exame
                                 <span className="group-hover:translate-x-1 transition-transform">→</span>
                             </a>
-                            <a
+                            <Link
                                 href="/exames"
-                                className="px-10 py-4 bg-white/10 text-white font-bold rounded-full flex items-center gap-2 border border-white/15 hover:bg-white/20 transition-all text-lg"
+                                className="px-10 py-4 dark:bg-white/10 bg-hemo-dark/5 dark:text-white text-hemo-dark font-bold rounded-full flex items-center gap-2 border dark:border-white/15 border-hemo-dark/15 dark:hover:bg-white/20 hover:bg-hemo-dark/10 transition-all text-lg"
                             >
                                 Ver Exames
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

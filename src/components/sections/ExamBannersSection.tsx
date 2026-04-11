@@ -171,7 +171,7 @@ export default function ExamBannersSection() {
         panels.forEach((panel) => {
           const elements = panel.querySelectorAll(".hs-title, .panel-detail");
           const mask = panel.querySelector(".panel-mask");
-          
+
           if (mask) {
             gsap.to(mask, {
               scaleX: 0,
@@ -230,7 +230,7 @@ export default function ExamBannersSection() {
     <section
       ref={sectionRef}
       id="exames-destaque"
-      className="relative bg-hemo-dark overflow-hidden"
+      className="relative dark:bg-hemo-dark bg-[#ebebeb] overflow-hidden"
     >
       {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
       <div
@@ -249,11 +249,11 @@ export default function ExamBannersSection() {
               <Sparkles size={16} />
               Compre Online — Rápido e Fácil
             </span>
-            <h2 className="hs-title font-[family-name:var(--font-display)] text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+            <h2 className="hs-title font-[family-name:var(--font-display)] text-5xl md:text-6xl lg:text-7xl font-bold dark:text-white text-hemo-dark mb-8 leading-tight">
               Exames em{" "}
               <span className="text-gradient-brand">Destaque</span>
             </h2>
-            <p className="hs-title text-xl text-white/50 max-w-xl mx-auto mb-12">
+            <p className="hs-title text-xl dark:text-white/50 text-hemo-dark/60 max-w-xl mx-auto mb-12">
               Deslize para descobrir nossos exames. Selecione, compre e finalize em minutos.
             </p>
             <div className="hs-title flex items-center justify-center gap-3 text-hemo-lime/60">
@@ -279,7 +279,7 @@ export default function ExamBannersSection() {
               <div className="absolute inset-0">
                 {/* Dark mask that slides away via GSAP */}
                 <div
-                  className="panel-mask absolute inset-0 bg-hemo-dark z-10"
+                  className="panel-mask absolute inset-0 dark:bg-hemo-dark bg-[#ebebeb] z-10"
                   style={{ transformOrigin: "right center" }}
                 />
                 {/* Actual image */}
@@ -293,8 +293,8 @@ export default function ExamBannersSection() {
                   />
                 </div>
                 {/* Reading overlays */}
-                <div className="absolute inset-0 bg-gradient-to-r from-hemo-dark via-hemo-dark/75 to-transparent z-20" />
-                <div className="absolute inset-0 bg-gradient-to-t from-hemo-dark/50 to-transparent z-20" />
+                <div className="absolute inset-0 bg-gradient-to-r dark:from-hemo-dark dark:via-hemo-dark/75 dark:to-transparent from-[#ebebeb] via-[#ebebeb]/90 to-transparent z-20" />
+                <div className="absolute inset-0 bg-gradient-to-t dark:from-hemo-dark/50 dark:to-transparent from-[#ebebeb]/80 to-transparent z-20" />
               </div>
 
               {/* ── Content (left side) ── */}
@@ -315,12 +315,12 @@ export default function ExamBannersSection() {
                 </span>
 
                 {/* Name */}
-                <h3 className="panel-detail font-[family-name:var(--font-display)] text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                <h3 className="panel-detail font-[family-name:var(--font-display)] text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white text-hemo-dark mb-6 leading-tight">
                   {exam.name}
                 </h3>
 
                 {/* Description */}
-                <p className="panel-detail text-white/60 text-base md:text-lg leading-relaxed mb-8 max-w-lg">
+                <p className="panel-detail dark:text-white/60 text-hemo-dark/70 text-base md:text-lg leading-relaxed mb-8 max-w-lg">
                   {exam.description}
                 </p>
 
@@ -328,20 +328,20 @@ export default function ExamBannersSection() {
                 <div className="panel-detail flex items-center gap-6 mb-8">
                   <div>
                     {exam.oldPrice && (
-                      <span className="block text-white/30 text-sm line-through mb-1">
+                      <span className="block dark:text-white/30 text-hemo-dark/40 text-sm line-through mb-1">
                         {formatPrice(exam.oldPrice)}
                       </span>
                     )}
-                    <span className="text-4xl md:text-5xl font-bold text-white">
+                    <span className="text-4xl md:text-5xl font-bold dark:text-white text-hemo-dark">
                       {formatPrice(exam.price)}
                     </span>
                   </div>
-                  <div className="h-12 w-px bg-white/10" />
-                  <div className="flex items-center gap-2 text-white/50 text-sm">
+                  <div className="h-12 w-px dark:bg-white/10 bg-hemo-dark/20" />
+                  <div className="flex items-center gap-2 dark:text-white/50 text-hemo-dark/60 text-sm">
                     <Clock size={18} className="text-hemo-lime" />
                     <span>
                       Resultado em<br />
-                      <strong className="text-white">{exam.productionTime}</strong>
+                      <strong className="dark:text-white text-hemo-dark">{exam.productionTime}</strong>
                     </span>
                   </div>
                 </div>
@@ -351,7 +351,7 @@ export default function ExamBannersSection() {
                   {exam.includes.slice(0, 4).map((item) => (
                     <span
                       key={item}
-                      className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-white/60 text-xs"
+                      className="px-3 py-1.5 dark:bg-white/5 dark:border-white/10 dark:text-white/60 bg-white border tracking-tight border-hemo-dark/10 text-hemo-dark/80 rounded-full text-xs"
                     >
                       {item}
                     </span>
@@ -378,7 +378,7 @@ export default function ExamBannersSection() {
                   </button>
                   <Link
                     href={`/exames/${exam.slug}`}
-                    className="px-6 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full flex items-center gap-2 hover:bg-white/20 transition-all duration-300 border border-white/10 text-base"
+                    className="px-6 py-4 dark:bg-white/10 backdrop-blur-sm bg-hemo-dark/5 dark:text-white text-hemo-dark font-semibold rounded-full flex items-center gap-2 dark:hover:bg-white/20 hover:bg-hemo-dark/10 transition-all duration-300 border dark:border-white/10 border-hemo-dark/10 text-base"
                   >
                     Detalhes
                     <ArrowRight size={18} />
@@ -388,11 +388,11 @@ export default function ExamBannersSection() {
 
               {/* ── Right side decoration ── */}
               <div className="hidden lg:flex absolute right-16 top-1/2 -translate-y-1/2 z-30 flex-col items-center gap-4">
-                <span className="text-[140px] font-[family-name:var(--font-display)] font-black text-white/[0.04] leading-none select-none">
+                <span className="text-[140px] font-[family-name:var(--font-display)] font-black dark:text-white/[0.04] text-hemo-dark/[0.04] leading-none select-none">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="w-px h-24 bg-gradient-to-b from-hemo-lime/30 to-transparent" />
-                <span className="text-white/20 text-xs uppercase tracking-widest font-semibold [writing-mode:vertical-rl]">
+                <span className="dark:text-white/20 text-hemo-dark/40 text-xs uppercase tracking-widest font-semibold [writing-mode:vertical-rl]">
                   {exam.shortName}
                 </span>
               </div>
@@ -402,14 +402,13 @@ export default function ExamBannersSection() {
                 {FEATURED_EXAMS.map((_, dotIdx) => (
                   <div
                     key={dotIdx}
-                    className={`transition-all duration-500 rounded-full ${
-                      dotIdx === i
+                    className={`transition-all duration-500 rounded-full ${dotIdx === i
                         ? "w-10 h-2.5 bg-hemo-red shadow-lg shadow-hemo-red/50"
-                        : "w-2.5 h-2.5 bg-white/20"
-                    }`}
+                        : "w-2.5 h-2.5 dark:bg-white/20 bg-hemo-dark/20"
+                      }`}
                   />
                 ))}
-                <span className="text-white/30 text-xs ml-4 font-semibold">
+                <span className="dark:text-white/30 text-hemo-dark/50 text-xs ml-4 font-semibold">
                   {String(i + 1).padStart(2, "0")} / {String(FEATURED_EXAMS.length).padStart(2, "0")}
                 </span>
               </div>

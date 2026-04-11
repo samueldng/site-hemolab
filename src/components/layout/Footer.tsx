@@ -50,7 +50,7 @@ export default function Footer() {
                             alt="Hemolab"
                             width={180}
                             height={76}
-                            className="h-14 w-auto mb-4 dark:brightness-0 dark:invert dark:opacity-90 brightness-75 hue-rotate-[160deg] saturate-200 contrast-125"
+                            className="h-14 w-auto mb-4 dark:brightness-0 dark:invert dark:opacity-90"
                         />
                         <p className="text-sm leading-relaxed dark:text-white/60 text-hemo-dark/70">
                             Referência em análises clínicas em Bacabal-MA. Tecnologia de

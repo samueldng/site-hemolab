@@ -25,7 +25,7 @@ export default function CartIcon() {
   return (
     <button
       onClick={handleClick}
-      className="relative p-2 text-white hover:text-hemo-lime transition-colors duration-300"
+      className="relative p-2 dark:text-white text-hemo-dark hover:text-hemo-lime transition-colors duration-300"
       aria-label={`Carrinho com ${count} itens`}
       id="cart-icon-btn"
     >

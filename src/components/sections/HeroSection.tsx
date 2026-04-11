@@ -328,7 +328,7 @@ export default function HeroSection() {
     const renderCarousel = (isMobile: boolean) => (
         <div
             ref={!isMobile ? carouselRef : undefined}
-            className={`relative w-full overflow-hidden rounded-2xl lg:rounded-3xl shadow-2xl shadow-black/50 aspect-video sm:aspect-[4/3] lg:aspect-square`}
+            className={`relative w-full overflow-hidden rounded-2xl lg:rounded-3xl shadow-2xl shadow-black/50 aspect-video sm:aspect-[4/3] lg:aspect-square lg:[mask-image:linear-gradient(to_right,transparent_0%,black_35%)] lg:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_35%)]`}
         >
             {/* Red curtain overlay for initial reveal */}
             <div

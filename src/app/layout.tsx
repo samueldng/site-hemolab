@@ -4,6 +4,7 @@ import "./globals.css";
 import { CartProvider } from "@/components/providers/CartProvider";
 import CartDrawer from "@/components/ecommerce/CartDrawer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import GlobalGSAPRefresh from "@/components/providers/GlobalGSAPRefresh";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -59,6 +60,7 @@ export default function RootLayout({
       <body className="antialiased transition-colors duration-300 dark:bg-hemo-dark bg-[#F8F6F0] dark:text-white text-[#002E20]">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <CartProvider>
+            <GlobalGSAPRefresh />
             {children}
             <CartDrawer />
           </CartProvider>

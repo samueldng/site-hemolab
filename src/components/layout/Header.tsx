@@ -116,7 +116,7 @@ export default function Header() {
                             alt="Hemolab - Laboratório de Análises Clínicas"
                             width={180}
                             height={76}
-                            className="h-11 md:h-14 w-auto dark:brightness-0 dark:invert dark:drop-shadow-[0_0_12px_rgba(164,205,57,0.3)] brightness-90 hue-rotate-[160deg] saturate-200 contrast-125"
+                            className="h-11 md:h-14 w-auto dark:brightness-0 dark:invert dark:drop-shadow-[0_0_12px_rgba(164,205,57,0.3)]"
                             priority
                         />
                     </div>
