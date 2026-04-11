@@ -166,7 +166,7 @@ export default function Header() {
             {/* Full-Screen Mobile Menu Overlay */}
             {renderMobile && (
                 <div
-                    className="mobile-menu-overlay fixed inset-0 dark:bg-hemo-dark bg-color-cream z-40 lg:hidden flex flex-col justify-center items-center overflow-hidden h-[100dvh]"
+                    className="mobile-menu-overlay fixed inset-0 dark:bg-hemo-dark bg-[#F8F6F0] z-40 lg:hidden flex flex-col justify-center items-center overflow-hidden h-[100dvh]"
                     style={{ clipPath: "circle(0% at 90% 10%)" }}
                 >
                     {/* Decorative Background Elements */}
@@ -200,7 +200,8 @@ export default function Header() {
                         <span className="text-white/50 text-sm font-semibold tracking-widest uppercase">Laboratório Hemolab</span>
                     </div>
                 </div>
-            )}
-        </header>
+            )
+            }
+        </header >
     );
 }

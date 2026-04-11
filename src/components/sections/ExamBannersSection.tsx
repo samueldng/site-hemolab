@@ -230,7 +230,7 @@ export default function ExamBannersSection() {
     <section
       ref={sectionRef}
       id="exames-destaque"
-      className="relative dark:bg-hemo-dark bg-[#ebebeb] overflow-hidden"
+      className="relative dark:bg-hemo-dark bg-[#F8F6F0] overflow-hidden"
     >
       {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
       <div
@@ -279,7 +279,7 @@ export default function ExamBannersSection() {
               <div className="absolute inset-0">
                 {/* Dark mask that slides away via GSAP */}
                 <div
-                  className="panel-mask absolute inset-0 dark:bg-hemo-dark bg-[#ebebeb] z-10"
+                  className="panel-mask absolute inset-0 dark:bg-hemo-dark bg-[#F8F6F0] z-10"
                   style={{ transformOrigin: "right center" }}
                 />
                 {/* Actual image */}
@@ -293,8 +293,8 @@ export default function ExamBannersSection() {
                   />
                 </div>
                 {/* Reading overlays */}
-                <div className="absolute inset-0 bg-gradient-to-r dark:from-hemo-dark dark:via-hemo-dark/75 dark:to-transparent from-[#ebebeb] via-[#ebebeb]/90 to-transparent z-20" />
-                <div className="absolute inset-0 bg-gradient-to-t dark:from-hemo-dark/50 dark:to-transparent from-[#ebebeb]/80 to-transparent z-20" />
+                <div className="absolute inset-0 bg-gradient-to-r dark:from-hemo-dark dark:via-hemo-dark/75 dark:to-transparent from-[#F8F6F0] via-[#F8F6F0]/90 to-transparent z-20" />
+                <div className="absolute inset-0 bg-gradient-to-t dark:from-hemo-dark/50 dark:to-transparent from-[#F8F6F0]/80 to-transparent z-20" />
               </div>
 
               {/* ── Content (left side) ── */}
@@ -403,8 +403,8 @@ export default function ExamBannersSection() {
                   <div
                     key={dotIdx}
                     className={`transition-all duration-500 rounded-full ${dotIdx === i
-                        ? "w-10 h-2.5 bg-hemo-red shadow-lg shadow-hemo-red/50"
-                        : "w-2.5 h-2.5 dark:bg-white/20 bg-hemo-dark/20"
+                      ? "w-10 h-2.5 bg-hemo-red shadow-lg shadow-hemo-red/50"
+                      : "w-2.5 h-2.5 dark:bg-white/20 bg-hemo-dark/20"
                       }`}
                   />
                 ))}
