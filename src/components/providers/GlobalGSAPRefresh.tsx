@@ -1,14 +1,27 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function GlobalGSAPRefresh() {
+function GSAPRouteListener() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
+    // When route changes, refresh ScrollTrigger after components have mounted
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [pathname, searchParams]);
+
+    return null;
+}
+
+export default function GlobalGSAPRefresh() {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
@@ -31,14 +44,9 @@ export default function GlobalGSAPRefresh() {
         };
     }, []);
 
-    // When route changes, refresh ScrollTrigger after components have mounted
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            ScrollTrigger.refresh();
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [pathname, searchParams]);
-
-    return null;
+    return (
+        <Suspense fallback={null}>
+            <GSAPRouteListener />
+        </Suspense>
+    );
 }
