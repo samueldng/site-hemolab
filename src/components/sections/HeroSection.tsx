@@ -258,67 +258,72 @@ export default function HeroSection() {
                 tl.fromTo(scrollInd, { opacity: 0 }, { opacity: 1, duration: 0.5 }, 2.5);
             }
 
-            // ─── SCROLL-DRIVEN ───
-            if (bgRef.current) {
-                gsap.to(bgRef.current, {
-                    yPercent: 30,
-                    scale: 1.15,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: s,
-                        start: "top top",
-                        end: "bottom top",
-                        scrub: 1.5,
-                    },
-                });
-            }
+            const mm = gsap.matchMedia();
+            mm.add("(min-width: 1024px)", () => {
+                // ─── SCROLL-DRIVEN (Desktop Only) ───
+                if (bgRef.current) {
+                    gsap.to(bgRef.current, {
+                        yPercent: 30,
+                        scale: 1.15,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: s,
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: 1.5,
+                        },
+                    });
+                }
 
-            const textCol = s.querySelector(".hero-text");
-            if (textCol) {
-                gsap.to(textCol, {
-                    y: -80,
-                    opacity: 0,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: s,
-                        start: "20% top",
-                        end: "60% top",
-                        scrub: 1,
-                    },
-                });
-            }
+                const textCol = s.querySelector(".hero-text");
+                if (textCol) {
+                    gsap.to(textCol, {
+                        y: -80,
+                        opacity: 0,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: s,
+                            start: "20% top",
+                            end: "60% top",
+                            scrub: 1,
+                        },
+                    });
+                }
 
-            const imageCol = s.querySelector(".hero-image");
-            if (imageCol) {
-                gsap.to(imageCol, {
-                    y: -40,
-                    scale: 0.9,
-                    opacity: 0,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: s,
-                        start: "30% top",
-                        end: "70% top",
-                        scrub: 1,
-                    },
-                });
-            }
+                const imageCol = s.querySelector(".hero-image");
+                if (imageCol) {
+                    gsap.to(imageCol, {
+                        y: -40,
+                        scale: 0.9,
+                        opacity: 0,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: s,
+                            start: "30% top",
+                            end: "70% top",
+                            scrub: 1,
+                        },
+                    });
+                }
 
-            const blobs = s.querySelectorAll(".deco-blob");
-            blobs.forEach((blob, i) => {
-                gsap.to(blob, {
-                    y: i % 2 === 0 ? -80 : 60,
-                    x: i % 2 === 0 ? 40 : -40,
-                    scale: 1 + i * 0.1,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: s,
-                        start: "top top",
-                        end: "bottom top",
-                        scrub: 2,
-                    },
+                const blobs = s.querySelectorAll(".deco-blob");
+                blobs.forEach((blob, i) => {
+                    gsap.to(blob, {
+                        y: i % 2 === 0 ? -80 : 60,
+                        x: i % 2 === 0 ? 40 : -40,
+                        scale: 1 + i * 0.1,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: s,
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: 2,
+                        },
+                    });
                 });
             });
+
+            return () => mm.revert();
         },
         { scope: sectionRef }
     );

@@ -2,12 +2,14 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
-import ExamBannersSection from "@/components/sections/ExamBannersSection";
-import ServicesSection from "@/components/sections/ServicesSection";
-import UnitsSection from "@/components/sections/UnitsSection";
-import ConveniosSection from "@/components/sections/ConveniosSection";
-import ContactSection from "@/components/sections/ContactSection";
 import FloatingActionButton from "@/components/ui/FloatingActionButton";
+import dynamic from "next/dynamic";
+
+const ExamBannersSection = dynamic(() => import("@/components/sections/ExamBannersSection"));
+const ServicesSection = dynamic(() => import("@/components/sections/ServicesSection"));
+const UnitsSection = dynamic(() => import("@/components/sections/UnitsSection"));
+const ConveniosSection = dynamic(() => import("@/components/sections/ConveniosSection"));
+const ContactSection = dynamic(() => import("@/components/sections/ContactSection"));
 
 export default function Home() {
   return (
