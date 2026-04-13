@@ -120,7 +120,7 @@ Before I coordinate the agents, I need to understand your requirements better:
 | `project-planner` | Planning | Task breakdown, milestones, roadmap |
 | `seo-specialist` | SEO & Marketing | SEO optimization, meta tags, analytics |
 | `game-developer` | Game Development | Unity, Godot, Unreal, Phaser, multiplayer |
-
+| `tech-pricing-specialist` | Vendas & Preço | Orçamentos, análise de viabilidade financeira, propostas comerciais e análise de custo de UI |
 ---
 
 ## 🔴 AGENT BOUNDARY ENFORCEMENT (CRITICAL)

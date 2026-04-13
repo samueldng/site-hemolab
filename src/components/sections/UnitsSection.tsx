@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
-import { MapPin, Navigation, Map } from "lucide-react";
+import { MapPin, Navigation, Map, X, ExternalLink } from "lucide-react";
 import { clinics, Clinic } from "@/data/units";
+import MaranhaoRegionMap from "@/components/maps/MaranhaoRegionMap";
 
 export default function UnitsSection() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -16,7 +17,9 @@ export default function UnitsSection() {
     const [activeClinic, setActiveClinic] = useState<Clinic>(clinics[0]);
     const [isAutoPlay, setIsAutoPlay] = useState(true);
     const [isClient, setIsClient] = useState(false);
+    const [mapModalClinic, setMapModalClinic] = useState<Clinic | null>(null);
     const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -94,13 +97,42 @@ export default function UnitsSection() {
     }, [isAutoPlay]);
 
     const handleManualSelect = (clinic: Clinic) => {
-        setIsAutoPlay(false); // Stop virtual tour if user triggers manually
+        setIsAutoPlay(false);
         setActiveClinic(clinic);
     };
+
+    const openMapModal = useCallback((clinic: Clinic) => {
+        setMapModalClinic(clinic);
+        document.body.style.overflow = "hidden";
+    }, []);
+
+    const closeMapModal = useCallback(() => {
+        setMapModalClinic(null);
+        document.body.style.overflow = "";
+    }, []);
+
+    // Close modal on ESC
+    useEffect(() => {
+        const handleEsc = (e: KeyboardEvent) => {
+            if (e.key === "Escape") closeMapModal();
+        };
+        if (mapModalClinic) window.addEventListener("keydown", handleEsc);
+        return () => window.removeEventListener("keydown", handleEsc);
+    }, [mapModalClinic, closeMapModal]);
+
+    const getGoogleMapsQuery = (clinic: Clinic) =>
+        encodeURIComponent(clinic.name + " " + clinic.city);
+
+    const getEmbedUrl = (clinic: Clinic) =>
+        `https://maps.google.com/maps?q=${getGoogleMapsQuery(clinic)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
+    const getDirectionsUrl = (clinic: Clinic) =>
+        `https://www.google.com/maps/search/?api=1&query=${getGoogleMapsQuery(clinic)}`;
 
     if (!isClient) return null;
 
     return (
+        <>
         <section ref={sectionRef} id="unidades" className="relative bg-[#ebebeb] py-24 lg:py-32 overflow-hidden flex items-center min-h-screen">
             {/* Background design accents similar to image */}
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#004731] via-hemo-red to-hemo-lime" />
@@ -119,8 +151,8 @@ export default function UnitsSection() {
                             ref={mapInnerRef}
                             className="absolute inset-0 w-[200%] h-[200%] left-[-50%] top-[-50%] will-change-transform"
                         >
-                            {/* SVG MAP PLACEHOLDER / GRID */}
-                            <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at center, #004731 2px, transparent 2px)', backgroundSize: '30px 30px' }} />
+                            {/* SVG REGIONAL MAP BACKGROUND */}
+                            <MaranhaoRegionMap />
 
                             {/* PINS RENDERING */}
                             {clinics.map((clinic, i) => (
@@ -169,14 +201,12 @@ export default function UnitsSection() {
                                 <p className="text-[11px] text-gray-500 font-medium flex items-center gap-1 mb-2">
                                     <MapPin size={10} /> {activeClinic.city}
                                 </p>
-                                <a
-                                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(activeClinic.name + ' ' + activeClinic.city)}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="text-[10px] text-white bg-hemo-red hover:bg-hemo-red-dark transition-colors px-3 py-1.5 rounded-full font-bold flex items-center justify-center gap-1 shadow-md w-full"
+                                <button
+                                    onClick={() => openMapModal(activeClinic)}
+                                    className="text-[10px] text-white bg-hemo-red hover:bg-hemo-red-dark transition-colors px-3 py-1.5 rounded-full font-bold flex items-center justify-center gap-1 shadow-md w-full cursor-pointer"
                                 >
                                     <Navigation size={10} /> Ver Rotas
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -243,5 +273,86 @@ export default function UnitsSection() {
 
             </div>
         </section>
+
+            {/* ════════════════════════════════════════════════ */}
+            {/* GOOGLE MAPS MODAL                              */}
+            {/* ════════════════════════════════════════════════ */}
+            {mapModalClinic && (
+                <div
+                    className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`Mapa - ${mapModalClinic.name}`}
+                >
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-[fadeIn_0.2s_ease]"
+                        onClick={closeMapModal}
+                    />
+
+                    {/* Modal Container */}
+                    <div
+                        ref={modalRef}
+                        className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden animate-[scaleIn_0.3s_ease]"
+                        style={{ maxHeight: "90vh" }}
+                    >
+                        {/* ─── Header ─── */}
+                        <div className="flex items-center justify-between gap-4 px-6 py-4 border-b border-gray-100">
+                            <div className="flex items-center gap-3 min-w-0">
+                                <div className="w-10 h-10 rounded-xl bg-hemo-red/10 flex items-center justify-center shrink-0">
+                                    <MapPin size={20} className="text-hemo-red" />
+                                </div>
+                                <div className="min-w-0">
+                                    <h3 className="font-bold text-[#004731] text-lg leading-tight truncate">
+                                        {mapModalClinic.name}
+                                    </h3>
+                                    <p className="text-xs text-gray-500 font-medium truncate">
+                                        {mapModalClinic.address} — {mapModalClinic.city}
+                                    </p>
+                                </div>
+                            </div>
+                            <button
+                                onClick={closeMapModal}
+                                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors shrink-0 cursor-pointer"
+                                aria-label="Fechar mapa"
+                            >
+                                <X size={20} className="text-gray-600" />
+                            </button>
+                        </div>
+
+                        {/* ─── Map iframe ─── */}
+                        <div className="relative w-full" style={{ height: "min(60vh, 480px)" }}>
+                            <iframe
+                                src={getEmbedUrl(mapModalClinic)}
+                                className="absolute inset-0 w-full h-full border-0"
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                allowFullScreen
+                                title={`Mapa de ${mapModalClinic.name}`}
+                            />
+                        </div>
+
+                        {/* ─── Footer ─── */}
+                        <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-gray-100 bg-gray-50/50">
+                            <span className="text-xs text-gray-400 font-medium hidden sm:block">
+                                {mapModalClinic.type === 'Própria' ? 'Unidade Própria' : 'Clínica Parceira'}
+                            </span>
+                            <div className="flex items-center gap-3 ml-auto">
+                                <a
+                                    href={getDirectionsUrl(mapModalClinic)}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-hemo-red hover:bg-hemo-red-dark text-white text-sm font-bold rounded-full transition-colors shadow-md shadow-hemo-red/20"
+                                >
+                                    <ExternalLink size={14} />
+                                    Abrir no Google Maps
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
+

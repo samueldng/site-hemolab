@@ -298,90 +298,90 @@ export default function ExamBannersSection() {
               </div>
 
               {/* ── Content (left side) ── */}
-              <div className="panel-content relative z-30 max-w-2xl px-6 md:px-12 lg:px-28">
+              <div className="panel-content relative z-30 max-w-2xl px-6 md:px-12 lg:px-28 mt-12 lg:mt-16">
                 {/* Badge */}
                 {exam.badge && (
-                  <div className="panel-detail mb-6">
-                    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-hemo-red text-white text-sm font-bold shadow-xl shadow-hemo-red/40">
-                      <Icon size={16} />
+                  <div className="panel-detail mb-4">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-hemo-red text-white text-xs md:text-sm font-bold shadow-lg shadow-hemo-red/30">
+                      <Icon size={14} />
                       {exam.badge}
                     </span>
                   </div>
                 )}
 
                 {/* Category */}
-                <span className="panel-detail block text-hemo-lime text-sm font-semibold uppercase tracking-[0.2em] mb-3">
+                <span className="panel-detail block text-hemo-lime text-xs md:text-sm font-semibold uppercase tracking-[0.2em] mb-2">
                   {exam.category}
                 </span>
 
                 {/* Name */}
-                <h3 className="panel-detail font-[family-name:var(--font-display)] text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white text-hemo-dark mb-6 leading-tight">
+                <h3 className="panel-detail font-[family-name:var(--font-display)] text-3xl md:text-5xl lg:text-[3.5rem] font-bold dark:text-white text-hemo-dark mb-4 leading-tight">
                   {exam.name}
                 </h3>
 
                 {/* Description */}
-                <p className="panel-detail dark:text-white/60 text-hemo-dark/70 text-base md:text-lg leading-relaxed mb-8 max-w-lg">
+                <p className="panel-detail dark:text-white/60 text-hemo-dark/70 text-sm md:text-base leading-relaxed mb-5 max-w-lg">
                   {exam.description}
                 </p>
 
                 {/* Price + Time */}
-                <div className="panel-detail flex items-center gap-6 mb-8">
+                <div className="panel-detail flex items-center gap-5 mb-5">
                   <div>
                     {exam.oldPrice && (
-                      <span className="block dark:text-white/30 text-hemo-dark/40 text-sm line-through mb-1">
+                      <span className="block dark:text-white/30 text-hemo-dark/40 text-xs line-through mb-0.5">
                         {formatPrice(exam.oldPrice)}
                       </span>
                     )}
-                    <span className="text-4xl md:text-5xl font-bold dark:text-white text-hemo-dark">
+                    <span className="text-3xl md:text-4xl font-bold dark:text-white text-hemo-dark">
                       {formatPrice(exam.price)}
                     </span>
                   </div>
-                  <div className="h-12 w-px dark:bg-white/10 bg-hemo-dark/20" />
-                  <div className="flex items-center gap-2 dark:text-white/50 text-hemo-dark/60 text-sm">
-                    <Clock size={18} className="text-hemo-lime" />
+                  <div className="h-10 w-px dark:bg-white/10 bg-hemo-dark/20" />
+                  <div className="flex items-center gap-2 dark:text-white/50 text-hemo-dark/60 text-xs md:text-sm">
+                    <Clock size={16} className="text-hemo-lime" />
                     <span>
                       Resultado em<br />
-                      <strong className="dark:text-white text-hemo-dark">{exam.productionTime}</strong>
+                      <strong className="dark:text-white text-hemo-dark block leading-tight">{exam.productionTime}</strong>
                     </span>
                   </div>
                 </div>
 
                 {/* Includes preview */}
-                <div className="panel-detail flex flex-wrap gap-2 mb-8">
+                <div className="panel-detail flex flex-wrap gap-2 mb-6">
                   {exam.includes.slice(0, 4).map((item) => (
                     <span
                       key={item}
-                      className="px-3 py-1.5 dark:bg-white/5 dark:border-white/10 dark:text-white/60 bg-white border tracking-tight border-hemo-dark/10 text-hemo-dark/80 rounded-full text-xs"
+                      className="px-2.5 py-1 dark:bg-white/5 dark:border-white/10 dark:text-white/60 bg-white border tracking-tight border-hemo-dark/10 text-hemo-dark/80 rounded-full text-[11px] md:text-xs"
                     >
                       {item}
                     </span>
                   ))}
                   {exam.includes.length > 4 && (
-                    <span className="px-3 py-1.5 bg-hemo-lime/10 border border-hemo-lime/20 rounded-full text-hemo-lime text-xs font-semibold">
+                    <span className="px-2.5 py-1 bg-hemo-lime/10 border border-hemo-lime/20 rounded-full text-hemo-lime text-[11px] md:text-xs font-semibold">
                       +{exam.includes.length - 4} mais
                     </span>
                   )}
                 </div>
 
                 {/* CTAs */}
-                <div className="panel-detail flex gap-4">
+                <div className="panel-detail flex flex-wrap gap-3">
                   <button
                     onClick={(e) => handleAddToCart(e, exam.slug)}
-                    className="px-8 py-4 bg-hemo-red text-white font-bold rounded-full flex items-center gap-3 hover:bg-hemo-red-dark transition-all duration-300 shadow-xl shadow-hemo-red/30 text-base group"
+                    className="px-6 py-3 bg-hemo-red text-white font-bold rounded-full flex items-center gap-2 hover:bg-hemo-red-dark transition-all duration-300 shadow-lg shadow-hemo-red/30 text-sm group"
                   >
-                    <ShoppingCart size={20} />
+                    <ShoppingCart size={18} />
                     Comprar Exame
                     <ArrowRight
-                      size={18}
+                      size={16}
                       className="group-hover:translate-x-1 transition-transform"
                     />
                   </button>
                   <Link
                     href={`/exames/${exam.slug}`}
-                    className="px-6 py-4 dark:bg-white/10 backdrop-blur-sm bg-hemo-dark/5 dark:text-white text-hemo-dark font-semibold rounded-full flex items-center gap-2 dark:hover:bg-white/20 hover:bg-hemo-dark/10 transition-all duration-300 border dark:border-white/10 border-hemo-dark/10 text-base"
+                    className="px-6 py-3 dark:bg-white/10 backdrop-blur-sm bg-hemo-dark/5 dark:text-white text-hemo-dark font-semibold rounded-full flex items-center gap-2 dark:hover:bg-white/20 hover:bg-hemo-dark/10 transition-all duration-300 border dark:border-white/10 border-hemo-dark/10 text-sm"
                   >
                     Detalhes
-                    <ArrowRight size={18} />
+                    <ArrowRight size={16} />
                   </Link>
                 </div>
               </div>
