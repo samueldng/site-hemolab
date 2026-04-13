@@ -225,22 +225,22 @@ export default function TrabalheConoscoPage() {
           {/* Testimonial Cards Carousel - Manual CSS Grid approach for flexibility */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TESTIMONIALS.slice(0, 3).map((item, idx) => (
-              <div 
-                key={item.id} 
+              <div
+                key={item.id}
                 className="bg-white dark:bg-[#0a1a15] rounded-3xl p-8 relative shadow-xl hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full"
               >
                 {/* Quote Icon */}
                 <div className="absolute top-6 right-6 opacity-10">
                   <Quote size={60} className="text-hemo-green" />
                 </div>
-                
+
                 {/* Stars */}
                 <div className="flex gap-1 mb-6">
                   {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      size={18} 
-                      className={i < item.rating ? "fill-amber-400 text-amber-400" : "fill-gray-200 text-gray-200"} 
+                    <Star
+                      key={i}
+                      size={18}
+                      className={i < item.rating ? "fill-amber-400 text-amber-400" : "fill-gray-200 text-gray-200"}
                     />
                   ))}
                 </div>
@@ -267,17 +267,17 @@ export default function TrabalheConoscoPage() {
           </div>
 
           <div className="mt-12 flex justify-center items-center gap-2">
-           {/* Decorative Google Review badge */}
-           <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-             <div className="flex items-center gap-1">
+            {/* Decorative Google Review badge */}
+            <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
+              <div className="flex items-center gap-1">
                 <span className="text-white font-bold text-xl">4.8</span>
                 <Star size={16} className="fill-white text-white" />
-             </div>
-             <div className="w-px h-6 bg-white/20 mx-1"></div>
-             <div className="text-white/80 text-sm">
+              </div>
+              <div className="w-px h-6 bg-white/20 mx-1"></div>
+              <div className="text-white/80 text-sm">
                 Baseado em avaliações do Google
-             </div>
-           </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -287,9 +287,9 @@ export default function TrabalheConoscoPage() {
       {/* ═══════════════════════════════════════════════════ */}
       <section ref={formRef} className="py-24 bg-hemo-light dark:bg-hemo-dark" id="vagas">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="grid lg:grid-cols-5 gap-16">
-            
+
             {/* COLUMN 1: VAGAS (Takes up 2 columns) */}
             <div className="lg:col-span-2 jobs-column">
               <h2 className="font-display font-bold text-3xl md:text-4xl text-hemo-text dark:text-white mb-2">Vagas Abertas</h2>
@@ -321,22 +321,22 @@ export default function TrabalheConoscoPage() {
             <div className="lg:col-span-3 form-column">
               <div className="bg-white dark:bg-[#071310] p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800">
                 <h3 className="font-display font-bold text-2xl text-hemo-text dark:text-white mb-6">Envie seu currículo</h3>
-                
+
                 <form className="space-y-6">
                   {/* Row 1 */}
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Nome Completo</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         placeholder="Ex: João da Silva"
                         className="w-full bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-hemo-green focus:border-transparent dark:text-white transition-all"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Qual seu E-mail?</label>
-                      <input 
-                        type="email" 
+                      <input
+                        type="email"
                         placeholder="joao@exemplo.com"
                         className="w-full bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-hemo-green focus:border-transparent dark:text-white transition-all"
                       />
@@ -347,8 +347,8 @@ export default function TrabalheConoscoPage() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Telefone (WhatsApp)</label>
-                      <input 
-                        type="tel" 
+                      <input
+                        type="tel"
                         placeholder="(99) 90000-0000"
                         className="w-full bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-hemo-green focus:border-transparent dark:text-white transition-all"
                       />
@@ -380,9 +380,9 @@ export default function TrabalheConoscoPage() {
                     </div>
                   </div>
 
-                  <button 
+                  <button
                     type="button"
-                    className="w-full bg-hemo-text hover:bg-black dark:bg-white dark:text-black dark:hover:bg-gray-200 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-transform active:scale-[0.98]"
+                    className="w-full bg-hemo-green hover:bg-[#002E20] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 active:scale-[0.98] shadow-lg shadow-hemo-green/20"
                   >
                     Enviar Candidatura <ArrowRight size={20} />
                   </button>

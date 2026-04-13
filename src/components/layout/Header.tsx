@@ -17,6 +17,7 @@ const NAV_LINKS = [
     { label: "Serviços", href: "/#servicos" },
     { label: "Unidades", href: "/#unidades" },
     { label: "Contato", href: "/#contato" },
+    { label: "Carreiras", href: "/trabalhe-conosco" },
 ];
 
 export default function Header() {

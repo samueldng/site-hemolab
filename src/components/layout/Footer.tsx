@@ -16,6 +16,7 @@ const QUICK_LINKS = [
     { label: "Unidades", href: "#unidades" },
     { label: "Convênios", href: "#convenios" },
     { label: "Contato", href: "#contato" },
+    { label: "Trabalhe Conosco", href: "/trabalhe-conosco" },
 ];
 
 export default function Footer() {
