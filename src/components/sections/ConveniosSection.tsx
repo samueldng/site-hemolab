@@ -4,23 +4,18 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Shield, Check } from "lucide-react";
+import { Shield } from "lucide-react";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const CONVENIOS = [
-    "Bradesco Saúde",
-    "SulAmérica",
-    "Unimed",
-    "Hapvida",
-    "São Francisco",
-    "Particular",
-    "GEAP",
-    "CASSI",
-    "PLAMTA",
-    "POSTAL SAÚDE",
-    "VIDA CARD",
-    "PLAN-ASSISTE",
+    { name: "Humana Saúde", logo: "/images/convenios/humana.png" },
+    { name: "CASSI", logo: "/images/convenios/cassi.png" },
+    { name: "Santa Terezinha", logo: "/images/convenios/santa-terezinha.png" },
+    { name: "Plasfran", logo: "/images/convenios/plasfran.png" },
+    { name: "Bradesco Saúde", logo: "/images/convenios/bradesco.png" },
+    { name: "Vida", logo: "/images/convenios/vida.png" },
 ];
 
 export default function ConveniosSection() {
@@ -43,65 +38,57 @@ export default function ConveniosSection() {
                     }
                 );
             }
-
-            const items = sectionRef.current?.querySelectorAll(".convenio-item");
-            if (items && items.length > 0) {
-                gsap.fromTo(
-                    items,
-                    { y: 30, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        stagger: 0.06,
-                        duration: 0.5,
-                        ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: sectionRef.current?.querySelector(".convenios-grid"),
-                            start: "top 85%",
-                        },
-                    }
-                );
-            }
         },
         { scope: sectionRef }
     );
 
     return (
-        <section ref={sectionRef} id="convenios" className="bg-cream py-24">
+        <section ref={sectionRef} id="convenios" className="bg-[#f2f4f1] py-24 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-16">
-                    <span className="convenios-title inline-block text-hemo-red text-sm font-semibold tracking-widest uppercase mb-3">
-                        Planos aceitos
+                    <span className="convenios-title inline-block px-4 py-1.5 rounded-full bg-[#004731]/10 text-[#006B4A] text-xs font-bold tracking-widest uppercase mb-4">
+                        Convênios & Parceiros
                     </span>
                     <h2 className="convenios-title font-[family-name:var(--font-display)] text-4xl md:text-5xl font-bold text-hemo-dark mb-6">
-                        Convênios e <span className="text-hemo-red">Planos</span>
+                        Trabalhamos com os melhores <span className="text-hemo-green">convênios</span>
                     </h2>
-                    <p className="convenios-title text-lg text-hemo-dark/60 max-w-xl mx-auto">
-                        Aceitamos os principais convênios e planos de saúde. Confira abaixo ou entre em contato para mais informações.
+                    <p className="convenios-title text-base sm:text-lg text-hemo-dark/60 max-w-xl mx-auto">
+                        Aceitamos os principais planos de saúde para sua comodidade
                     </p>
                 </div>
 
-                {/* Convenios Grid */}
-                <div className="convenios-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
-                    {CONVENIOS.map((name) => (
-                        <div
-                            key={name}
-                            className="convenio-item flex items-center gap-3 bg-white rounded-2xl px-5 py-4 border border-hemo-dark/5 hover:border-hemo-green/30 hover:shadow-md transition-all duration-300 group"
-                        >
-                            <div className="w-8 h-8 rounded-full bg-hemo-green/10 flex items-center justify-center shrink-0 group-hover:bg-hemo-green/20 transition-colors">
-                                <Check size={16} className="text-hemo-green" />
+                {/* Infinite Marquee */}
+                <div className="relative flex overflow-x-hidden group mt-16 max-w-screen-2xl mx-auto [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+                    <div className="flex animate-marquee items-center gap-6 min-w-max hover:[animation-play-state:paused]">
+                        {/* Duplicate lists twice to ensure smooth infinite scrolling. Since we only translate -50%, we need enough width to seamlessly loop */}
+                        {[...CONVENIOS, ...CONVENIOS, ...CONVENIOS, ...CONVENIOS].map((convenio, index) => (
+                            <div
+                                key={`${convenio.name}-${index}`}
+                                className="flex-shrink-0 w-36 h-20 sm:w-44 sm:h-24 md:w-56 md:h-28 bg-white rounded-2xl shadow-[0px_4px_20px_rgba(0,0,0,0.03)] flex items-center justify-center hover:-translate-y-1 transition-transform duration-300 p-4 border border-hemo-dark/5"
+                            >
+                                <div className="relative w-full h-full">
+                                    <Image
+                                        src={convenio.logo}
+                                        alt={convenio.name}
+                                        fill
+                                        className="object-contain mix-blend-multiply"
+                                        sizes="(max-width: 768px) 144px, 224px"
+                                    />
+                                </div>
                             </div>
-                            <span className="text-sm font-medium text-hemo-dark/80">{name}</span>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
 
                 {/* Note */}
-                <div className="mt-10 flex items-center justify-center gap-2 text-sm text-hemo-dark/40">
-                    <Shield size={16} />
-                    <span>Também atendemos particular. Consulte valores.</span>
+                <div className="mt-12 flex items-center justify-center gap-2 text-sm text-hemo-dark/60">
+                    <div className="w-5 h-5 rounded-full bg-[#004731] flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">+</span>
+                    </div>
+                    <span>E muitos outros! <strong className="text-[#004731]">Consulte seu convênio</strong></span>
                 </div>
             </div>
         </section>
     );
 }
+
