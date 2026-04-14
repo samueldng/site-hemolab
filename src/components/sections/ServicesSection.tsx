@@ -192,7 +192,7 @@ export default function ServicesSection() {
                     stagger: { each: 0.3, from: "random" },
                 });
             }
-            
+
             return () => mm.revert();
         },
         { scope: sectionRef }
@@ -218,7 +218,7 @@ export default function ServicesSection() {
                     <span className="svc-title inline-block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-4">
                         O que oferecemos
                     </span>
-                    <h2 className="svc-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold dark:text-white text-hemo-dark mb-6 leading-tight">
+                    <h2 className="svc-title font-[family-name:var(--font-display)] text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold dark:text-white text-hemo-dark mb-4 lg:mb-6 leading-tight">
                         Nossos{" "}
                         <span className="text-gradient-brand">Serviços</span>
                     </h2>
@@ -238,30 +238,30 @@ export default function ServicesSection() {
                     {SERVICES.map((service) => (
                         <div
                             key={service.title}
-                            className="svc-card sm:w-[calc(50%-12px)] lg:w-[350px] lg:flex-shrink-0 group relative dark:bg-surface-light/50 bg-white/90 backdrop-blur-sm rounded-3xl p-8 dark:border-white/5 border-black/6 border hover:border-black/12 dark:hover:border-white/15 transition-all duration-500 hover:-translate-y-2 lg:self-center shadow-sm hover:shadow-xl dark:shadow-none"
+                            className="svc-card sm:w-[calc(50%-12px)] lg:w-[300px] xl:w-[350px] lg:flex-shrink-0 group relative dark:bg-surface-light/50 bg-white/90 backdrop-blur-sm rounded-3xl p-6 xl:p-8 dark:border-white/5 border-black/6 border hover:border-black/12 dark:hover:border-white/15 transition-all duration-500 hover:-translate-y-2 lg:self-center shadow-sm hover:shadow-xl dark:shadow-none"
                             style={{ perspective: "800px" }}
                         >
-                        {/* Gradient line top */}
-                        <div
-                            className={`absolute top-0 left-6 right-6 h-px bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                        />
+                            {/* Gradient line top */}
+                            <div
+                                className={`absolute top-0 left-6 right-6 h-px bg-gradient-to-r ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                            />
 
-                        <div className={`service-icon w-16 h-16 rounded-2xl ${service.iconBg} flex items-center justify-center mb-6`}>
-                            <service.icon size={32} className={service.iconColor} />
+                            <div className={`service-icon w-16 h-16 rounded-2xl ${service.iconBg} flex items-center justify-center mb-6`}>
+                                <service.icon size={32} className={service.iconColor} />
+                            </div>
+
+                            <h3 className="font-[family-name:var(--font-display)] text-lg xl:text-xl font-semibold dark:text-white text-hemo-dark mb-2 xl:mb-3">
+                                {service.title}
+                            </h3>
+
+                            <p className="dark:text-white/50 text-hemo-dark/60 text-sm xl:text-base leading-relaxed mb-6">
+                                {service.description}
+                            </p>
+
+                            <div className="flex items-center gap-1 text-sm text-hemo-lime opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
+                                Saiba mais <ArrowRight size={14} />
+                            </div>
                         </div>
-
-                        <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold dark:text-white text-hemo-dark mb-3">
-                            {service.title}
-                        </h3>
-
-                        <p className="dark:text-white/50 text-hemo-dark/60 text-sm leading-relaxed mb-6">
-                            {service.description}
-                        </p>
-
-                        <div className="flex items-center gap-1 text-sm text-hemo-lime opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
-                            Saiba mais <ArrowRight size={14} />
-                        </div>
-                    </div>
                     ))}
                 </div>
 

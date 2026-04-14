@@ -249,7 +249,7 @@ export default function AboutSection() {
                         </div>
 
                         {/* Values Cards - grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] lg:max-h-[65vh] overflow-y-auto p-2 sm:p-4 -m-2 sm:-m-4 scrollbar-thin scrollbar-thumb-hemo-dark/10 hover:scrollbar-thumb-hemo-red/40 scrollbar-track-transparent transition-colors">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:max-h-[60vh] lg:max-h-[65vh] md:overflow-y-auto p-2 sm:p-4 -m-2 sm:-m-4 scrollbar-thin scrollbar-thumb-hemo-dark/10 hover:scrollbar-thumb-hemo-red/40 scrollbar-track-transparent transition-colors">
                             {VALUES.map((item) => (
                                 <div
                                     key={item.title}
@@ -351,7 +351,7 @@ export default function AboutSection() {
                                 </div>
 
                                 {/* Main photo container */}
-                                <div className="relative w-72 h-80 md:w-[340px] md:h-[420px]">
+                                <div className="relative w-72 h-80 md:w-[300px] md:h-[360px] xl:w-[340px] xl:h-[420px]">
                                     {/* Accent border - partial arc */}
                                     <svg className="absolute -inset-3 w-[calc(100%+24px)] h-[calc(100%+24px)]" viewBox="0 0 364 444" fill="none">
                                         <path
@@ -421,15 +421,15 @@ export default function AboutSection() {
                                 </span>
                             </div>
 
-                            <h3 className="panel-title font-[family-name:var(--font-display)] text-4xl md:text-[3.2rem] font-bold text-hemo-dark mb-3 leading-[1.1] tracking-tight">
+                            <h3 className="panel-title font-[family-name:var(--font-display)] text-4xl md:text-4xl lg:text-[2.5rem] xl:text-[3.2rem] font-bold text-hemo-dark mb-2 xl:mb-3 leading-[1.1] tracking-tight">
                                 Dr. Alexson
                             </h3>
-                            <h3 className="panel-title font-[family-name:var(--font-display)] text-4xl md:text-[3.2rem] font-bold text-hemo-dark mb-8 leading-[1.1] tracking-tight">
+                            <h3 className="panel-title font-[family-name:var(--font-display)] text-4xl md:text-4xl lg:text-[2.5rem] xl:text-[3.2rem] font-bold text-hemo-dark mb-5 xl:mb-8 leading-[1.1] tracking-tight">
                                 Carvalho
                             </h3>
 
                             {/* Subtle separator */}
-                            <div className="panel-subtitle w-20 h-0.5 bg-gradient-to-r from-hemo-lime to-hemo-green/30 rounded-full mb-8" />
+                            <div className="panel-subtitle w-20 h-0.5 bg-gradient-to-r from-hemo-lime to-hemo-green/30 rounded-full mb-6 xl:mb-8" />
 
                             {/* Timeline-style qualifications */}
                             <div className="relative pl-6">

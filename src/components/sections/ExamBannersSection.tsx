@@ -249,7 +249,7 @@ export default function ExamBannersSection() {
               <Sparkles size={16} />
               Compre Online — Rápido e Fácil
             </span>
-            <h2 className="hs-title font-[family-name:var(--font-display)] text-5xl md:text-6xl lg:text-7xl font-bold dark:text-white text-hemo-dark mb-8 leading-tight">
+            <h2 className="hs-title font-[family-name:var(--font-display)] text-4xl md:text-5xl lg:text-[3.5rem] xl:text-7xl font-bold dark:text-white text-hemo-dark mb-4 xl:mb-8 leading-tight">
               Exames em{" "}
               <span className="text-gradient-brand">Destaque</span>
             </h2>
@@ -298,7 +298,7 @@ export default function ExamBannersSection() {
               </div>
 
               {/* ── Content (left side) ── */}
-              <div className="panel-content relative z-30 max-w-2xl px-6 md:px-12 lg:px-28 mt-12 lg:mt-16">
+              <div className="panel-content relative z-30 max-w-2xl px-6 md:px-12 lg:px-28 mt-8 lg:mt-10 xl:mt-16">
                 {/* Badge */}
                 {exam.badge && (
                   <div className="panel-detail mb-4">
@@ -315,7 +315,7 @@ export default function ExamBannersSection() {
                 </span>
 
                 {/* Name */}
-                <h3 className="panel-detail font-[family-name:var(--font-display)] text-3xl md:text-5xl lg:text-[3.5rem] font-bold dark:text-white text-hemo-dark mb-4 leading-tight">
+                <h3 className="panel-detail font-[family-name:var(--font-display)] text-3xl md:text-4xl lg:text-[2.5rem] xl:text-[3.5rem] font-bold dark:text-white text-hemo-dark mb-3 xl:mb-4 leading-tight">
                   {exam.name}
                 </h3>
 
@@ -332,7 +332,7 @@ export default function ExamBannersSection() {
                         {formatPrice(exam.oldPrice)}
                       </span>
                     )}
-                    <span className="text-3xl md:text-4xl font-bold dark:text-white text-hemo-dark">
+                    <span className="text-3xl lg:text-3xl xl:text-4xl font-bold dark:text-white text-hemo-dark">
                       {formatPrice(exam.price)}
                     </span>
                   </div>
