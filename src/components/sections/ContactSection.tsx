@@ -59,7 +59,7 @@ export default function ContactSection() {
                 scrollTrigger: {
                     trigger: s,
                     pin: true,
-                    scrub: 1,
+                    scrub: true,
                     end: () => `+=${totalScroll * 1.1}`,
                     invalidateOnRefresh: true,
                 },
@@ -136,7 +136,7 @@ export default function ContactSection() {
             {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
             <div
                 ref={trackRef}
-                className="flex items-center h-screen will-change-transform gap-8"
+                className="flex items-center min-h-screen will-change-transform gap-8"
                 style={{ paddingLeft: "6vw", paddingRight: "6vw" }}
             >
                 {/* ─── Title Panel ─── */}
@@ -144,7 +144,7 @@ export default function ContactSection() {
                     <span className="ct-title inline-block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-4">
                         Fale Conosco
                     </span>
-                    <h2 className="ct-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold dark:text-white text-hemo-dark mb-6 leading-tight">
+                    <h2 className="ct-title font-[family-name:var(--font-display)] text-4xl md:text-5xl xl:text-6xl font-bold dark:text-white text-hemo-dark mb-6 leading-tight">
                         Entre em{" "}
                         <span className="text-gradient-brand">Contato</span>
                     </h2>

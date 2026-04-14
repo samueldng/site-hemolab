@@ -235,7 +235,7 @@ export default function ExamBannersSection() {
       {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
       <div
         ref={trackRef}
-        className="flex flex-col lg:flex-row items-center lg:items-stretch lg:h-screen will-change-transform w-full lg:w-max"
+        className="flex flex-col lg:flex-row items-center lg:items-stretch lg:min-h-screen will-change-transform w-full lg:w-max"
       >
         {/* ─── FIRST PANEL: Intro / Title ─── */}
         <div className="hscroll-panel lg:flex-shrink-0 w-full lg:w-screen min-h-screen py-24 lg:py-0 flex items-center justify-center relative">

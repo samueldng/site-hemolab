@@ -207,7 +207,7 @@ export default function ServicesSection() {
             {/* ═══ Horizontal Track ═══ */}
             <div
                 ref={trackRef}
-                className="flex flex-col lg:flex-row items-stretch lg:items-center lg:h-screen will-change-transform gap-8 py-20 lg:py-0 px-6 lg:px-[6vw] w-full lg:w-max"
+                className="flex flex-col lg:flex-row items-stretch lg:items-center lg:min-h-screen will-change-transform gap-8 py-20 lg:py-0 px-6 lg:px-[6vw] w-full lg:w-max"
             >
                 {/* ─── Title Panel ─── */}
                 <div className="lg:flex-shrink-0 lg:w-[40vw] flex flex-col justify-center lg:pr-12 w-full">

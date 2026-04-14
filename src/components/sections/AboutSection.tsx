@@ -223,7 +223,7 @@ export default function AboutSection() {
             {/* ═══ HORIZONTAL SCROLL TRACK ═══ */}
             <div
                 ref={trackRef}
-                className="flex flex-col lg:flex-row items-center lg:items-stretch lg:h-screen will-change-transform lg:w-[400vw] relative z-10"
+                className="flex flex-col lg:flex-row items-center lg:items-stretch lg:min-h-screen will-change-transform lg:w-[400vw] relative z-10"
             >
                 {/* ─── Panel 1: Intro + Mission/Vision/Values ─── */}
                 <div className="about-panel lg:flex-shrink-0 w-full lg:w-screen min-h-screen flex items-center relative pt-48 pb-16 lg:py-0 overflow-hidden">
@@ -295,7 +295,7 @@ export default function AboutSection() {
                         <span className="panel-title block text-hemo-lime text-sm font-semibold tracking-widest uppercase mb-4">
                             Nossos Números
                         </span>
-                        <h2 className="panel-title font-[family-name:var(--font-display)] text-5xl md:text-6xl font-bold dark:text-white text-hemo-dark mb-16 leading-tight">
+                        <h2 className="panel-title font-[family-name:var(--font-display)] text-4xl md:text-5xl xl:text-6xl font-bold dark:text-white text-hemo-dark mb-8 lg:mb-12 xl:mb-16 leading-tight">
                             Resultados que <br />
                             <span className="text-gradient-brand">falam por si</span>
                         </h2>

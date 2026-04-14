@@ -333,7 +333,7 @@ export default function HeroSection() {
     const renderCarousel = (isMobile: boolean) => (
         <div
             ref={!isMobile ? carouselRef : undefined}
-            className={`relative w-full overflow-hidden rounded-2xl lg:rounded-3xl shadow-2xl shadow-black/50 aspect-video sm:aspect-[4/3] lg:aspect-square lg:[mask-image:linear-gradient(to_right,transparent_0%,black_35%)] lg:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_35%)]`}
+            className={`relative w-full overflow-hidden rounded-2xl lg:rounded-3xl shadow-2xl shadow-black/50 aspect-video sm:aspect-[4/3] lg:aspect-[4/5] xl:aspect-square lg:[mask-image:linear-gradient(to_right,transparent_0%,black_35%)] lg:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_35%)]`}
         >
             {/* Red curtain overlay for initial reveal */}
             <div
@@ -505,7 +505,7 @@ export default function HeroSection() {
         <section
             ref={sectionRef}
             id="home"
-            className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden dark:bg-hemo-dark bg-color-cream"
+            className="relative min-h-[100svh] flex flex-col justify-center overflow-hidden dark:bg-hemo-dark bg-color-cream lg:min-h-0 lg:h-screen"
         >
             {/* Background */}
             <div ref={bgRef} className="absolute inset-0 -top-[15%] -bottom-[15%]">
@@ -531,7 +531,7 @@ export default function HeroSection() {
             <div className="deco-blob absolute bottom-20 left-10 w-[250px] lg:w-[400px] h-[250px] lg:h-[400px] rounded-full dark:bg-hemo-lime/10 bg-hemo-green/4 blur-[60px]" />
             <div className="deco-blob absolute top-1/2 left-1/3 w-[200px] lg:w-[300px] h-[200px] lg:h-[300px] rounded-full dark:bg-hemo-green-light/8 bg-hemo-green/3 blur-[50px]" />
 
-            <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pt-32 pb-6 lg:pb-32 grid lg:grid-cols-2 gap-3 sm:gap-5 lg:gap-12 items-center">
+            <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pt-24 xl:pt-32 pb-6 lg:pb-8 xl:pb-16 grid lg:grid-cols-2 gap-3 sm:gap-5 lg:gap-8 xl:gap-12 items-center">
                 {/* Text Content */}
                 <div className="hero-text mt-4 lg:mt-0">
                     {/* Badge — lime text fails WCAG on cream; use dark green in light mode */}
@@ -542,7 +542,7 @@ export default function HeroSection() {
 
                     <h1
                         ref={headingRef}
-                        className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold dark:text-white text-hemo-dark leading-[1.05] lg:leading-[1.08] mb-3 lg:mb-8"
+                        className="font-[family-name:var(--font-display)] text-3xl sm:text-4xl md:text-5xl lg:text-[2.75rem] xl:text-6xl 2xl:text-7xl font-bold dark:text-white text-hemo-dark leading-[1.05] lg:leading-[1.08] mb-3 lg:mb-4 xl:mb-8"
                         style={{ perspective: "800px" }}
                     >
                         {headingWords.map((word, i) => (
@@ -563,7 +563,7 @@ export default function HeroSection() {
 
                     <p
                         ref={subtitleRef}
-                        className="text-sm lg:text-lg xl:text-xl dark:text-white/70 text-hemo-dark/70 max-w-lg leading-snug lg:leading-relaxed mb-4 lg:mb-10"
+                        className="text-sm lg:text-base xl:text-lg 2xl:text-xl dark:text-white/70 text-hemo-dark/70 max-w-lg leading-snug lg:leading-relaxed mb-4 lg:mb-6 xl:mb-10"
                     >
                         Exames laboratoriais confiáveis com tecnologia de ponta,
                         resultados ágeis e atendimento humanizado.
