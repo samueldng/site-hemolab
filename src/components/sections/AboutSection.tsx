@@ -100,7 +100,7 @@ export default function AboutSection() {
                     scrollTrigger: {
                         trigger: s,
                         pin: true,
-                        scrub: 1,
+                        scrub: true,
                         end: () => `+=${totalScroll * 1.2}`,
                         invalidateOnRefresh: true,
                     },

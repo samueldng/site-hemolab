@@ -96,7 +96,7 @@ export default function ServicesSection() {
                     scrollTrigger: {
                         trigger: s,
                         pin: true,
-                        scrub: 1,
+                        scrub: true,
                         end: () => `+=${totalScroll * 1.1}`,
                         invalidateOnRefresh: true,
                     },
