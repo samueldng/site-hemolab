@@ -16,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 const HERO_SLIDES = [
     {
         type: "image" as const,
-        src: "/images/01-1024x1004.png",
+        src: "/images/01-1024x1004.webp",
         alt: "Laboratório Hemolab - Estrutura moderna",
     },
     ...FEATURED_EXAMS.map((exam) => ({
@@ -526,7 +526,7 @@ export default function HeroSection() {
             {/* Background */}
             <div ref={bgRef} className="absolute inset-0 -top-[15%] -bottom-[15%]">
                 <Image
-                    src="/images/Fachada_gota.png"
+                    src="/images/Fachada_gota.webp"
                     alt="Hemolab Fachada"
                     fill
                     className="object-cover dark:opacity-40 opacity-[0.06] dark:filter-none dark:mix-blend-normal mix-blend-multiply"
@@ -649,3 +649,4 @@ export default function HeroSection() {
         </section>
     );
 }
+

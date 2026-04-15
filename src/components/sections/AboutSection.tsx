@@ -308,7 +308,7 @@ export default function AboutSection() {
                 <div className="about-panel lg:flex-shrink-0 w-full lg:w-screen min-h-screen flex items-center relative overflow-hidden py-16 lg:py-0">
                     {/* BG */}
                     <div className="absolute inset-0 dark:bg-hemo-dark bg-[#ebebeb]" />
-                    <div className="absolute inset-0 bg-[url('/images/Fachada_gota.png')] bg-cover bg-center dark:opacity-10 opacity-5" />
+                    <div className="absolute inset-0 bg-[url('/images/Fachada_gota.webp')] bg-cover bg-center dark:opacity-10 opacity-5" />
                     <div className="absolute inset-0 bg-gradient-to-r dark:from-hemo-dark dark:via-hemo-dark/90 dark:to-hemo-dark/70 from-[#ebebeb] via-[#ebebeb]/90 to-[#ebebeb]/70" />
 
                     <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-16 w-full">
@@ -542,3 +542,4 @@ export default function AboutSection() {
         </section>
     );
 }
+

@@ -50,7 +50,7 @@ export const EXAMS: Exam[] = [
     ],
     description:
       "O pacote de check-up mais completo para acompanhamento preventivo da sua saúde. Ideal para quem deseja uma visão geral do seu estado de saúde com preço acessível.",
-    image: "/images/banner-checkup.png",
+    image: "/images/banner-checkup.webp",
     popular: true,
     badge: "Mais Vendido",
   },
@@ -82,7 +82,7 @@ export const EXAMS: Exam[] = [
     ],
     description:
       "Exame toxicológico obrigatório para emissão, adição e renovação da CNH nas categorias C, D e E. Coleta rápida e resultado com validade nacional.",
-    image: "/images/banner-toxicologico.png",
+    image: "/images/banner-toxicologico.webp",
     popular: true,
     badge: "Obrigatório CNH",
   },
@@ -119,7 +119,7 @@ export const EXAMS: Exam[] = [
     ],
     description:
       "Painel completo para investigar desequilíbrios hormonais e deficiências vitamínicas. Ideal para quem sente cansaço, queda de cabelo, alterações de humor ou deseja otimizar sua saúde.",
-    image: "/images/banner-hormonal.png",
+    image: "/images/banner-hormonal.webp",
     popular: true,
     badge: "Premium",
   },
@@ -144,7 +144,7 @@ export const EXAMS: Exam[] = [
       "Plaquetograma",
     ],
     description: "Exame básico e essencial para avaliação geral da saúde sanguínea.",
-    image: "/images/01-1024x1004.png",
+    image: "/images/01-1024x1004.webp",
     popular: false,
   },
   {
@@ -164,7 +164,7 @@ export const EXAMS: Exam[] = [
     ],
     includes: ["Dosagem de Glicose"],
     description: "Exame fundamental para rastreamento e acompanhamento do diabetes.",
-    image: "/images/02-1024x1004.png",
+    image: "/images/02-1024x1004.webp",
     popular: false,
   },
   {
@@ -191,7 +191,7 @@ export const EXAMS: Exam[] = [
       "Triglicerídeos",
     ],
     description: "Avaliação completa dos níveis de gordura no sangue para prevenção cardiovascular.",
-    image: "/images/04-1024x1001.png",
+    image: "/images/04-1024x1001.webp",
     popular: false,
   },
 ];
@@ -208,3 +208,4 @@ export function formatPrice(price: number): string {
     currency: "BRL",
   });
 }
+
