@@ -377,6 +377,7 @@ export default function HeroSection() {
                                 fill
                                 className="object-cover"
                                 priority={idx === 0}
+                                fetchPriority={idx === 0 ? "high" : "auto"}
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
                             {/* Subtle label overlay */}
@@ -401,6 +402,7 @@ export default function HeroSection() {
                                 alt={slide.exam!.name}
                                 fill
                                 priority={idx === 0}
+                                fetchPriority={idx === 0 ? "high" : "auto"}
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
@@ -529,6 +531,7 @@ export default function HeroSection() {
                     fill
                     className="object-cover dark:opacity-40 opacity-[0.06] dark:filter-none dark:mix-blend-normal mix-blend-multiply"
                     priority
+                    fetchPriority="high"
                     sizes="100vw"
                 />
                 {/* Scanline overlay — subtle in light, darker in dark */}

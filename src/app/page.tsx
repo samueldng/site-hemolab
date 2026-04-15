@@ -1,10 +1,10 @@
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
-import AboutSection from "@/components/sections/AboutSection";
-import FloatingActionButton from "@/components/ui/FloatingActionButton";
 import dynamic from "next/dynamic";
 
+const AboutSection = dynamic(() => import("@/components/sections/AboutSection"));
+const Footer = dynamic(() => import("@/components/layout/Footer"));
+const FloatingActionButton = dynamic(() => import("@/components/ui/FloatingActionButton"));
 const ExamBannersSection = dynamic(() => import("@/components/sections/ExamBannersSection"));
 const ServicesSection = dynamic(() => import("@/components/sections/ServicesSection"));
 const UnitsSection = dynamic(() => import("@/components/sections/UnitsSection"));
