@@ -11,7 +11,7 @@ import { ThemeToggle } from "../ui/ThemeToggle";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-    { label: "Home", href: "/#home" },
+    { label: "Home", href: "/" },
     { label: "Sobre", href: "/#sobre" },
     { label: "Exames", href: "/exames" },
     { label: "Serviços", href: "/#servicos" },
