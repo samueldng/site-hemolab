@@ -190,7 +190,7 @@ export default function Header() {
 
                     <div className="mobile-cta mt-12 w-full px-8 z-10 flex justify-center">
                         <MagneticButton
-                            onClick={(e) => {
+                            onClick={() => {
                                 if (mobileOpen) toggleMenu();
                                 useUiStore.getState().openResultadosModal();
                             }}
