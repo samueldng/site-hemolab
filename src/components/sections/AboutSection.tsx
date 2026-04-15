@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedCounter from "../ui/AnimatedCounter";
+import { usePerfContext } from "@/components/providers/PerfProvider";
 import { Target, Eye, TrendingUp, Rocket, HeartHandshake, Users } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -78,6 +79,7 @@ const DR_QUALIFICATIONS = [
 export default function AboutSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
+    const isLowPerf = usePerfContext();
 
     useGSAP(
         () => {
@@ -114,21 +116,39 @@ export default function AboutSection() {
                     const image = panel.querySelector(".panel-img");
 
                     if (title) {
-                        gsap.fromTo(
-                            title,
-                            { y: 80, opacity: 0, skewY: 4 },
-                            {
-                                y: 0, opacity: 1, skewY: 0,
-                                ease: "power3.out",
-                                scrollTrigger: {
-                                    trigger: panel,
-                                    containerAnimation: scrollTween,
-                                    start: "left 80%",
-                                    end: "left 40%",
-                                    scrub: true,
-                                },
-                            }
-                        );
+                        if (isLowPerf) {
+                            gsap.fromTo(
+                                title,
+                                { y: 30, opacity: 0 },
+                                {
+                                    y: 0, opacity: 1,
+                                    ease: "power2.out",
+                                    scrollTrigger: {
+                                        trigger: panel,
+                                        containerAnimation: scrollTween,
+                                        start: "left 80%",
+                                        end: "left 50%",
+                                        scrub: true,
+                                    },
+                                }
+                            );
+                        } else {
+                            gsap.fromTo(
+                                title,
+                                { y: 80, opacity: 0, skewY: 4 },
+                                {
+                                    y: 0, opacity: 1, skewY: 0,
+                                    ease: "power3.out",
+                                    scrollTrigger: {
+                                        trigger: panel,
+                                        containerAnimation: scrollTween,
+                                        start: "left 80%",
+                                        end: "left 40%",
+                                        scrub: true,
+                                    },
+                                }
+                            );
+                        }
                     }
 
                     if (subtitle) {
@@ -152,11 +172,11 @@ export default function AboutSection() {
                     if (content.length) {
                         gsap.fromTo(
                             content,
-                            { y: 60, opacity: 0 },
+                            { y: isLowPerf ? 20 : 60, opacity: 0 },
                             {
                                 y: 0, opacity: 1,
-                                stagger: 0.05,
-                                ease: "power3.out",
+                                stagger: isLowPerf ? 0 : 0.05,
+                                ease: isLowPerf ? "power2.out" : "power3.out",
                                 scrollTrigger: {
                                     trigger: panel,
                                     containerAnimation: scrollTween,
@@ -171,10 +191,10 @@ export default function AboutSection() {
                     if (image) {
                         gsap.fromTo(
                             image,
-                            { scale: 1.3, opacity: 0, x: 80 },
+                            { scale: isLowPerf ? 1 : 1.3, opacity: 0, x: isLowPerf ? 20 : 80 },
                             {
                                 scale: 1, opacity: 1, x: 0,
-                                ease: "power3.out",
+                                ease: isLowPerf ? "power2.out" : "power3.out",
                                 scrollTrigger: {
                                     trigger: panel,
                                     containerAnimation: scrollTween,
@@ -195,11 +215,11 @@ export default function AboutSection() {
                     if (elements.length) {
                         gsap.fromTo(
                             elements,
-                            { y: 40, opacity: 0 },
+                            { y: isLowPerf ? 20 : 40, opacity: 0 },
                             {
                                 y: 0, opacity: 1,
-                                stagger: 0.1,
-                                ease: "power3.out",
+                                stagger: isLowPerf ? 0 : 0.1,
+                                ease: isLowPerf ? "power2.out" : "power3.out",
                                 scrollTrigger: {
                                     trigger: panel,
                                     start: "top 75%",

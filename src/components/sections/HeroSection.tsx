@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import Link from "next/link";
 import MagneticButton from "../ui/MagneticButton";
+import { usePerfContext } from "@/components/providers/PerfProvider";
 import { FEATURED_EXAMS, formatPrice } from "@/data/exams";
 import { ArrowRight, Phone, Clock, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -36,6 +37,7 @@ export default function HeroSection() {
     const [activeSlide, setActiveSlide] = useState(0);
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
     const isAnimatingRef = useRef(false);
+    const isLowPerf = usePerfContext();
 
     // ─── Slide transition with GSAP ───
     const goToSlide = useCallback(
@@ -135,7 +137,7 @@ export default function HeroSection() {
                 const next = (activeSlide + 1) % HERO_SLIDES.length;
                 goToSlide(next);
             }
-        }, 5000);
+        }, isLowPerf ? 7000 : 5000);
 
         return () => {
             if (intervalRef.current) clearInterval(intervalRef.current);
@@ -159,75 +161,97 @@ export default function HeroSection() {
             // ─── ENTRANCE TIMELINE ───
             const tl = gsap.timeline({ delay: 0.6 });
 
+            // ─── BACKGROUND PARALLAX ───
             if (bgRef.current) {
-                tl.fromTo(
-                    bgRef.current,
-                    { scale: 1.2, opacity: 0 },
-                    { scale: 1, opacity: 1, duration: 2, ease: "power2.out" },
-                    0
-                );
+                if (isLowPerf) {
+                    gsap.set(bgRef.current, { scale: 1, opacity: 1 });
+                } else {
+                    tl.fromTo(
+                        bgRef.current,
+                        { scale: 1.2, opacity: 0 },
+                        { scale: 1, opacity: 1, duration: 2, ease: "power2.out" },
+                        0
+                    );
+                    gsap.to(bgRef.current, {
+                        yPercent: 15,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: s,
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: true,
+                        },
+                    });
+                }
             }
 
+            // ─── WORDS ANIMATION ───
             if (headingRef.current) {
                 const words = headingRef.current.querySelectorAll(".word");
-                tl.fromTo(
-                    words,
-                    { y: 120, opacity: 0, rotateX: -90, scale: 0.8 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        rotateX: 0,
-                        scale: 1,
-                        duration: 1,
-                        stagger: 0.1,
-                        ease: "back.out(1.4)",
-                    },
-                    0.3
-                );
+                if (isLowPerf) {
+                    gsap.set(words, { y: 0, opacity: 1, rotateX: 0, scale: 1 });
+                } else {
+                    tl.fromTo(
+                        words,
+                        { y: 120, opacity: 0, rotateX: -90, scale: 0.8 },
+                        {
+                            y: 0, opacity: 1, rotateX: 0, scale: 1,
+                            stagger: 0.08, duration: 1.2, ease: "power4.out",
+                        },
+                        0.2
+                    );
+                }
             }
 
-            const badge = s.querySelector(".hero-badge");
-            if (badge) {
-                tl.fromTo(
-                    badge,
-                    { x: -40, opacity: 0 },
-                    { x: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
-                    0.5
-                );
+            // ─── SUBTITLE & CTA ───
+            if (subtitleRef.current && ctaRef.current) {
+                if (isLowPerf) {
+                    gsap.set([subtitleRef.current, ctaRef.current], { y: 0, opacity: 1 });
+                } else {
+                    tl.fromTo(
+                        [subtitleRef.current, ctaRef.current],
+                        { y: 40, opacity: 0 },
+                        {
+                            y: 0, opacity: 1,
+                            stagger: 0.15, duration: 1, ease: "power3.out",
+                        },
+                        0.8
+                    );
+                }
             }
 
-            if (subtitleRef.current) {
-                tl.fromTo(
-                    subtitleRef.current,
-                    { y: 50, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-                    1.0
-                );
+            // ─── CAROUSEL IMAGE REVEAL ───
+            if (carouselRef.current && imageOverlayRef.current) {
+                if (isLowPerf) {
+                    gsap.set(imageOverlayRef.current, { xPercent: 100 });
+                } else {
+                    tl.to(
+                        imageOverlayRef.current,
+                        {
+                            xPercent: 100, duration: 1.2, ease: "power3.inOut",
+                        },
+                        0.6
+                    );
+                }
             }
 
-            if (ctaRef.current) {
-                tl.fromTo(
-                    ctaRef.current.children,
-                    { y: 40, opacity: 0, scale: 0.9 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        scale: 1,
-                        stagger: 0.15,
-                        duration: 0.7,
-                        ease: "back.out(1.5)",
-                    },
-                    1.2
-                );
-            }
-
-            // Image reveal
-            if (imageOverlayRef.current) {
-                tl.to(
-                    imageOverlayRef.current,
-                    { x: "105%", duration: 1.4, ease: "power4.inOut" },
-                    0.8
-                );
+            // ─── DECORATIVE BLOBS PARALLAX ───
+            if (!isLowPerf) {
+                const blobs = s.querySelectorAll(".deco-blob");
+                blobs.forEach((blob, i) => {
+                    gsap.to(blob, {
+                        y: -100 - i * 50,
+                        x: i % 2 === 0 ? 50 : -50,
+                        rotate: i % 2 === 0 ? 45 : -45,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: s,
+                            start: "top top",
+                            end: "bottom top",
+                            scrub: true,
+                        },
+                    });
+                });
             }
 
             // First slide entrance
@@ -599,7 +623,7 @@ export default function HeroSection() {
                     {renderCarousel(false)}
 
                     {/* Floating badge — improved contrast in light mode */}
-                    <div className="hero-floater absolute -bottom-4 lg:-bottom-6 -right-2 lg:-right-6 dark:bg-hemo-dark/90 bg-white backdrop-blur-xl rounded-2xl p-3 lg:p-4 animate-float border dark:border-hemo-lime/15 border-hemo-dark/8 shadow-xl z-10 hidden sm:block">
+                    <div className="hero-floater absolute -bottom-4 lg:-bottom-6 -right-2 xl:-right-6 dark:bg-hemo-dark/90 bg-white backdrop-blur-xl rounded-2xl p-3 lg:p-4 animate-float border dark:border-hemo-lime/15 border-hemo-dark/8 shadow-xl z-10 hidden xl:block">
                         <div className="flex items-center gap-2 lg:gap-3">
                             <div className="w-9 lg:w-11 h-9 lg:h-11 rounded-full bg-hemo-red/8 dark:bg-white flex items-center justify-center shadow-inner">
                                 <Image

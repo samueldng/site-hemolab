@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import MagneticButton from "../ui/MagneticButton";
+import { usePerfContext } from "@/components/providers/PerfProvider";
 import { Phone, Mail, MapPin, Clock, ArrowRight, MessageCircle } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -43,6 +44,7 @@ const CONTACT_INFO = [
 export default function ContactSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
+    const isLowPerf = usePerfContext();
 
     useGSAP(
         () => {
@@ -90,10 +92,10 @@ export default function ContactSection() {
             cards.forEach((card) => {
                 gsap.fromTo(
                     card,
-                    { y: 80, opacity: 0, scale: 0.85 },
+                    { y: isLowPerf ? 40 : 80, opacity: 0, scale: isLowPerf ? 1 : 0.85 },
                     {
                         y: 0, opacity: 1, scale: 1,
-                        ease: "power3.out",
+                        ease: isLowPerf ? "power2.out" : "power3.out",
                         scrollTrigger: {
                             trigger: card,
                             containerAnimation: scrollTween,
@@ -110,10 +112,10 @@ export default function ContactSection() {
             if (cta) {
                 gsap.fromTo(
                     cta,
-                    { opacity: 0, scale: 0.9 },
+                    { opacity: 0, scale: isLowPerf ? 1 : 0.9 },
                     {
                         opacity: 1, scale: 1,
-                        ease: "power3.out",
+                        ease: isLowPerf ? "power2.out" : "power3.out",
                         scrollTrigger: {
                             trigger: cta,
                             containerAnimation: scrollTween,

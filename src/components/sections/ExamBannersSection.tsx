@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import Link from "next/link";
 import { FEATURED_EXAMS, formatPrice } from "@/data/exams";
+import { usePerfContext } from "@/components/providers/PerfProvider";
 import { useCart } from "@/components/providers/CartProvider";
 import MagneticButton from "../ui/MagneticButton";
 import {
@@ -25,6 +26,7 @@ const CARD_ICONS = [Sparkles, Zap, Shield];
 export default function ExamBannersSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const isLowPerf = usePerfContext();
   const { dispatch } = useCart();
 
   useGSAP(
@@ -89,9 +91,10 @@ export default function ExamBannersSection() {
           if (mask) {
             gsap.fromTo(
               mask,
-              { scaleX: 1 },
+              { scaleX: isLowPerf ? 0 : 1, opacity: isLowPerf ? 0 : 1 },
               {
                 scaleX: 0,
+                opacity: isLowPerf ? 1 : 1,
                 ease: "power3.inOut",
                 scrollTrigger: {
                   trigger: panel,
@@ -108,9 +111,10 @@ export default function ExamBannersSection() {
           if (img) {
             gsap.fromTo(
               img,
-              { scale: 1.5 },
+              { scale: isLowPerf ? 1.05 : 1.5, opacity: isLowPerf ? 0 : 1 },
               {
                 scale: 1,
+                opacity: 1,
                 ease: "none",
                 scrollTrigger: {
                   trigger: panel,
@@ -127,11 +131,11 @@ export default function ExamBannersSection() {
           if (content) {
             gsap.fromTo(
               content,
-              { x: 100, opacity: 0 },
+              { x: isLowPerf ? 30 : 100, opacity: 0 },
               {
                 x: 0,
                 opacity: 1,
-                ease: "power3.out",
+                ease: isLowPerf ? "power2.out" : "power3.out",
                 scrollTrigger: {
                   trigger: panel,
                   containerAnimation: scrollTween,
@@ -147,12 +151,12 @@ export default function ExamBannersSection() {
           if (details.length) {
             gsap.fromTo(
               details,
-              { y: 50, opacity: 0 },
+              { y: isLowPerf ? 20 : 50, opacity: 0 },
               {
                 y: 0,
                 opacity: 1,
-                stagger: 0.08,
-                ease: "power3.out",
+                stagger: isLowPerf ? 0 : 0.08,
+                ease: isLowPerf ? "power2.out" : "power3.out",
                 scrollTrigger: {
                   trigger: panel,
                   containerAnimation: scrollTween,
@@ -171,6 +175,7 @@ export default function ExamBannersSection() {
         panels.forEach((panel) => {
           const elements = panel.querySelectorAll(".hs-title, .panel-detail");
           const mask = panel.querySelector(".panel-mask");
+          const img = panel.querySelector(".panel-image");
 
           if (mask) {
             gsap.to(mask, {
@@ -181,6 +186,22 @@ export default function ExamBannersSection() {
                 start: "top 70%",
               }
             });
+          }
+
+          if (img) {
+            gsap.fromTo(
+              img,
+              { scale: isLowPerf ? 1 : 1.1, opacity: 0 },
+              {
+                scale: 1,
+                opacity: 1,
+                ease: isLowPerf ? "power2.out" : "power3.out",
+                scrollTrigger: {
+                  trigger: panel,
+                  start: "top 80%",
+                },
+              }
+            );
           }
 
           if (elements.length) {

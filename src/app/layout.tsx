@@ -5,6 +5,7 @@ import { CartProvider } from "@/components/providers/CartProvider";
 import CartDrawer from "@/components/ecommerce/CartDrawer";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import GlobalGSAPRefresh from "@/components/providers/GlobalGSAPRefresh";
+import PerfProvider from "@/components/providers/PerfProvider";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -59,11 +60,13 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning className={`${outfit.variable} ${inter.variable}`}>
       <body className="antialiased transition-colors duration-300 dark:bg-hemo-dark bg-[#F8F6F0] dark:text-white text-[#002E20]">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <CartProvider>
-            <GlobalGSAPRefresh />
-            {children}
-            <CartDrawer />
-          </CartProvider>
+          <PerfProvider>
+            <CartProvider>
+              <GlobalGSAPRefresh />
+              {children}
+              <CartDrawer />
+            </CartProvider>
+          </PerfProvider>
         </ThemeProvider>
       </body>
     </html>

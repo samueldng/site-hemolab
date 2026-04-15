@@ -278,8 +278,13 @@ body {
 
 /* ─── Modal Animations ────────────────────── */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes scaleIn {
@@ -287,8 +292,46 @@ body {
     opacity: 0;
     transform: scale(0.92) translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+
+/* ─── Low Performance Mode ────────────────── */
+/* Activated by useDevicePerf hook via body.low-perf class */
+
+/* Kill all backdrop-blur (heaviest GPU effect) */
+body.low-perf * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Hide decorative blur blobs (blur-[50px] to blur-[120px]) */
+body.low-perf .deco-blob {
+  display: none !important;
+}
+
+/* Stop infinite CSS animations */
+body.low-perf .animate-float,
+body.low-perf .animate-pulse,
+body.low-perf .animate-bounce {
+  animation: none !important;
+}
+
+/* Disable will-change on scroll tracks (saves compositing layers) */
+body.low-perf .will-change-transform {
+  will-change: auto !important;
+}
+
+/* Reduce shadow complexity */
+body.low-perf .shadow-2xl,
+body.low-perf .shadow-xl {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Disable hover translate effects */
+body.low-perf .hover\:-translate-y-2:hover {
+  transform: none !important;
 }

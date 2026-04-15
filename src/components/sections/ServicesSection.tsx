@@ -14,6 +14,7 @@ import {
     Heart,
     ArrowRight,
 } from "lucide-react";
+import { usePerfContext } from "@/components/providers/PerfProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,6 +78,7 @@ const SERVICES = [
 export default function ServicesSection() {
     const sectionRef = useRef<HTMLElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
+    const isLowPerf = usePerfContext();
 
     useGSAP(
         () => {
@@ -127,10 +129,10 @@ export default function ServicesSection() {
                 cards.forEach((card) => {
                     gsap.fromTo(
                         card,
-                        { y: 80, opacity: 0, scale: 0.85, rotateX: 15 },
+                        { y: 80, opacity: 0, scale: isLowPerf ? 1 : 0.85, rotateX: isLowPerf ? 0 : 15 },
                         {
                             y: 0, opacity: 1, scale: 1, rotateX: 0,
-                            ease: "power3.out",
+                            ease: isLowPerf ? "power2.out" : "power3.out",
                             scrollTrigger: {
                                 trigger: card,
                                 containerAnimation: scrollTween,
@@ -167,10 +169,10 @@ export default function ServicesSection() {
                 cards.forEach((card) => {
                     gsap.fromTo(
                         card,
-                        { y: 50, opacity: 0, scale: 0.95 },
+                        { y: 50, opacity: 0, scale: isLowPerf ? 1 : 0.95 },
                         {
                             y: 0, opacity: 1, scale: 1,
-                            ease: "power3.out",
+                            ease: isLowPerf ? "power2.out" : "power3.out",
                             scrollTrigger: {
                                 trigger: card,
                                 start: "top 85%",
@@ -181,16 +183,18 @@ export default function ServicesSection() {
             });
 
             // Subtle continuous icon pulse
-            const icons = s.querySelectorAll(".service-icon");
-            if (icons.length) {
-                gsap.to(icons, {
-                    scale: 1.15,
-                    duration: 1.5,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut",
-                    stagger: { each: 0.3, from: "random" },
-                });
+            if (!isLowPerf) {
+                const icons = s.querySelectorAll(".service-icon");
+                if (icons.length) {
+                    gsap.to(icons, {
+                        scale: 1.15,
+                        duration: 1.5,
+                        repeat: -1,
+                        yoyo: true,
+                        ease: "sine.inOut",
+                        stagger: { each: 0.3, from: "random" },
+                    });
+                }
             }
 
             return () => mm.revert();
