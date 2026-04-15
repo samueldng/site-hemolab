@@ -53,6 +53,8 @@ export const metadata: Metadata = {
   },
 };
 
+import ResultadosModal from "@/components/ui/ResultadosModal";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -67,6 +69,7 @@ export default function RootLayout({
               <GlobalGSAPRefresh />
               {children}
               <CartDrawer />
+              <ResultadosModal />
             </CartProvider>
           </PerfProvider>
         </ThemeProvider>

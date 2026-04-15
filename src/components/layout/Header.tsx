@@ -8,6 +8,7 @@ import Link from "next/link";
 import MagneticButton from "../ui/MagneticButton";
 import CartIcon from "../ecommerce/CartIcon";
 import { ThemeToggle } from "../ui/ThemeToggle";
+import { useUiStore } from "@/store/uiStore";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
@@ -143,7 +144,7 @@ export default function Header() {
                     <ThemeToggle />
                     <CartIcon />
                     <MagneticButton
-                        href="https://www.hemolabma.com.br/resultados-pulse/"
+                        onClick={useUiStore.getState().openResultadosModal}
                         className="px-7 py-3.5 bg-hemo-red text-white font-bold text-sm rounded-full animate-pulse-glow hover:bg-hemo-red-dark transition-colors duration-300 shadow-lg shadow-hemo-red/40"
                     >
                         Consultar Resultados
@@ -189,7 +190,10 @@ export default function Header() {
 
                     <div className="mobile-cta mt-12 w-full px-8 z-10 flex justify-center">
                         <MagneticButton
-                            href="https://www.hemolabma.com.br/resultados-pulse/"
+                            onClick={(e) => {
+                                if (mobileOpen) toggleMenu();
+                                useUiStore.getState().openResultadosModal();
+                            }}
                             className="w-full max-w-[280px] py-5 bg-hemo-red text-white font-bold text-center rounded-full text-lg shadow-xl shadow-hemo-red/20 flex items-center justify-center justify-self-center mx-auto"
                         >
                             Consultar Resultados

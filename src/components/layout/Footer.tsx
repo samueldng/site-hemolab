@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { MapPin, Phone, Globe, Video, Mail } from "lucide-react";
+import { useUiStore } from "@/store/uiStore";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -138,14 +139,12 @@ export default function Footer() {
                             </a>
                         </div>
                         <div className="mt-6">
-                            <a
-                                href="https://www.hemolabma.com.br/resultados-pulse/"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <button
+                                onClick={useUiStore.getState().openResultadosModal}
                                 className="inline-flex px-5 py-2.5 bg-hemo-red text-white text-sm font-semibold rounded-full hover:bg-hemo-red-dark transition-colors"
                             >
                                 Consultar Resultados
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>

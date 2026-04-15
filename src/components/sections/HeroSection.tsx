@@ -9,6 +9,7 @@ import Link from "next/link";
 import MagneticButton from "../ui/MagneticButton";
 import { usePerfContext } from "@/components/providers/PerfProvider";
 import { FEATURED_EXAMS, formatPrice } from "@/data/exams";
+import { useUiStore } from "@/store/uiStore";
 import { ArrowRight, Phone, Clock, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -588,7 +589,7 @@ export default function HeroSection() {
 
                     <div ref={ctaRef} className="flex flex-col sm:flex-row flex-wrap gap-3 lg:gap-4">
                         <MagneticButton
-                            href="https://www.hemolabma.com.br/resultados-pulse/"
+                            onClick={useUiStore.getState().openResultadosModal}
                             className="px-6 lg:px-8 py-3 lg:py-4 bg-hemo-red text-white font-bold rounded-full flex items-center justify-center gap-2 hover:bg-hemo-red-dark transition-all duration-300 shadow-lg shadow-hemo-red/30 group text-base lg:text-lg"
                         >
                             Consultar Resultados

@@ -47,7 +47,7 @@ export default function MagneticButton({
         });
     }, []);
 
-    const Tag = href ? "a" : "div";
+    const Tag = href ? "a" : onClick ? "button" : "div";
     const linkProps = href
         ? { href, target: href.startsWith("http") ? "_blank" : undefined, rel: href.startsWith("http") ? "noopener noreferrer" : undefined }
         : {};
