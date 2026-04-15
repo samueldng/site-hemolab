@@ -195,7 +195,7 @@ export default function ContactSection() {
                 <div className="ct-cta flex-shrink-0 w-[50vw] self-center">
                     <div className="relative rounded-3xl overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-r from-hemo-red via-hemo-red-dark to-hemo-green" />
-                        <div className="absolute inset-0 bg-[url('/hemolab/images/Fachada_gota.png')] bg-cover bg-center opacity-10 mix-blend-overlay" />
+                        <div className="absolute inset-0 bg-[url('/images/Fachada_gota.png')] bg-cover bg-center opacity-10 mix-blend-overlay" />
                         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 p-12 md:p-16">
                             <div>
                                 <h3 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl font-bold text-white mb-3">

@@ -247,7 +247,7 @@ export default function UnitsSection() {
                                 >
                                     <div className="relative w-8 h-10 shrink-0">
                                         <Image
-                                            src="/hemolab/images/iconePC.png"
+                                            src="/images/iconePC.png"
                                             alt="Icone"
                                             fill
                                             className="object-contain"

@@ -19,7 +19,7 @@ export const clinics: Clinic[] = [
         city: "Bacabal-MA",
         coords: { x: 50.0, y: 35.0 },
         address: "Rua Magalhães de Almeida, n° 469, Centro",
-        photo: "/hemolab/images/fachada-300x300.png",
+        photo: "/images/fachada-300x300.png",
     },
     {
         id: "mauricio-carvalho",
@@ -28,7 +28,7 @@ export const clinics: Clinic[] = [
         city: "Bacabal-MA",
         coords: { x: 51.5, y: 33.8 },
         address: "Referência Parceira Bacabal",
-        photo: "/hemolab/images/parceiros/centro_medico.png",
+        photo: "/images/parceiros/centro_medico.png",
     },
     {
         id: "clinica-biorim",
@@ -37,7 +37,7 @@ export const clinics: Clinic[] = [
         city: "Bacabal-MA",
         coords: { x: 48.8, y: 36.0 },
         address: "Referência Parceira Bacabal",
-        photo: "/hemolab/images/parceiros/Biorim.png",
+        photo: "/images/parceiros/Biorim.png",
     },
     {
         id: "clinica-ribeiro",
@@ -46,7 +46,7 @@ export const clinics: Clinic[] = [
         city: "Bacabal-MA",
         coords: { x: 51.2, y: 35.8 },
         address: "Referência Parceira Bacabal",
-        photo: "/hemolab/images/parceiros/clinica_ribeiro.png",
+        photo: "/images/parceiros/clinica_ribeiro.png",
     },
     {
         id: "clinica-santa-tereza",
@@ -55,7 +55,7 @@ export const clinics: Clinic[] = [
         city: "Bacabal-MA",
         coords: { x: 49.2, y: 34.2 },
         address: "Referência Parceira Bacabal",
-        photo: "/hemolab/images/parceiros/santa_tereza.png",
+        photo: "/images/parceiros/santa_tereza.png",
     },
     {
         id: "clinica-matergin",
@@ -64,7 +64,7 @@ export const clinics: Clinic[] = [
         city: "Bacabal-MA",
         coords: { x: 50.8, y: 36.5 },
         address: "Referência Parceira Bacabal",
-        photo: "/hemolab/images/parceiros/MaterGin.png",
+        photo: "/images/parceiros/MaterGin.png",
     },
     {
         id: "clinica-dr-saude-bacabal",
@@ -73,7 +73,7 @@ export const clinics: Clinic[] = [
         city: "Bacabal-MA",
         coords: { x: 51.8, y: 34.5 },
         address: "Referência Parceira Bacabal",
-        photo: "/hemolab/images/parceiros/drsaude_bacabal.png",
+        photo: "/images/parceiros/drsaude_bacabal.png",
     },
 
     // ═══════════════════════════════════════════════
@@ -86,7 +86,7 @@ export const clinics: Clinic[] = [
         city: "Satubinha-MA",
         coords: { x: 37.4, y: 31.7 },
         address: "Unidade Satubinha",
-        photo: "/hemolab/images/parceiros/hemolab-satubinha.png",
+        photo: "/images/parceiros/hemolab-satubinha.png",
     },
 
     // ═══════════════════════════════════════════════
@@ -102,7 +102,7 @@ export const clinics: Clinic[] = [
         city: "São Mateus-MA",
         coords: { x: 68.9, y: 30.4 },
         address: "Unidade São Mateus",
-        photo: "/hemolab/images/parceiros/multiclin_saomateus.png",
+        photo: "/images/parceiros/multiclin_saomateus.png",
     },
     {
         id: "multiclin-alto-alegre",
@@ -111,7 +111,7 @@ export const clinics: Clinic[] = [
         city: "Alto Alegre-MA",
         coords: { x: 68.0, y: 35.6 },
         address: "Unidade Alto Alegre",
-        photo: "/hemolab/images/parceiros/multiclin_altoalegre.png",
+        photo: "/images/parceiros/multiclin_altoalegre.png",
     },
 
     // ─── Noroeste (Pio XII / Lago Verde) ───
@@ -122,7 +122,7 @@ export const clinics: Clinic[] = [
         city: "Pio XII-MA",
         coords: { x: 33.4, y: 29.8 },
         address: "Unidade Pio XII",
-        photo: "/hemolab/images/parceiros/drsaude_pioxii.png",
+        photo: "/images/parceiros/drsaude_pioxii.png",
     },
     {
         id: "mais-saude-lago-verde",
@@ -131,7 +131,7 @@ export const clinics: Clinic[] = [
         city: "Lago Verde-MA",
         coords: { x: 34.5, y: 31.5 },
         address: "Unidade Lago Verde",
-        photo: "/hemolab/images/hemolab-satubinha-300x300.png",
+        photo: "/images/hemolab-satubinha-300x300.png",
     },
 
     // ─── Norte (Conceição do Lago Açu) ───
@@ -142,7 +142,7 @@ export const clinics: Clinic[] = [
         city: "Conceição do Lago Açu-MA",
         coords: { x: 47.8, y: 27.2 },
         address: "Unidade Conceição do Lago Açu",
-        photo: "/hemolab/images/hemolab-satubinha-300x300.png",
+        photo: "/images/hemolab-satubinha-300x300.png",
     },
 
     // ─── Oeste (Olho d'Água / Bom Lugar) ───
@@ -153,7 +153,7 @@ export const clinics: Clinic[] = [
         city: "Olho D'água das Cunhãs-MA",
         coords: { x: 41.0, y: 33.0 },
         address: "Unidade Olho D'água das Cunhãs",
-        photo: "/hemolab/images/parceiros/clinica_mariabraga.png",
+        photo: "/images/parceiros/clinica_mariabraga.png",
     },
     {
         id: "bem-estar-bom-lugar",
@@ -162,7 +162,7 @@ export const clinics: Clinic[] = [
         city: "Bom Lugar-MA",
         coords: { x: 36.0, y: 38.9 },
         address: "Unidade Bom Lugar",
-        photo: "/hemolab/images/hemolab-satubinha-300x300.png",
+        photo: "/images/hemolab-satubinha-300x300.png",
     },
 
     // ═══════════════════════════════════════════════
@@ -175,7 +175,7 @@ export const clinics: Clinic[] = [
         city: "Lago da Pedra-MA",
         coords: { x: 36.5, y: 45.1 },
         address: "Unidade Lago da Pedra",
-        photo: "/hemolab/images/parceiros/bemestar_lagodapedra.png",
+        photo: "/images/parceiros/bemestar_lagodapedra.png",
     },
     {
         id: "mark-sanfieri-lago-da-pedra",
@@ -184,7 +184,7 @@ export const clinics: Clinic[] = [
         city: "Lago da Pedra-MA",
         coords: { x: 37.6, y: 45.9 },
         address: "Referência Lago da Pedra",
-        photo: "/hemolab/images/hemolab-satubinha-300x300.png",
+        photo: "/images/hemolab-satubinha-300x300.png",
     },
     {
         id: "ultramedic-lago-da-pedra",
@@ -193,7 +193,7 @@ export const clinics: Clinic[] = [
         city: "Lago da Pedra-MA",
         coords: { x: 35.4, y: 44.3 },
         address: "Referência Lago da Pedra",
-        photo: "/hemolab/images/hemolab-satubinha-300x300.png",
+        photo: "/images/hemolab-satubinha-300x300.png",
     },
 
     // ─── Lago dos Rodrigues (entre Lago da Pedra e Esperantinópolis) ───
@@ -204,7 +204,7 @@ export const clinics: Clinic[] = [
         city: "Lago dos Rodrigues-MA",
         coords: { x: 47.3, y: 45.4 },
         address: "Unidade Lago dos Rodrigues",
-        photo: "/hemolab/images/hemolab-satubinha-300x300.png",
+        photo: "/images/hemolab-satubinha-300x300.png",
     },
 
     // ═══════════════════════════════════════════════
@@ -217,7 +217,7 @@ export const clinics: Clinic[] = [
         city: "Esperantinópolis-MA",
         coords: { x: 48.7, y: 52.6 },
         address: "Referência Esperantinópolis",
-        photo: "/hemolab/images/parceiros/clinica_saothiago.png",
+        photo: "/images/parceiros/clinica_saothiago.png",
     },
     {
         id: "ciomed-esperantinopolis",
@@ -226,7 +226,7 @@ export const clinics: Clinic[] = [
         city: "Esperantinópolis-MA",
         coords: { x: 49.6, y: 53.4 },
         address: "Referência Esperantinópolis",
-        photo: "/hemolab/images/hemolab-satubinha-300x300.png",
+        photo: "/images/hemolab-satubinha-300x300.png",
     },
 
     // ═══════════════════════════════════════════════
@@ -239,7 +239,7 @@ export const clinics: Clinic[] = [
         city: "Barra do Corda-MA",
         coords: { x: 41.4, y: 70.8 },
         address: "Unidade Barra do Corda",
-        photo: "/hemolab/images/parceiros/clinica_ciomed_barradocorda.png",
+        photo: "/images/parceiros/clinica_ciomed_barradocorda.png",
     },
     {
         id: "vitallis-lagoa-grande",
@@ -248,6 +248,6 @@ export const clinics: Clinic[] = [
         city: "Lagoa Grande-MA",
         coords: { x: 24.8, y: 57.2 },
         address: "Unidade Lagoa Grande",
-        photo: "/hemolab/images/parceiros/Vitallis.png",
+        photo: "/images/parceiros/Vitallis.png",
     },
 ];
