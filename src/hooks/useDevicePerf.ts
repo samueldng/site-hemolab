@@ -70,6 +70,7 @@ export function useDevicePerf() {
             document.body.classList.remove("low-perf");
         }
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsLowPerf(lowPerf);
     }, []);
 

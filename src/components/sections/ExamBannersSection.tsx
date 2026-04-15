@@ -9,7 +9,6 @@ import Link from "next/link";
 import { FEATURED_EXAMS, formatPrice } from "@/data/exams";
 import { usePerfContext } from "@/components/providers/PerfProvider";
 import { useCart } from "@/components/providers/CartProvider";
-import MagneticButton from "../ui/MagneticButton";
 import {
   Clock,
   ShoppingCart,

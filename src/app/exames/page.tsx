@@ -8,9 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { EXAMS, FEATURED_EXAMS, formatPrice } from "@/data/exams";
+import { EXAMS, formatPrice } from "@/data/exams";
 import { useCart } from "@/components/providers/CartProvider";
-import MagneticButton from "@/components/ui/MagneticButton";
+
 import {
   ShoppingCart,
   ArrowRight,

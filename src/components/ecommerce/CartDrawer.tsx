@@ -118,6 +118,7 @@ export default function CartDrawer() {
                 >
                   <div className="flex gap-4">
                     <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={item.exam.image}
                         alt={item.exam.name}

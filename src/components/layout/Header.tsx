@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
@@ -113,7 +113,7 @@ export default function Header() {
                 <MagneticButton href="/" strength={0.2}>
                     <div className="header-logo">
                         <Image
-                            src="/images/logo-hemolab-1024x434 1.png"
+                            src="/hemolab/images/logo-hemolab-1024x434 1.png"
                             alt="Hemolab - Laboratório de Análises Clínicas"
                             width={180}
                             height={76}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/components/providers/CartProvider";
@@ -10,6 +10,12 @@ export default function CartIcon() {
   const { state, dispatch } = useCart();
   const count = getCartCount(state.items);
   const badgeRef = useRef<HTMLSpanElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   const handleClick = () => {
     dispatch({ type: "TOGGLE_DRAWER" });
@@ -26,11 +32,11 @@ export default function CartIcon() {
     <button
       onClick={handleClick}
       className="relative p-2 dark:text-white text-hemo-dark hover:text-hemo-lime transition-colors duration-300"
-      aria-label={`Carrinho com ${count} itens`}
+      aria-label={`Carrinho com ${mounted ? count : 0} itens`}
       id="cart-icon-btn"
     >
       <ShoppingCart size={22} />
-      {count > 0 && (
+      {mounted && count > 0 && (
         <span
           ref={badgeRef}
           className="absolute -top-1 -right-1 w-5 h-5 bg-hemo-red text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-lg shadow-hemo-red/40 animate-pulse-glow"

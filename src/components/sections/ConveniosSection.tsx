@@ -4,18 +4,17 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Shield } from "lucide-react";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const CONVENIOS = [
-    { name: "Humana Saúde", logo: "/images/convenios/humana.png" },
-    { name: "CASSI", logo: "/images/convenios/cassi.png" },
-    { name: "Santa Terezinha", logo: "/images/convenios/santa-terezinha.png" },
-    { name: "Plasfran", logo: "/images/convenios/plasfran.png" },
-    { name: "Bradesco Saúde", logo: "/images/convenios/bradesco.png" },
-    { name: "Vida", logo: "/images/convenios/vida.png" },
+    { name: "Humana Saúde", logo: "/hemolab/images/convenios/humana.png" },
+    { name: "CASSI", logo: "/hemolab/images/convenios/cassi.png" },
+    { name: "Santa Terezinha", logo: "/hemolab/images/convenios/santa-terezinha.png" },
+    { name: "Plasfran", logo: "/hemolab/images/convenios/plasfran.png" },
+    { name: "Bradesco Saúde", logo: "/hemolab/images/convenios/bradesco.png" },
+    { name: "Vida", logo: "/hemolab/images/convenios/vida.png" },
 ];
 
 export default function ConveniosSection() {

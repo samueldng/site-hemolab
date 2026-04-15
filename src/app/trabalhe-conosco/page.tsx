@@ -1,13 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
-import Image from "next/image";
+import { useRef } from "react";
+
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { Briefcase, HeartPulse, GraduationCap, ChevronRight, Star, Quote, ArrowRight } from "lucide-react";
+import { Briefcase, HeartPulse, GraduationCap, Star, Quote, ArrowRight } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -72,7 +72,7 @@ export default function TrabalheConoscoPage() {
   const testimonialsRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
 
   useGSAP(() => {
     // Hero Animations
@@ -224,7 +224,7 @@ export default function TrabalheConoscoPage() {
 
           {/* Testimonial Cards Carousel - Manual CSS Grid approach for flexibility */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {TESTIMONIALS.slice(0, 3).map((item, idx) => (
+            {TESTIMONIALS.slice(0, 3).map((item) => (
               <div
                 key={item.id}
                 className="bg-white dark:bg-[#0a1a15] rounded-3xl p-8 relative shadow-xl hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full"
@@ -247,7 +247,7 @@ export default function TrabalheConoscoPage() {
 
                 {/* Text */}
                 <p className="text-gray-700 dark:text-gray-300 italic mb-8 flex-grow relative z-10 text-lg leading-relaxed">
-                  "{item.text}"
+                  &quot;{item.text}&quot;
                 </p>
 
                 {/* Author info */}

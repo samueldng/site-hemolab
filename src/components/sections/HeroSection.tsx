@@ -16,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 const HERO_SLIDES = [
     {
         type: "image" as const,
-        src: "/images/01-1024x1004.png",
+        src: "/hemolab/images/01-1024x1004.png",
         alt: "Laboratório Hemolab - Estrutura moderna",
     },
     ...FEATURED_EXAMS.map((exam) => ({
@@ -120,16 +120,6 @@ export default function HeroSection() {
         [activeSlide]
     );
 
-    const nextSlide = useCallback(() => {
-        const next = (activeSlide + 1) % HERO_SLIDES.length;
-        goToSlide(next);
-    }, [activeSlide, goToSlide]);
-
-    const prevSlide = useCallback(() => {
-        const prev = (activeSlide - 1 + HERO_SLIDES.length) % HERO_SLIDES.length;
-        goToSlide(prev);
-    }, [activeSlide, goToSlide]);
-
     // ─── Auto-play ───
     useEffect(() => {
         intervalRef.current = setInterval(() => {
@@ -142,7 +132,7 @@ export default function HeroSection() {
         return () => {
             if (intervalRef.current) clearInterval(intervalRef.current);
         };
-    }, [activeSlide, goToSlide]);
+    }, [activeSlide, goToSlide, isLowPerf]);
 
     // Reset timer on manual interaction
     const handleManualNav = useCallback(
@@ -357,7 +347,7 @@ export default function HeroSection() {
     const renderCarousel = (isMobile: boolean) => (
         <div
             ref={!isMobile ? carouselRef : undefined}
-            className={`relative w-full overflow-hidden rounded-2xl lg:rounded-3xl shadow-2xl shadow-black/50 aspect-video sm:aspect-[4/3] lg:aspect-[4/5] xl:aspect-square lg:[mask-image:linear-gradient(to_right,transparent_0%,black_35%)] lg:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_35%)]`}
+            className={`relative w-full overflow-hidden rounded-2xl lg:rounded-3xl shadow-2xl shadow-black/50 aspect-video sm:aspect-[4/3] lg:aspect-[4/5] xl:aspect-square lg:[mask-image:linear-gradient(to_right,transparent_0%,black_15%)] lg:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_15%)]`}
         >
             {/* Red curtain overlay for initial reveal */}
             <div
@@ -390,7 +380,7 @@ export default function HeroSection() {
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                             />
                             {/* Subtle label overlay */}
-                            <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 bg-gradient-to-t from-black/70 to-transparent">
+                            <div className="absolute bottom-0 left-0 right-0 p-4 lg:p-6 lg:pl-16 xl:pl-20 bg-gradient-to-t from-black/70 to-transparent">
                                 <p className="text-white font-bold text-base lg:text-lg font-[family-name:var(--font-display)]">
                                     Nossa Estrutura
                                 </p>
@@ -418,7 +408,7 @@ export default function HeroSection() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
 
                             {/* Content */}
-                            <div className="absolute inset-0 flex flex-col justify-end p-5 lg:p-8">
+                            <div className="absolute inset-0 flex flex-col justify-end p-5 lg:p-8 lg:pl-16 xl:pl-20">
                                 {/* Badge */}
                                 {slide.exam!.badge && (
                                     <div className="slide-info-item self-start mb-auto mt-2">
@@ -534,7 +524,7 @@ export default function HeroSection() {
             {/* Background */}
             <div ref={bgRef} className="absolute inset-0 -top-[15%] -bottom-[15%]">
                 <Image
-                    src="/images/Fachada_gota.png"
+                    src="/hemolab/images/Fachada_gota.png"
                     alt="Hemolab Fachada"
                     fill
                     className="object-cover dark:opacity-40 opacity-[0.06] dark:filter-none dark:mix-blend-normal mix-blend-multiply"
@@ -627,7 +617,7 @@ export default function HeroSection() {
                         <div className="flex items-center gap-2 lg:gap-3">
                             <div className="w-9 lg:w-11 h-9 lg:h-11 rounded-full bg-hemo-red/8 dark:bg-white flex items-center justify-center shadow-inner">
                                 <Image
-                                    src="/images/logogota.png"
+                                    src="/hemolab/images/logogota.png"
                                     alt="Hemolab gota"
                                     width={28}
                                     height={28}

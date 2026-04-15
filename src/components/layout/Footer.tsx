@@ -47,7 +47,7 @@ export default function Footer() {
                     {/* Brand */}
                     <div className="lg:col-span-1">
                         <Image
-                            src="/images/logo-hemolab-1024x434 1.png"
+                            src="/hemolab/images/logo-hemolab-1024x434 1.png"
                             alt="Hemolab"
                             width={180}
                             height={76}

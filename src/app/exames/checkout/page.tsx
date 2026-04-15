@@ -31,7 +31,6 @@ import {
   MessageCircle,
   Copy,
   FileText,
-  Sparkles,
 } from "lucide-react";
 
 const STEPS = [
@@ -216,6 +215,7 @@ export default function CheckoutPage() {
                 >
                   <div className="flex gap-4">
                     <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={item.exam.image} alt={item.exam.name} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
