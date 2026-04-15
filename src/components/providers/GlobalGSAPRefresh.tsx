@@ -24,6 +24,8 @@ function GSAPRouteListener() {
 export default function GlobalGSAPRefresh() {
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
+        gsap.ticker.lagSmoothing(1000, 16);
+        ScrollTrigger.config({ ignoreMobileResize: true });
 
         let resizeTimer: NodeJS.Timeout;
 

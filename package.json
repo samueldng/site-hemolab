@@ -27,5 +27,11 @@
     "eslint-config-next": "16.2.3",
     "tailwindcss": "^4",
     "typescript": "5.9.3"
-  }
+  },
+  "browserslist": [
+    ">0.3%",
+    "not dead",
+    "not ie 11",
+    "not op_mini all"
+  ]
 }
