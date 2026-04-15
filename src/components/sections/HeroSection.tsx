@@ -551,9 +551,9 @@ export default function HeroSection() {
             <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b dark:from-hemo-dark/60 from-[#F8F6F0]/80 to-transparent" />
 
             {/* Blobs — subtle warm tones in light, vivid in dark */}
-            <div className="deco-blob absolute top-20 right-20 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] rounded-full dark:bg-hemo-red/8 bg-hemo-red/4 blur-[60px]" />
-            <div className="deco-blob absolute bottom-20 left-10 w-[250px] lg:w-[400px] h-[250px] lg:h-[400px] rounded-full dark:bg-hemo-lime/10 bg-hemo-green/4 blur-[60px]" />
-            <div className="deco-blob absolute top-1/2 left-1/3 w-[200px] lg:w-[300px] h-[200px] lg:h-[300px] rounded-full dark:bg-hemo-green-light/8 bg-hemo-green/3 blur-[50px]" />
+            <div className="deco-blob absolute top-20 right-20 w-[300px] lg:w-[500px] h-[300px] lg:h-[500px] rounded-full dark:bg-hemo-red/8 bg-hemo-red/4 blur-[60px] will-change-transform transform-gpu" />
+            <div className="deco-blob absolute bottom-20 left-10 w-[250px] lg:w-[400px] h-[250px] lg:h-[400px] rounded-full dark:bg-hemo-lime/10 bg-hemo-green/4 blur-[60px] will-change-transform transform-gpu" />
+            <div className="deco-blob absolute top-1/2 left-1/3 w-[200px] lg:w-[300px] h-[200px] lg:h-[300px] rounded-full dark:bg-hemo-green-light/8 bg-hemo-green/3 blur-[50px] will-change-transform transform-gpu" />
 
             <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pt-24 xl:pt-32 pb-6 lg:pb-8 xl:pb-16 grid lg:grid-cols-2 gap-3 sm:gap-5 lg:gap-8 xl:gap-12 items-center">
                 {/* Text Content */}

@@ -300,11 +300,11 @@ export default function ExamBannersSection() {
               <div className="absolute inset-0">
                 {/* Dark mask that slides away via GSAP */}
                 <div
-                  className="panel-mask absolute inset-0 dark:bg-hemo-dark bg-[#F8F6F0] z-10"
+                  className="panel-mask absolute inset-0 dark:bg-hemo-dark bg-[#F8F6F0] z-10 will-change-transform transform-gpu"
                   style={{ transformOrigin: "right center" }}
                 />
                 {/* Actual image */}
-                <div className="panel-image absolute inset-0">
+                <div className="panel-image absolute inset-0 will-change-transform transform-gpu">
                   <Image
                     src={exam.image}
                     alt={exam.name}
